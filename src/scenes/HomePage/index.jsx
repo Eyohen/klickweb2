@@ -1,4 +1,5 @@
 import CardSection from "../../components/CardSection"
+import Categories from "../../components/Categories"
 import Hero from "../../components/Hero"
 
 const HomePage = () => {
@@ -6,6 +7,7 @@ const HomePage = () => {
     <section>
       <Hero />
       <CardSection />
+      <Categories />
     </section>
   )
 }

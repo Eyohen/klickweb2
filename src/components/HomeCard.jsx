@@ -2,7 +2,7 @@
 import clsx from "clsx"
 
 const HomeCard = ({ mainText, subtitle, cardClasses, linkText, linkTextStyles, image }) => {
-    const cardWrapperClasses = clsx('flex justify-between rounded-3xl px-5 py-8 w-[648px] bg-[#6C5FBC]', cardClasses)
+    const cardWrapperClasses = clsx('flex justify-between rounded-3xl px-8 py-8 w-full bg-[#6C5FBC]', cardClasses)
     const linkTextStyle = clsx("bg-white rounded-full px-6 py-3 text-[#6C5FBC] font-semibold", linkTextStyles)
     return (
         <div className={cardWrapperClasses}>
