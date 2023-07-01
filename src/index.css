@@ -15,6 +15,7 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 40vh;
+    z-index: 0;
 }
 
 .hero-bg::before {
@@ -25,4 +26,8 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6); /* Adjust the opacity as desired */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

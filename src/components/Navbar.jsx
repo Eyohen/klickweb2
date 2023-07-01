@@ -13,8 +13,8 @@ const Navbar = () => {
 		<div className="container flex justify-between items-center h-[108px] bg-white">
 			{/* hamburger and icon */}
 			<div className='flex items-center gap-4'>
-				<GiHamburgerMenu className='w-8 h-8 text-gray-600' />
-				<img src={Logo} alt="logo" className="" />
+				<GiHamburgerMenu className='w-8 h-8 text-gray-600 hover:cursor-pointer'/>
+				<img src={Logo} alt="logo" className="hover:cursor-pointer" />
 			</div>
 
 			{/* search bar */}
