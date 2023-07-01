@@ -31,3 +31,18 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+.blur-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(4px); /* Adjust the blur intensity as desired */
+  z-index: 1;
+  pointer-events: none;
+}
+
+.blur-active {
+  pointer-events: auto;
+}

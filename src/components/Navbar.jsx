@@ -7,13 +7,13 @@ import { BsBell } from 'react-icons/bs'
 import { BiUser } from 'react-icons/bi'
 import Logo from "../assets/logo.png"
 
-const Navbar = () => {
+const Navbar = ({handleSidebarToggle}) => {
 	const navIconStyle = 'w-6 h-6 text-gray-600 cursor-pointer'
 	return (
 		<div className="container flex justify-between items-center h-[108px] bg-white">
 			{/* hamburger and icon */}
 			<div className='flex items-center gap-4'>
-				<GiHamburgerMenu className='w-8 h-8 text-gray-600 hover:cursor-pointer'/>
+				<GiHamburgerMenu onClick={handleSidebarToggle} className='w-8 h-8 text-gray-600 hover:cursor-pointer'/>
 				<img src={Logo} alt="logo" className="hover:cursor-pointer" />
 			</div>
 
