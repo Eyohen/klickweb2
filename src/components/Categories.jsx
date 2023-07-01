@@ -6,6 +6,14 @@ const Categories = () => {
         <h1 className="font-semibold">Categories</h1>
         <div className="flex items-center space-x-5 mt-4 overflow-x-auto scrollbar-hide">
             <Category />
+            <Category />
+            <Category />
+            <Category />
+            <Category />
+            <Category />
+            <Category />
+            <Category />
+            <Category />
         </div>
     </section>
   )
