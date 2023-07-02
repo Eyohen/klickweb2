@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import HomePage from "./scenes/HomePage";
+import Footer from "./components/Footer";
 
 export default function App() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function App() {
 				<Navbar handleSidebarToggle={handleSidebarToggle} />
 				{sidebarOpen && <Sidebar handleSidebarToggle={handleSidebarToggle}/>}
 				<HomePage />
+				<Footer />
 			</div>
 		</main>
 	)
