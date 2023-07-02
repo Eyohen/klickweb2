@@ -1,5 +1,3 @@
-
-
 const RecommendedCards = ({image, title}) => {
   return (
     <div className="rounded-xl border border-gray-200 shadow-sm">

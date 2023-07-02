@@ -1,4 +1,4 @@
-import MumImage from "../assets/images/mum.png"
+import MumImage from "../../assets/images/mum.png"
 
 const Category = () => {
     return (

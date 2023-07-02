@@ -1,4 +1,4 @@
-import BabyImage from "../assets/images/baby.png"
+import BabyImage from "../../assets/images/baby.png"
 
 const FeaturedCard = () => {
     return (

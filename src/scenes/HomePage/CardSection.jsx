@@ -1,6 +1,6 @@
 import HomeCard from "./HomeCard"
-import HeroCardImage from "../assets/images/hero-card-a.png"
-import HeroCardImage2 from "../assets/images/hero-card-b.png"
+import HeroCardImage from "../../assets/images/hero-card-a.png"
+import HeroCardImage2 from "../../assets/images/hero-card-b.png"
 
 const CardSection = () => {
   return (

@@ -1,9 +1,9 @@
-import CardSection from "../../components/CardSection"
-import Categories from "../../components/Categories"
-import Featured from "../../components/Featured"
-import Hero from "../../components/Hero"
-import Recommended from "../../components/Recommended"
-import TodayDeals from "../../components/TodayDeals"
+import Hero from "./Hero"
+import CardSection from "./CardSection"
+import Categories from "./Categories"
+import Recommended from "./Recommended"
+import Featured from "./Featured"
+import TodayDeals from "./TodayDeals"
 
 
 const HomePage = () => {

@@ -1,4 +1,4 @@
-import Camera from "../assets/images/Camera.png"
+import Camera from "../../assets/images/Camera.png"
 import RecommendedCards from "./RecommendedCards"
 import Tags from "./Tags"
 

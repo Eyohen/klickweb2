@@ -1,4 +1,4 @@
-import Rectangle from '../assets/images/Rectangle.png'
+import Rectangle from '../../assets/images/Rectangle.png'
 import RecommendedCards from "./RecommendedCards"
 
 const Recommended = () => {

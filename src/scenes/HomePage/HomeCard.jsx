@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import clsx from "clsx"
 
 const HomeCard = ({ mainText, subtitle, cardClasses, linkText, linkTextStyles, image }) => {
