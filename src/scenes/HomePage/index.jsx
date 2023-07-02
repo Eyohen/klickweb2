@@ -3,6 +3,7 @@ import Categories from "../../components/Categories"
 import Featured from "../../components/Featured"
 import Hero from "../../components/Hero"
 import Recommended from "../../components/Recommended"
+import TodayDeals from "../../components/TodayDeals"
 
 
 const HomePage = () => {
@@ -13,6 +14,7 @@ const HomePage = () => {
       <Categories />
       <Recommended />
       <Featured />
+      <TodayDeals />
     </section>
   )
 }
