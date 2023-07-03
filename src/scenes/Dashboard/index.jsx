@@ -6,7 +6,7 @@ import QuickActions from "./QuickActions"
 
 const Dashboard = () => {
     return (
-        <section className="container flex flex-col gap-10 mt-10">
+        <section className="container flex flex-col gap-10 mt-4">
             <div className="flex justify-center gap-2 items-center">
                 <p className="font-semibold">Create Store</p><a href="/dashboard/store/create"><img src={PlusIcon} alt="add-icon" /></a>
             </div>
