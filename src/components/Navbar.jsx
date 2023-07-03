@@ -39,7 +39,7 @@ const Navbar = ({handleSidebarToggle}) => {
 				{/* profile not logged in */}
 				<div className='flex items-center space-x-2 hover:cursor-pointer'>
 					<BiUser className={navIconStyle} />
-					<a href="/register">Login</a>
+					<a href="/login">Login</a>
 				</div>
 
 				{/* logged in user */}
