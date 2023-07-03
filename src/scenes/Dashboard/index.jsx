@@ -1,11 +1,15 @@
 import DashboardCard from "./DashboardCard"
 import WebIcon from "../../assets/icons/web.png"
+import PlusIcon from "../../assets/icons/plus.png"
 import { BsChevronRight } from "react-icons/bs"
 import QuickActions from "./QuickActions"
 
 const Dashboard = () => {
     return (
         <section className="container flex flex-col gap-10 mt-10">
+            <div className="flex justify-center gap-2 items-center">
+                <p className="font-semibold">Create Store</p><a href="/dashboard/store/create"><img src={PlusIcon} alt="add-icon" /></a>
+            </div>
             <div className="flex gap-10">
                 {/* left section */}
                 <div className="grid grid-cols-2 gap-5 basis-[70%]">
