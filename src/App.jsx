@@ -5,6 +5,7 @@ import Register from "./scenes/Register"
 import Login from "./scenes/Login";
 import Dashboard from "./scenes/Dashboard";
 import DashboardLayout from "./DashboardLayout";
+import CreateStore from "./scenes/CreateStore";
 
 export default function App() {
 	return (
@@ -18,6 +19,7 @@ export default function App() {
 				</Route>
 				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login />} />
+				<Route path="/dashboard/store/create" element={<CreateStore />} />
 			</Routes>
 		</BrowserRouter>
 	)
