@@ -23,6 +23,10 @@ const Register = () => {
                     <label className='block text-sm' htmlFor="phone">Whatsapp Phone Number</label>
                     <input type="number" name="phone" id="phone" className={inputClasses} />
                 </div>
+                <div className='mb-4'>
+                    <label className='block text-sm' htmlFor="address">Enter Delivery Address</label>
+                    <input type="text" name="address" id="address" className={inputClasses} />
+                </div>
                 <div className=''>
                     <label className='block text-sm' htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" className={inputClasses} />
