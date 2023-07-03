@@ -13,8 +13,9 @@ const Dashboard = () => {
 
             {/* right section */}
             <div>
-                <div>
-                    To do
+                <div className="flex justify-between items-center">
+                    <h1>To-do (5)</h1>
+                    <button>View all</button>
                 </div>
             </div>
         </div>
