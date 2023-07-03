@@ -7,7 +7,7 @@ const validationSchema = yup.object().shape({
     name_of_store: yup.string().required('Name is required'),
     email: yup.string().email('Invalid email').required('Email is required'),
     phone: yup.string().required('Phone number is required'),
-    address: yup.string().required('Address is required').min(10, 'Address is too short'),
+    industry: yup.string().required('Industry is required'),
 });
 
 const CreateStore = () => {
@@ -29,12 +29,12 @@ const CreateStore = () => {
             <img src={Logo} alt="Logo" className="" />
             <div className='text-center'>
                 <h1 className='text-4xl font-bold mb-2'>Welcome to Klick</h1>
-                <p className='text-gray-500 text-sm font-semibold'>Let's Get to Know Your Business Better</p>
+                <p className='text-gray-500 text-sm mb-2 font-semibold'>Let's Get to Know Your Business Better</p>
             </div>
 
             <form className="flex flex-col w-full" onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
-                    <label className="block text-sm" htmlFor="name_of_store">
+                    <label className="block text-sm mb-2" htmlFor="name_of_store">
                         Name of Store
                     </label>
                     <input
@@ -50,7 +50,7 @@ const CreateStore = () => {
                 </div>
                 {/* ... */}
                 <div className="mb-4">
-                    <label className="block text-sm" htmlFor="email">
+                    <label className="block text-sm mb-2" htmlFor="email">
                         Email Address
                     </label>
                     <input
@@ -64,7 +64,7 @@ const CreateStore = () => {
                 </div>
                 {/* ... */}
                 <div className="mb-4">
-                    <label className="block text-sm" htmlFor="phone">
+                    <label className="block text-sm mb-2" htmlFor="phone">
                         Business Phone Number
                     </label>
                     <input
@@ -77,19 +77,27 @@ const CreateStore = () => {
                     {errors.phone && <span className="text-red-500 text-xs">{errors.phone.message}</span>}
                 </div>
                 {/* ... */}
-                <div className="">
-                    <label className="block text-sm" htmlFor="address">
-                        Enter Delivery Address
+                <div className="mb-4">
+                    <label className="block text-sm mb-2" htmlFor="industry">
+                        Which industry will you be primarily operating in?
                     </label>
-                    <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        className={`${inputClasses} ${errors.address ? errorBorderClasses : ''}`}
-                        {...register('address')}
-                    />
-                    {errors.address && (
-                        <span className="text-red-500 text-xs">{errors.address.message}</span>
+                    <select
+                        name="industry"
+                        id="industry"
+                        className={`${inputClasses} ${errors.industry ? errorBorderClasses : ''}`}
+                        {...register('industry')}
+                    >
+                        <option value="">Select an industry</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="homewares">Homewares</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="beauty">Beauty</option>
+                        <option value="health">Health</option>
+                        <option value="food">Food</option>
+                        <option value="kids">Kids</option>
+                    </select>
+                    {errors.industry && (
+                        <span className="text-red-500 text-xs">{errors.industry.message}</span>
                     )}
                 </div>
                 {/* ... */}
