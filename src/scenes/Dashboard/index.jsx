@@ -1,6 +1,7 @@
 import DashboardCard from "./DashboardCard"
 import WebIcon from "../../assets/icons/web.png"
 import { BsChevronRight } from "react-icons/bs"
+import QuickActions from "./QuickActions"
 
 const Dashboard = () => {
     return (
@@ -42,7 +43,17 @@ const Dashboard = () => {
                     <div className="border my-6" />
                 </div>
             </div>
-            <div></div>
+            <div className="flex gap-10">
+                {/* left side */}
+                <div className="basis-[68%]">
+                    <QuickActions />
+                </div>
+
+                {/* right section */}
+                <div>
+
+                </div>
+            </div>
         </section>
     )
 }
