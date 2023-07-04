@@ -8,6 +8,7 @@ import { BiUser } from 'react-icons/bi'
 import Logo from "../assets/logo.png"
 import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import {Link } from "react-router-dom"
 
 const Navbar = ({ handleSidebarToggle }) => {
 	const [isBuyer, setIsBuyer] = useState(true);
@@ -15,7 +16,7 @@ const Navbar = ({ handleSidebarToggle }) => {
 
 
 	const toggleLogic = () => {
-		setIsBuyer(!isBuyer);
+		setIsBuyer((prevState) => !prevState);
 		if (isBuyer) {
 			navigate("/dashboard")
 		}
@@ -49,11 +50,10 @@ const Navbar = ({ handleSidebarToggle }) => {
 
 
 				<div onClick={toggleLogic} className='flex items-center space-x-2 hover:cursor-pointer text-primary'>
-					{isBuyer && <>
+					{isBuyer ? <>
 						<BsToggleOff className={toggleStyle} /> 
 						<a>Buyer</a>
-					</>}
-					{!isBuyer && <>
+					</>: <>
 						<BsToggleOn className={toggleStyle} />
 						<a>Seller</a>
 					</>}
@@ -68,7 +68,7 @@ const Navbar = ({ handleSidebarToggle }) => {
 				{/* profile not logged in */}
 				<div className='flex items-center space-x-2 hover:cursor-pointer'>
 					<BiUser className={navIconStyle} />
-					<a href="/login">Login</a>
+					<Link to="/login">Login</Link>
 				</div>
 
 				{/* logged in user */}

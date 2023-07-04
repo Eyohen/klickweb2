@@ -19,13 +19,22 @@ const Register = () => {
                     <label className='block text-sm' htmlFor="email">Email</label>
                     <input type="email" name="email" id="email" className={inputClasses} />
                 </div>
-                <div className='mb-4'>
-                    <label className='block text-sm' htmlFor="phone">Whatsapp Phone Number</label>
+                <div className='mb-4 relative items-center'>
+                    <label className='block text-sm' htmlFor="phone">Phone Number(preferably whatsapp)</label>
+                    <img className='absolute ml-3 mt-2 w-7 h-7 ' src='https://www.svgrepo.com/show/405569/flag-for-flag-nigeria.svg'/>
                     <input type="number" name="phone" id="phone" className={inputClasses} />
                 </div>
                 <div className='mb-4'>
                     <label className='block text-sm' htmlFor="address">Enter Delivery Address</label>
-                    <input type="text" name="address" id="address" className={inputClasses} />
+                    <input type="text" name="address" id="address" placeholder='e.g 7 Gbenga Adeyinka lane' className={inputClasses} />
+                </div>
+                <div className='mb-4'>
+                    <label className='block text-sm' htmlFor="address">State</label>
+                    <input type="text" name="address" id="address" placeholder='e.g Lagos' className={inputClasses} />
+                </div>
+                <div className='mb-4'>
+                    <label className='block text-sm' htmlFor="address">Local Government Area</label>
+                    <input type="text" name="address" id="address" placeholder='e.g Epe' className={inputClasses} />
                 </div>
                 <div className=''>
                     <label className='block text-sm' htmlFor="password">Password</label>
