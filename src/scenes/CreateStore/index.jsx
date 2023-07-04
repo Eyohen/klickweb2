@@ -27,13 +27,10 @@ const CreateStore = () => {
     };
 
     return (
-        <div className="flex flex-col items-center w-[25%] mx-auto space-y-5 mt-20">
+        <div className="flex flex-col items-center w-[80%] md:w-[30%] mb-10 mx-auto space-y-5 mt-20">
             <img src={Logo} alt="Logo" className="" />
             <div className="text-center">
-                <h1 className="text-4xl font-bold mb-2">Welcome to Klick</h1>
-                <p className="text-gray-500 text-sm mb-2 font-semibold">
-                    Let's Get to Know Your Business Better
-                </p>
+                <h1 className="text-4xl font-bold mb-2">Let's Get to Know Your Business Better</h1>
             </div>
 
             <form className="flex flex-col w-full" onSubmit={handleSubmit(onSubmit)}>
