@@ -3,12 +3,30 @@ import { RiQuestionnaireLine } from 'react-icons/ri'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { BiChevronDown } from 'react-icons/bi'
 import { CiSearch } from 'react-icons/ci'
-import { BsBell } from 'react-icons/bs'
+import { BsBell,BsToggleOff,BsToggleOn } from 'react-icons/bs'
 import { BiUser } from 'react-icons/bi'
 import Logo from "../assets/logo.png"
+import { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({handleSidebarToggle}) => {
+	const [isbuyer, setIsBuyer] = useState(false);
+
+	const navigate = useNavigate();
+
+	const toggleLogic = () => {
+			setIsBuyer(!isbuyer);
+			if (!isbuyer){
+				navigate('/dashboard')
+			} else {
+				navigate('/')
+			}
+			
+
+	}
+
 	const navIconStyle = 'w-6 h-6 text-gray-600 cursor-pointer'
+	const toggleStyle = 'w-7 h-7 text-primary cursor-pointer'
 	return (
 		<div className="container flex justify-between items-center h-[108px] bg-white">
 			{/* hamburger and icon */}
@@ -28,6 +46,13 @@ const Navbar = ({handleSidebarToggle}) => {
 				{/* bell icon */}
 				<div className="hidden 7xl:flex items-center justify-center h-10 w-10 bg-gray-100 rounded-full">
 					<BsBell className={navIconStyle} />
+				</div>
+
+			
+				<div onClick={toggleLogic} className='flex items-center space-x-2 hover:cursor-pointer text-primary'>
+					{isbuyer ? (<BsToggleOn className={toggleStyle} />):(<BsToggleOff className={toggleStyle} />) }
+					
+					<a href="#">{isbuyer ? "Seller":"Buyer"}</a>
 				</div>
 
 				{/* help */}
