@@ -11,7 +11,7 @@ const QuickActions = () => {
                 </div>
                 <div className="flex flex-col items-center">
                     <img src={AddProductImage} alt="add product" className=""/>
-                    <p>Add product</p>
+                    <p>Apply Discount</p>
                 </div>
                 <div className="flex flex-col items-center">
                     <img src={AddProductImage} alt="add product" className=""/>
