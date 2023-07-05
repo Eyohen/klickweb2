@@ -114,7 +114,7 @@ const Dashboard = () => {
     return (
         <section className="container flex flex-col gap-10 mt-4">
             <div className="flex justify-center gap-2 items-center">
-                <p className="font-semibold">Create Store</p><Link to="/dashboard/store/create"><img src={PlusIcon} alt="add-icon" /></a>
+                <p className="font-semibold">Create Store</p><Link to="/dashboard/store/create"><img src={PlusIcon} alt="add-icon" /></Link>
             </div>
             <div className="flex gap-10">
                 {/* left section */}
