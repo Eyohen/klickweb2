@@ -1,3 +1,4 @@
+//import { useState } from 'react'
 import Logo from '../../assets/logo.png'
 
 
@@ -14,7 +15,7 @@ const Register = () => {
             <form className='flex flex-col w-full'>
                 <div className='mb-4'>
                     <label className='block text-sm' htmlFor="full_name">Full Name</label>
-                    <input type="text" name="full_name" id="full_name" className={inputClasses} />
+                    <input type="text" name="full_name" id="full_name" className={inputClasses}  />
                 </div>
                 <div className='mb-4'>
                     <label className='block text-sm' htmlFor="email">Email</label>
