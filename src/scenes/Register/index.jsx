@@ -14,8 +14,12 @@ const Register = () => {
 
             <form className='flex flex-col w-full'>
                 <div className='mb-4'>
-                    <label className='block text-sm' htmlFor="full_name">Full Name</label>
-                    <input type="text" name="full_name" id="full_name" className={inputClasses}  />
+                    <label className='block text-sm' htmlFor="first_name">First Name</label>
+                    <input type="text" name="first_name" id="first_name" className={inputClasses}  />
+                </div>
+                <div className='mb-4'>
+                    <label className='block text-sm' htmlFor="last_name">Last Name</label>
+                    <input type="text" name="last_name" id="last_name" className={inputClasses}  />
                 </div>
                 <div className='mb-4'>
                     <label className='block text-sm' htmlFor="email">Email</label>
@@ -31,12 +35,16 @@ const Register = () => {
                     <input type="text" name="address" id="address" placeholder='e.g 7 Gbenga Adeyinka lane' className={inputClasses} />
                 </div>
                 <div className='mb-4'>
-                    <label className='block text-sm' htmlFor="address">State</label>
-                    <input type="text" name="address" id="address" placeholder='e.g Lagos' className={inputClasses} />
+                    <label className='block text-sm' htmlFor="country">Nigeria</label>
+                    <input type="text" name="country" id="country" placeholder='e.g Nigeria' className={inputClasses} />
                 </div>
                 <div className='mb-4'>
-                    <label className='block text-sm' htmlFor="address">Local Government Area</label>
-                    <input type="text" name="address" id="address" placeholder='e.g Epe' className={inputClasses} />
+                    <label className='block text-sm' htmlFor="state">State</label>
+                    <input type="text" name="state" id="state" placeholder='e.g Lagos' className={inputClasses} />
+                </div>
+                <div className='mb-4'>
+                    <label className='block text-sm' htmlFor="lga">Local Government Area</label>
+                    <input type="text" name="lga" id="lga" placeholder='e.g Epe' className={inputClasses} />
                 </div>
                 <div className=''>
                     <label className='block text-sm' htmlFor="password">Password</label>
