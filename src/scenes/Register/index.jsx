@@ -1,5 +1,6 @@
 import Logo from '../../assets/logo.png'
 
+
 const Register = () => {
     const inputClasses = "border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary"
     return (
