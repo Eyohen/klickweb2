@@ -6,6 +6,7 @@ import Login from "./scenes/Login";
 import Dashboard from "./scenes/Dashboard";
 import DashboardLayout from "./DashboardLayout";
 import CreateStore from "./scenes/CreateStore";
+import Verify from "./scenes/Verify";
 
 export default function App() {
 	return (
@@ -18,6 +19,8 @@ export default function App() {
 				
 				<Route path="/register" element={<Register />} />
 				<Route path="/login" element={<Login />} />
+					
+				<Route path="/verify" element={<Verify />} />
 				<Route path="/dashboard/store/create" element={<CreateStore />} />
 			</Routes>
 		</BrowserRouter>

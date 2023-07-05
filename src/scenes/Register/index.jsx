@@ -12,7 +12,11 @@ const Register = () => {
 
             <form className='flex flex-col w-full'>
                 <div className='mb-4'>
-                    <label className='block text-sm' htmlFor="full_name">Full Name</label>
+                    <label className='block text-sm' htmlFor="full_name">First Name</label>
+                    <input type="text" name="full_name" id="full_name" className={inputClasses} />
+                </div>
+                <div className='mb-4'>
+                    <label className='block text-sm' htmlFor="full_name">Last Name</label>
                     <input type="text" name="full_name" id="full_name" className={inputClasses} />
                 </div>
                 <div className='mb-4'>
