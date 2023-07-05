@@ -4,6 +4,7 @@ import PlusIcon from "../../assets/icons/plus.png"
 import { BsChevronRight } from "react-icons/bs"
 import QuickActions from "./QuickActions"
 import { LineChart, Line, PieChart, Pie, ComposedChart, Area, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
+import {Link } from 'react-router-dom'
 
 const Dashboard = () => {
 
@@ -113,7 +114,7 @@ const Dashboard = () => {
     return (
         <section className="container flex flex-col gap-10 mt-4">
             <div className="flex justify-center gap-2 items-center">
-                <p className="font-semibold">Create Store</p><a href="/dashboard/store/create"><img src={PlusIcon} alt="add-icon" /></a>
+                <p className="font-semibold">Create Store</p><Link to="/dashboard/store/create"><img src={PlusIcon} alt="add-icon" /></a>
             </div>
             <div className="flex gap-10">
                 {/* left section */}
