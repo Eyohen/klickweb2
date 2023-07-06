@@ -1,24 +1,20 @@
 import Logo from '../../assets/logo.png'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import {Link } from "react-router-dom"
 import axios from 'axios'
 import { LoginContext } from '../../context/LoginContext'
+import { useContext } from 'react'
+
 
 const Login = () => {
     const [isAuthChange, setIsAuthChange] = useState(true);
     const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // eslint-disable-next-line no-unused-vars
   //const [loggedIn, setLoggedIn] = useState(false)
   const { setLoggedIn } = useContext(LoginContext)
-    /*const toggleLogic = () => {
-		setIsBuyer(!isBuyer);
-		if (isBuyer) {
-			navigate("/dashboard")
-		}
-		else {
-			navigate("/")
-		}
-	};*/
+
+   
     
     const token = localStorage.getItem('access_token');
     const handleSubmitForm = (e) => {

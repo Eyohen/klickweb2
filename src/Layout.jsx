@@ -5,7 +5,7 @@ import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom"
 
 
-const Layout = () => {
+const Layout = ({loggedIn, setLoggedIn}) => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const handleSidebarToggle = () => {
@@ -16,7 +16,7 @@ const Layout = () => {
             <div className="relative">
                 <div className={`${sidebarOpen ? 'blur-background blur-active' : ''}`} />
                 {/* Render other components */}
-                <Navbar handleSidebarToggle={handleSidebarToggle} />
+                <Navbar handleSidebarToggle={handleSidebarToggle} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
                 {sidebarOpen && <Sidebar handleSidebarToggle={handleSidebarToggle} />}
                 <Outlet />
                 <Footer />
