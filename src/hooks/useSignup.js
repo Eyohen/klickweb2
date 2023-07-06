@@ -10,8 +10,8 @@ const useSignup = (initialState, callback) => {
     setValues({ ...values, [name]: value });
   };
   const handlePlaceSelect = (place) => {
-    const address = place.formatted_address;
-    setValues({ ...values, location: address });
+    const location = place.formatted_address;
+    setValues({ ...values, location: location });
   };
   
 

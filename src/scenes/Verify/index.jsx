@@ -1,22 +1,58 @@
 import Logo from '../../assets/logo.png'
-import { useState } from 'react'
-import {Link } from "react-router-dom"
-import Dialog from '../../components/Dialog'
-
+import {   useState } from 'react'
+//import {Link } from "react-router-dom"
+//import Dialog from '../../components/Dialog'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Verify = () => {
-    const [otp, setOtp] = useState(new Array(4).fill(""));
+    const history = useNavigate()
 
-    const handleChange = (element, index) => {
-        if (isNaN(element.value)) return false;
+   const [otp, setOtp] = useState({
+    code: ['', '', '', '']
+  });
 
-        setOtp([...otp.map((d, idx) => (idx === index) ? element.value : d)]);
-
-        //Focus next input
-        if (element.nextSibling) {
-            element.nextSibling.focus();
-        }
+  const handleInputChange = (event, index) => {
+    const { value } = event.target;
+    setOtp(prevOtp => ({
+      code: [
+        ...prevOtp.code.map((d, idx) => (idx === index) ? value : d)
+      ]
+    }));
+    if (event.target.nextSibling) {
+      event.target.nextSibling.focus();
     }
+  };
+  const joinedOtp = otp.code.join('')
+  //console.log(joinedOtp)
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const url = 'https://klick-api.onrender.com/auth/verify';
+
+    const token = localStorage.getItem('access_token');
+    console.log(token)
+    try {
+      const response = await axios.post(url, { code: joinedOtp }, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.data.success===true) {
+        // Data was posted successfully
+        // Navigate to another page
+        history('/login');
+      }
+      console.log(response.data);
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
+  };
+
+ 
 
 
     return (
@@ -34,7 +70,7 @@ const Verify = () => {
                     </div>
 
                     <div>
-                        <form action="" method="post">
+                        <form onSubmit={handleSubmit} action="" method="post">
                             
                             <div className="flex flex-col space-y-16">
                                 {/* <div class="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
@@ -50,28 +86,28 @@ const Verify = () => {
                 <div class="w-16 h-16 ">
                   <input class="w-full h-full flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-yellow-300" type="text" name="" id="" maxLength='1'/>
                 </div>
-              </div> */}
+    </div> */}
 
                                 <div className="flex flex-row items-center justify-between mx-auto w-full max-w-xs">
-                                    {
-                                        otp.map((data, index) => {
-                                            return <input className="w-16 h-16 flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-yellow-300"
-                                                type="text" name=""
+                                {otp.code.map((value, index) => (
+                                             <input className="w-16 h-16 flex flex-col items-center justify-center text-center px-5 outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-yellow-300"
+                                                type="text" name="code"
                                                 id="" maxLength='1'
                                                 key={index}
-                                                value={data}
-                                                onChange={e => handleChange(e.target, index)}
+                                                value={value}
+                                                onChange={(event) => handleInputChange(event, index)}
+                                                //onSelect={handleInputChange}
                                                 onFocus={e => e.target.select()}
                                             />
 
-                                        })
-                                    }
+                                            ))}
+                                    
                                 </div>
                                
 
                                 <div className="flex flex-col space-y-5">
                                     <div>
-                                        <button onClick={e => alert("Enterd OTP is " + otp.join(""))} className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-yellow-300 border-none text-white text-sm shadow-sm">
+                                        <button type='submit' onClick={() => alert("Enterd OTP is " + otp.code.join(""))} className="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-yellow-300 border-none text-white text-sm shadow-sm">
                                             Verify Account
                                         </button>
                                     </div>
@@ -90,3 +126,5 @@ const Verify = () => {
 }
 
 export default Verify
+
+

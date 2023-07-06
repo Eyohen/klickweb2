@@ -1,8 +1,10 @@
 import Logo from '../../assets/logo.png'
 import useSignup from '../../hooks/useSignup';
 import axios from 'axios'; 
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+    const history = useNavigate();
     const initialState = {
             email: "",
             firstName: "",
@@ -19,15 +21,18 @@ const Register = () => {
         try {
           const response = await axios.post('https://klick-api.onrender.com/auth/signup', values);
           console.log('API response:', response.data);
-          // Handle any success logic here
-        } catch (error) {
-          console.error('Error sending form data:', error);
-          // Handle any error logic here
+          if (response.data.success===true) {
+            localStorage.setItem('access_token', response.data.access_token)
+            // Data was posted successfully
+            // Navigate to another page
+            history('/verify');
+          } else {
+         throw new Error('Error posting data to API');}        } catch (error) {
+          console.error('Error sending form data :', error);
         }
-        console.log(values)
       };
     
-      const { values, handleChange, handleSubmit, handlePlaceSelect, PlacesAutocomplete } = useSignup(initialState, handleSubmitForm);
+      const { values, handleChange, handleSubmit, } = useSignup(initialState, handleSubmitForm);
     
     const inputClasses = "border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary"
     return (
@@ -58,12 +63,12 @@ const Register = () => {
                 </div>
 
                
-                {/*<div className='mb-4'>
+                <div className='mb-4'>
                     <label className='block text-sm' htmlFor="location">Enter Delivery Address</label>
                      <input type="text" name="location" id="location" placeholder='e.g 7 Gbenga Adeyinka lane' className={inputClasses} value={values.location} onChange={handleChange} /> 
-    </div>*/}
+    </div>
 
-        <div className='mb-4'>
+        {/*<div className='mb-4'>
         <label className='block text-sm' htmlFor="location">Enter Delivery Address</label>
                 <PlacesAutocomplete
                  apiKey={'AIzaSyBE4ACh2aPQYNYWYADEe6FPUfQ6B37FX24'}
@@ -72,12 +77,12 @@ const Register = () => {
                   }}
                   fields={['formatted_address', 'geometry.location']}
                 name="location" id="location" placeholder='e.g 7 Gbenga Adeyinka lane' className={inputClasses}
-        onChange={handleChange}
-        onSelect={handlePlaceSelect}
+        onChange={handlePlaceSelect}
+        //onSelect={handlePlaceSelect}
         value={values.location} 
       />
              
-                </div>
+                </div>*/}
 
                 <div className='mb-4'>
                     <label className='block text-sm' htmlFor="city">City</label>

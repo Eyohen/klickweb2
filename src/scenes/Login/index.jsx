@@ -1,12 +1,16 @@
 import Logo from '../../assets/logo.png'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import {Link } from "react-router-dom"
-
+import axios from 'axios'
+import { LoginContext } from '../../context/LoginContext'
 
 const Login = () => {
     const [isAuthChange, setIsAuthChange] = useState(true);
-
-    const toggleLogic = () => {
+    const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  //const [loggedIn, setLoggedIn] = useState(false)
+  const { setLoggedIn } = useContext(LoginContext)
+    /*const toggleLogic = () => {
 		setIsBuyer(!isBuyer);
 		if (isBuyer) {
 			navigate("/dashboard")
@@ -14,8 +18,34 @@ const Login = () => {
 		else {
 			navigate("/")
 		}
-	};
-
+	};*/
+    
+    const token = localStorage.getItem('access_token');
+    const handleSubmitForm = (e) => {
+        e.preventDefault();
+    
+        axios.get('https://klick-api.onrender.com/auth/user', {
+          params: {
+            'email': email,
+            'password': password
+          },
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        })
+          .then(response => {
+            // Handle the response
+            console.log(response.data);
+            setLoggedIn(response.data.success)
+            // Perform any necessary actions after successful login
+          })
+          .catch(error => {
+            // Handle any errors or display appropriate message
+            console.error(error);
+          });
+      };
+    
     // const [confirm, setConfirm] = useState(false)
     // const [dialog, setDialog] = useState({message:"", isLoading:false})
 
@@ -40,14 +70,14 @@ const Login = () => {
             </div>
 
 
-            <form className='flex flex-col w-full'>
+            <form className='flex flex-col w-full' onSubmit={handleSubmitForm}>
                 {/* <div className='mb-4'>
                     <label className='block text-sm' htmlFor="full_name">Full Name</label>
                     <input type="text" name="full_name" id="full_name" className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
                 </div> */}
                 {isAuthChange ? <div className='mb-4'>
                     <label className='block text-sm' htmlFor="email">Email</label>
-                    <input type="email" name="email" id="email" className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
+                    <input type="email" name="email" id="email" onChange={e => setEmail(e.target.value)} className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
                 </div>:
                 <div className='mb-4 relative items-center'>
                    
@@ -62,7 +92,7 @@ const Login = () => {
            
                 <div className=''>
                     <label className='block text-sm' htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
+                    <input type="password" name="password" id="password" onChange={e => setPassword(e.target.value)} className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
                 </div>
                 <button className='bg-gray-50 py-4 text-gray-500 rounded-full mt-10' type='submit'>
                     Login

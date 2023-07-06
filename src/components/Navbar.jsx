@@ -6,9 +6,10 @@ import { CiSearch } from 'react-icons/ci'
 import { BsBell, BsToggleOff, BsToggleOn } from 'react-icons/bs'
 import { BiUser } from 'react-icons/bi'
 import Logo from "../assets/logo.png"
-import { useState } from 'react'
+import { useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import {Link } from "react-router-dom"
+
 
 const Navbar = ({ handleSidebarToggle }) => {
 	const [isBuyer, setIsBuyer] = useState(true);
@@ -21,7 +22,7 @@ const Navbar = ({ handleSidebarToggle }) => {
 			navigate("/dashboard")
 		}
 		else {
-			navigate("/")
+			navigate("/register")
 		}
 	};
 
