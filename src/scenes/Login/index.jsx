@@ -5,7 +5,6 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useSignup from '../../hooks/useSignup'
 
-
 const Login = () => {
     const history = useNavigate();
 
@@ -88,9 +87,6 @@ const Login = () => {
             </div>
 
 
-
-
-            {/* <form className='flex flex-col w-full'> */}
 
             <form className='flex flex-col w-full' onSubmit={handleSubmit}>
                 {/* <div className='mb-4'>
