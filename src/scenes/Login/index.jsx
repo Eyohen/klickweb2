@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useSignup from '../../hooks/useSignup'
 
+
 const Login = () => {
     const history = useNavigate();
 
@@ -87,16 +88,16 @@ const Login = () => {
             </div>
 
 
-<<<<<<< HEAD
-            <form className='flex flex-col w-full'>
-               
-=======
+
+
+            {/* <form className='flex flex-col w-full'> */}
+
             <form className='flex flex-col w-full' onSubmit={handleSubmit}>
                 {/* <div className='mb-4'>
                     <label className='block text-sm' htmlFor="full_name">Full Name</label>
                     <input type="text" name="full_name" id="full_name" className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
                 </div> */}
->>>>>>> c4ff3f5aac2bf750b452a3419698ca30ae66541a
+
                 {isAuthChange ? <div className='mb-4'>
                     <label className='block text-sm' htmlFor="email">Email</label>
                     <input type="email" name="email" id="email" onChange={handleChange} className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />

@@ -99,18 +99,11 @@ const Register = () => {
                     <label className='block text-sm' htmlFor="state">State</label>
                     <input type="text" name="state" id="state" placeholder='e.g Lagos' className={inputClasses} value={values.state} onChange={handleChange} />
                 </div>
-<<<<<<< HEAD
-                <div className='mb-4'>
-                    <label className='block text-sm' htmlFor="lga">City/Local Government Area</label>
-                    <input type="text" name="lga" id="lga" placeholder='e.g Epe' className={inputClasses} />
-                </div>
-=======
 
                 {/*<div className='mb-4'>
                     <label className='block text-sm' htmlFor="lga">Local Government Area</label>
                     <input type="text" name="lga" id="lga" placeholder='e.g Epe' className={inputClasses} value={values.lga} onChange={handleChange} />
     </div>*/}
->>>>>>> c4ff3f5aac2bf750b452a3419698ca30ae66541a
                 <div className=''>
                     <label className='block text-sm' htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" className={inputClasses} value={values.password} onChange={handleChange} />
