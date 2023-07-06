@@ -43,7 +43,7 @@ const Register = () => {
                     <input type="text" name="state" id="state" placeholder='e.g Lagos' className={inputClasses} />
                 </div>
                 <div className='mb-4'>
-                    <label className='block text-sm' htmlFor="lga">Local Government Area</label>
+                    <label className='block text-sm' htmlFor="lga">City/Local Government Area</label>
                     <input type="text" name="lga" id="lga" placeholder='e.g Epe' className={inputClasses} />
                 </div>
                 <div className=''>

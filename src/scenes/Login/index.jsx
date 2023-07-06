@@ -41,10 +41,7 @@ const Login = () => {
 
 
             <form className='flex flex-col w-full'>
-                {/* <div className='mb-4'>
-                    <label className='block text-sm' htmlFor="full_name">Full Name</label>
-                    <input type="text" name="full_name" id="full_name" className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
-                </div> */}
+               
                 {isAuthChange ? <div className='mb-4'>
                     <label className='block text-sm' htmlFor="email">Email</label>
                     <input type="email" name="email" id="email" className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
@@ -73,14 +70,6 @@ const Login = () => {
             <p className='text-gray-700'>Or continue with</p>
 
 
-
-
-
-            <div>
-                <a href="">FB</a>
-                <a href="">GO</a>
-                <a href="">AP</a>
-            </div>
         </div>
     )
 }

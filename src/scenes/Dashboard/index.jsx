@@ -114,7 +114,7 @@ const Dashboard = () => {
     return (
         <section className="container flex flex-col gap-10 mt-4">
             <div className="flex justify-center gap-2 items-center">
-                <p className="font-semibold">Create Store</p><Link to="/dashboard/store/create"><img src={PlusIcon} alt="add-icon" /></Link>
+            <Link to="/dashboard/store/create"> <p className="font-semibold">Create Store</p></Link><Link to="/dashboard/store/create"><img src={PlusIcon} alt="add-icon" /></Link>
             </div>
             <div className="flex gap-10">
                 {/* left section */}
@@ -143,13 +143,15 @@ const Dashboard = () => {
 
                     <div className="border my-6" />
 
-                    <div className="flex justify-between items-center">
+                    <Link to='/storebankdetails'> <div className="flex justify-between items-center">
                         <div className="flex items-center gap-4">
-                            <img src={WebIcon} alt="web icon" />
+                      <img src={WebIcon} alt="web icon" />
                             <p>Add Bank Details</p>
                         </div>
+                        
                         <BsChevronRight className="text-gray-400" />
                     </div>
+                    </Link>
 
                     <div className="border my-6" />
                     <div>
