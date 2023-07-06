@@ -7,7 +7,7 @@ import Dashboard from "./scenes/Dashboard";
 //import DashboardLayout from "./DashboardLayout";
 import CreateStore from "./scenes/CreateStore";
 import Verify from "./scenes/Verify";
-import { LoginProvider } from './LoginContext';
+import { LoginProvider } from '../src/context/LoginContext';
 import { useState } from "react";
 
 
