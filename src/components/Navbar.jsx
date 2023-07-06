@@ -6,21 +6,21 @@ import { CiSearch } from 'react-icons/ci'
 import { BsBell, BsToggleOff, BsToggleOn } from 'react-icons/bs'
 import { BiUser } from 'react-icons/bi'
 import Logo from "../assets/logo.png"
-import { useState, useContext} from 'react'
+import { useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import {Link } from "react-router-dom"
-import { LoginContext } from './LoginContext';
+
 
 
 
 const Navbar = ({ handleSidebarToggle }) => {
 	const [isBuyer, setIsBuyer] = useState(true);
 	const navigate = useNavigate();
-	const { setLoggedIn } = useContext(LoginContext)
+	
 
 	const toggleLogic = () => {
 		setIsBuyer((prevState) => !prevState);
-		if (isBuyer&&setLoggedIn) {
+		if (isBuyer) {
 			navigate("/dashboard")
 		}
 		else {

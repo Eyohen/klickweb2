@@ -27,7 +27,7 @@ function useVerify(url, data, token) {
 export default useVerify;*/
 
 //import { useEffect } from 'react';
-import axios from 'axios';
+/*import axios from 'axios';
 
 function useVerify(url, data) {
     const token = localStorage.getItem('token');
@@ -54,5 +54,5 @@ function useVerify(url, data) {
     }
   }
 
-export default useVerify;
+export default useVerify;*/
 

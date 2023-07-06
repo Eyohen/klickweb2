@@ -2,21 +2,18 @@ import Logo from '../../assets/logo.png'
 import { useState } from 'react'
 import {Link } from "react-router-dom"
 import axios from 'axios'
-import { LoginContext } from '../../context/LoginContext'
-import { useContext } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+    const history = useNavigate();
+
     const [isAuthChange, setIsAuthChange] = useState(true);
     const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  // eslint-disable-next-line no-unused-vars
-  //const [loggedIn, setLoggedIn] = useState(false)
-  const { setLoggedIn } = useContext(LoginContext)
-
-   
+    const [password, setPassword] = useState('');
+  
     
     const token = localStorage.getItem('access_token');
+    
     const handleSubmitForm = (e) => {
         e.preventDefault();
     
@@ -33,9 +30,12 @@ const Login = () => {
           .then(response => {
             // Handle the response
             console.log(response.data);
-            setLoggedIn(response.data.success)
+            if (response.data.success===true) {
+                // Navigate to another page
+                history('/');
+            //setLoggedIn(response.data.success)
             // Perform any necessary actions after successful login
-          })
+          }})
           .catch(error => {
             // Handle any errors or display appropriate message
             console.error(error);

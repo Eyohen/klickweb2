@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+/*import { useState, useEffect } from "react";
 import axios from "axios";
 
 const useFetch = () => {
@@ -33,4 +33,4 @@ const useFetch = () => {
     return { data, isLoading, error, refetch };
   };
   
-  export default useFetch;
+  export default useFetch;*/

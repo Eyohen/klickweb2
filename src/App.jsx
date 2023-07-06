@@ -7,31 +7,27 @@ import Dashboard from "./scenes/Dashboard";
 //import DashboardLayout from "./DashboardLayout";
 import CreateStore from "./scenes/CreateStore";
 import Verify from "./scenes/Verify";
-import { LoginProvider } from '../src/context/LoginContext';
-import { useState } from "react";
 
 
 
 export default function App() {
-	const [loggedIn, setLoggedIn] = useState(false);
 	return (
 		<BrowserRouter>
-	<LoginProvider>
 			<Routes>
 				
-				<Route element={<Layout loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}>
+				<Route element={<Layout/>}>
 					<Route path="/" element={<HomePage />} />
 					<Route path="/dashboard" element={<Dashboard />} />
 				</Route>
 				
 				<Route path="/register" element={<Register />} />
-				<Route path="/login" element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
+				<Route path="/login" element={<Login />} />
 				
 					
 				<Route path="/verify" element={<Verify />} />
 				<Route path="/dashboard/store/create" element={<CreateStore />} />
 				
-			</Routes></LoginProvider>
+			</Routes>
 	
 		</BrowserRouter>
 	
