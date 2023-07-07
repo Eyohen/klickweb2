@@ -24,8 +24,9 @@ const BusinessLogo = () => {
             }
           );
           if (response.data.success===true) {
+            localStorage.setItem('storeId', response.data.store.id)
             // Navigate to another page
-            history('/');
+            history('/dashboard');
         //setLoggedIn(response.data.success)
         // Perform any necessary actions after successful login
       }

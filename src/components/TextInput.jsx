@@ -5,6 +5,7 @@ const TextInput = ({
   name,
   value,
   onChange,
+  id
   //noLabel= false,
   //required,
   //register = () => {},
@@ -18,6 +19,7 @@ const TextInput = ({
       <input
         //{...props}
         type="text"
+        id={id}
         //{...register(name)}
         value={value}
         onChange={onChange}

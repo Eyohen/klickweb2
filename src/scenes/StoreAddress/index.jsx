@@ -45,11 +45,11 @@ const StoreAddress = () => {
       };
 
 
-    const inputClasses =
+    /*const inputClasses =
         'border bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary';
     const errorBorderClasses = 'border-red-500';
     const activeButtonClasses = 'bg-secondary py-4 text-black rounded-full mt-10 cursor-pointer';
-    const disabledButtonClasses = 'bg-gray-100 py-4 text-gray-500 rounded-full mt-10 cursor-not-allowed';
+    const disabledButtonClasses = 'bg-gray-100 py-4 text-gray-500 rounded-full mt-10 cursor-not-allowed';*/
 
     // const { handleSubmit, register, formState: { errors, isValid } } = useForm({
     //     resolver: yupResolver(validationSchema),
