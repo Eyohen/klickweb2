@@ -1,20 +1,34 @@
 import Logo from '../../assets/logo.png'
 //import { useState } from 'react'
 //import {Link } from "react-router-dom"
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 
 const BusinessLogo = () => {
     const location = useLocation();
-    const { form2Data } = location.state
+    const history = useNavigate()
+    const { form2Data } = location.state;
 
+    const token = localStorage.getItem('access_token');
     const handleSubmit = async () => {
         try {
           const response = await axios.post('https://klick-api.onrender.com/auth/registerstore', 
+
             form2Data,
-            
+            {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            }
           );
+          if (response.data.success===true) {
+            // Navigate to another page
+            history('/');
+        //setLoggedIn(response.data.success)
+        // Perform any necessary actions after successful login
+      }
           console.log('API response:', response.data);
           // Handle success or perform any necessary actions
         } catch (error) {

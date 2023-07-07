@@ -1,14 +1,14 @@
-import React from "react";
-
 const TextInput = ({
   errormsg,
   className,
   title,
   name,
-  noLabel= false,
-  required,
-  register = () => {},
-  ...props
+  value,
+  onChange,
+  //noLabel= false,
+  //required,
+  //register = () => {},
+  //...props
 }) => {
   return (
     <div className={`flex flex-col  ${className ? className : 'w-full'}`}>
@@ -16,9 +16,11 @@ const TextInput = ({
         {title}<span className="block ml-2">*</span>
       </label>
       <input
-        {...props}
+        //{...props}
         type="text"
-        {...register(name)}
+        //{...register(name)}
+        value={value}
+        onChange={onChange}
         name={name}
         // className="appearance-none border-[1px] border-[#B0D1D0] rounded-md p-2.5 shadow-sm shadow-[#E8F5F4] mt-2 outline-none focus:border-[#006566]"
         className="block w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"

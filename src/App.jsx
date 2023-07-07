@@ -10,7 +10,7 @@ import Verify from "./scenes/Verify";
 import ViewMyStore from "./scenes/ViewMyStore";
 import StoreAddress from "./scenes/StoreAddress";
 import StorebankDetails from "./scenes/StorebankDetails";
-import AddProduct from "./scenes/AddProducts";
+import AddProducts from "./scenes/AddProducts";
 import BusinessLogo from "./scenes/BusinessLogo";
 
 
@@ -38,7 +38,7 @@ export default function App() {
 				<Route path="/storeaddress" element={<StoreAddress />} />
 				<Route path="/storebankdetails" element={<StorebankDetails />} />
 				<Route path="/businesslogo" element={<BusinessLogo />} />
-				<Route path="/addproduct" element={<AddProduct />} />
+				<Route path="/addproduct" element={<AddProducts />} />
 				<Route path="/dashboard/store/create" element={<CreateStore />} />
 				
 			</Routes>
