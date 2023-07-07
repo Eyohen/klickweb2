@@ -3,10 +3,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+
+
+//import { useState } from 'react';
 
 const validationSchema = yup.object().shape({
-    name_of_store: yup.string().required('Name is required'),
+    storeName: yup.string().required('Name is required'),
     email: yup.string().email('Invalid email').required('Email is required'),
     phone: yup.string().required('Phone number is required'),
     industry: yup.string().required('Industry is required'),
@@ -14,18 +16,19 @@ const validationSchema = yup.object().shape({
 
 const CreateStore = () => {
 
-    const [change, setChange] = useState(false)
+    //const [change, setChange] = useState(false)
 
     const navigate = useNavigate();
+  
 
-    const changePage = () => {
+    /*const changePage = () => {
         setChange(!change);
         if(!change){
             navigate("/storeaddress")
         }
 
     }
-
+*/
 
     const inputClasses =
         'border bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary';
@@ -38,9 +41,33 @@ const CreateStore = () => {
         mode: 'onChange', // enable validation on change to update button state dynamically
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-    };
+    /*const onSubmit = (data) => {
+        history.push({
+          pathname: '/storeaddress',
+          state: {
+            form1Data: data,
+          },
+        });
+      };
+*/
+      /*const onSubmit = (data) => {
+        navigate('/storeaddress', {
+          state: {
+            //...navigate.location.state,
+            form2Data: data,
+          },
+        });
+      };*/
+
+      const onSubmit = (data) => {
+        navigate('/storeaddress', {
+            state: {
+              //...navigate.location.state,
+              form1Data: data,
+            },
+          });
+          console.log(data)
+      };
 
     return (
         <div className="flex flex-col items-center w-[80%] md:w-[30%] mb-10 mx-auto space-y-5 mt-20">
@@ -51,18 +78,18 @@ const CreateStore = () => {
 
             <form className="flex flex-col w-full" onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-4">
-                    <label className="block text-sm mb-2" htmlFor="name_of_store">
+                    <label className="block text-sm mb-2" htmlFor="storeName">
                         Name of Store
                     </label>
                     <input
                         type="text"
-                        name="name_of_store"
-                        id="name_of_store"
-                        className={`${inputClasses} ${errors.name_of_store ? errorBorderClasses : ''}`}
-                        {...register('name_of_store')}
+                        name="storeName"
+                        id="storeName"
+                        className={`${inputClasses} ${errors.storeName ? errorBorderClasses : ''}`}
+                        {...register('storeName')}
                     />
-                    {errors.name_of_store && (
-                        <span className="text-red-500 text-xs">{errors.name_of_store.message}</span>
+                    {errors.storeName && (
+                        <span className="text-red-500 text-xs">{errors.storeName.message}</span>
                     )}
                 </div>
                 {/* ... */}
@@ -122,7 +149,7 @@ const CreateStore = () => {
                     className={`${isValid ? activeButtonClasses : disabledButtonClasses}`}
                     type="submit"
                     disabled={!isValid}
-                    onClick={changePage}
+                   // onClick={changePage}
                 >
                     Continue
                 </button>

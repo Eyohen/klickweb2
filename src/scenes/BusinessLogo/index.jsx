@@ -1,10 +1,28 @@
 import Logo from '../../assets/logo.png'
-import { useState } from 'react'
-import {Link } from "react-router-dom"
+//import { useState } from 'react'
+//import {Link } from "react-router-dom"
+import { useLocation } from 'react-router-dom'
+import axios from 'axios';
 
 
 const BusinessLogo = () => {
-   
+    const location = useLocation();
+    const { form2Data } = location.state
+
+    const handleSubmit = async () => {
+        try {
+          const response = await axios.post('https://klick-api.onrender.com/auth/registerstore', 
+            form2Data,
+            
+          );
+          console.log('API response:', response.data);
+          // Handle success or perform any necessary actions
+        } catch (error) {
+          console.error('Error sending form data:', error);
+          // Handle error or display appropriate message
+        }
+        console.log( form2Data)
+      };
 
 
     return (
@@ -26,7 +44,7 @@ const BusinessLogo = () => {
 </div>
 </div>
 
-<button style={{marginTop:350}}  className='bg-secondary py-4 text-black rounded-full mt-10' type='submit'>
+<button style={{marginTop:350}}  className='bg-secondary py-4 text-black rounded-full mt-10' type='submit' onClick={handleSubmit}>
                     Continue
                 </button>
            
