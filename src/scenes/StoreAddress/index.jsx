@@ -127,15 +127,6 @@ const StoreAddress = () => {
                         {...register('city')}
                         
                     />
-                    <input
-                        type="text"
-                        name="postal"
-                        id="postal"
-                        placeholder='postal'
-                        className='border bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary'
-                        {...register('postal')}
-                        
-                    />
                 
                 </div>
                 {/* ... */}

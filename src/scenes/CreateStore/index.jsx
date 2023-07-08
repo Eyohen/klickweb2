@@ -41,28 +41,9 @@ const CreateStore = () => {
         mode: 'onChange', // enable validation on change to update button state dynamically
     });
 
-    /*const onSubmit = (data) => {
-        history.push({
-          pathname: '/storeaddress',
-          state: {
-            form1Data: data,
-          },
-        });
-      };
-*/
-      /*const onSubmit = (data) => {
-        navigate('/storeaddress', {
-          state: {
-            //...navigate.location.state,
-            form2Data: data,
-          },
-        });
-      };*/
-
       const onSubmit = (data) => {
         navigate('/storeaddress', {
             state: {
-              //...navigate.location.state,
               form1Data: data,
             },
           });
