@@ -2,10 +2,38 @@ import Logo from '../../assets/logo.png'
 import useSignup from '../../hooks/useSignup';
 import axios from 'axios'; 
 import { useNavigate } from 'react-router-dom';
+//import AddressDropdown from './GoogleAutocomplete';
 //import { useRef, useEffect } from "react";
+import { useState } from 'react';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 const Register = () => {
+    const [address, setAddress] = useState('');
+    const [location, setLocation] = useState('')
 
+    const handleChangeLocation = (newAddress) => {
+      setAddress(newAddress);
+    };
+  
+    const handleSelect = async (selectedAddress) => {
+      setAddress(selectedAddress);
+      try {
+        const results = await geocodeByAddress(selectedAddress);
+        const latLng = await getLatLng(results[0]);
+        console.log('Latitude: ', latLng.lat);
+        console.log('Longitude: ', latLng.lng);
+        console.log(results)
+        console.log(results[0].formatted_address)
+        setLocation(results[0].formatted_address)
+        const location= results[0].formatted_address
+        return location
+      } catch (error) {
+        console.error('Error: ', error);
+      }
+      console.log(address)
+     
+    };
+    console.log(`this is my location:${location}`)
 
     const history = useNavigate();
     const initialState = {
@@ -22,7 +50,7 @@ const Register = () => {
  
       const handleSubmitForm = async () => {
         try {
-          const response = await axios.post('https://klick-api.onrender.com/auth/signup', values);
+          const response = await axios.post('https://klick-api.onrender.com/auth/signup', updatedValues);
           console.log('API response:', response.data);
           if (response.data.success===true) {
             localStorage.setItem('access_token', response.data.access_token)
@@ -36,7 +64,12 @@ const Register = () => {
         console.log(values)
       };
     
-      const { values, handleChange, handleSubmit, PlacesAutocomplete,handlePlaceSelect } = useSignup(initialState, handleSubmitForm);
+      const { values, handleChange, handleSubmit, } = useSignup(initialState, handleSubmitForm);
+      const updatedValues ={
+        ...values,
+        location: location
+    }
+    console.log(updatedValues)
     
     const inputClasses = "border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary"
     return (
@@ -80,26 +113,31 @@ const Register = () => {
                      <input type="text" name="location" id="location" placeholder='e.g 7 Gbenga Adeyinka lane' className={inputClasses} value={values.location} onChange={handleChange} /> 
     </div>*/}
 
-   {/* <div>
-   <label>enter address :</label>
-   <input ref={inputRef} />
-    </div>*/}
+   
         <div className='mb-4'>
         <label className='block text-sm' htmlFor="location">Enter Delivery Address</label>
-                <PlacesAutocomplete
-                 apiKey={'AIzaSyBE4ACh2aPQYNYWYADEe6FPUfQ6B37FX24'}
-                 
-                 options={{
-                    types: ['geocode'],
-                  }}
-                 fields={['formatted_address']}
-                 type='text'
-                name="location" id="location" placeholder='e.g 7 Gbenga Adeyinka lane' className={inputClasses}
-        onChange={handleChange}
-        onSelect={handlePlaceSelect}
-        value={values.location} 
-        //dangerouslySetInnerHTML={values.location}
-      />
+     
+
+      <PlacesAutocomplete value={address} onChange={handleChangeLocation} onSelect={handleSelect}>
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <input {...getInputProps({ placeholder: 'Enter address' })} className={inputClasses} />
+            <div>
+              {loading ? <div>Loading...</div> : null}
+              {suggestions.map((suggestion, index) => {
+                const style = {
+                  backgroundColor: suggestion.active ? '#fafafa' : '#ffffff',
+                };
+                return (
+                  <div key={index} {...getSuggestionItemProps(suggestion, { style })}>
+                    {suggestion.description}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete>
              
                 </div>
 
