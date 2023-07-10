@@ -41,7 +41,7 @@ function ViewMyStore() {
   const [product, setProduct] = useState([])
   
   
-  /*useEffect(()=>{
+  useEffect(()=>{
     const fetchData = async () => {
       const token = localStorage.getItem('access_token');
       try {
@@ -53,8 +53,8 @@ function ViewMyStore() {
         })
           .then(response => {
             // Handle the response
-            setUser(response.data.user)
-            setStore(response.data.stores)
+            //setUser(response.data.user)
+            //setStore(response.data.stores)
             console.log(response.data);
 
             if (response.data.success===true) {
@@ -74,7 +74,7 @@ function ViewMyStore() {
 
     fetchData();
   },[]
-  )*/
+  )
   useEffect(()=>{
     const fetchData = async () => {
       const token = localStorage.getItem('access_token');
