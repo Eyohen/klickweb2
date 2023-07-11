@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
+
 const Register = () => {
     const [address, setAddress] = useState('');
     const [location, setLocation] = useState('')
