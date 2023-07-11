@@ -6,23 +6,30 @@ import Stepper from '../../components/Stepper';
 import useSignup from '../../hooks/useSignup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function AddProducts() {
+    const [categories, setCategories] = useState([])
+    useEffect(()=>{
+        const getCategories = async ()=>{
+            try{
+                const response = await axios.get('https://klick-api.onrender.com/category/getAll')
+                setCategories(response.data.data)
+                //console.log(response.data.data[0].id)
+                const categoryId = localStorage.setItem('categoryId', response.data.data[0].id)
+                console.log(categoryId)
+            } catch(error){
+                console.log(`this error was encounntered`)
+            }
+        }
+        getCategories()
+    },[])
+
     const history = useNavigate()
     const initialState = {
         name:'',
         price:'',
-       // quantityTotal:'',
-       // quantityInstock:'',
         description:'',
-        //specificationsType:'',
-       // specificationsColors:'',
-       // specificationsShippingcategory_id:'',
-       // specificationsWeight:'',
-        //specificationsDimensionsLength:'',
-        //specificationsDimensionsWidth:'',
-       // specificationsDimensionsHeight:'',
-       // shippingcategory:'',
         images:''
     };
 
@@ -168,25 +175,6 @@ function AddProducts() {
                             Image format should be in .jpg or .png and the image size should be at least 300px x 300px.
                         </div>
                     </div>
-                    {/*<div>
-                        <div className="flex items-center justify-center w-full mb-5">
-                            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                    </svg>
-                                    <p className="mb-2 font-semibold">Add video</p>
-                                </div>
-                                <input id="dropzone-file" type="file" className="hidden" />
-                               
-                            </label>
-                        </div>
-                        <div className=' text-gray-500'>
-                            <p>Format .MP4</p>
-                            <p>Max resolution 1280 x 1280 and max size: 200MB</p>
-                            <p>Duration 10-60 seconds</p>
-                        </div>
-                            </div>*/}
                 </div>
             </div>
 
@@ -195,13 +183,28 @@ function AddProducts() {
                 <h4 className='text-xl font-semibold'>Inventory</h4>
 
                 <div className='grid gap-6 grid-cols-2'>
-                    {/*< TextInput value={values.} id='' name="stock" title={"Stock"} onChange={handleChange} />
-                    < TextInput value={values.} id='' name="stock_quantity"  title={"Stock Quantity"} onChange={handleChange} />*/}
-                </div>
-
-                <div className='grid gap-6 grid-cols-2'>
-                    < TextInput value={values.specificationsType} id='specificationsType' name="specifications[type]" title={"Specifications Type"} onChange={handleChange} />
+                    {/*< TextInput value={values.specificationsType} id='specificationsType' name="specifications[type]" title={"Specifications Type"} onChange={handleChange} />*/}
                     < TextInput value={values.specificationsColors} id='specificationsColors' name="specifications[colors]"  title={"Specification Colors"} onChange={handleChange}/>
+                </div>
+                <div>
+
+                <select
+                        //name="industry"
+                        //id="industry"
+                        //className={`${inputClasses} ${errors.industry ? errorBorderClasses : ''}`}
+                        id='specificationsType' name="specifications[type]" onChange={handleChange}
+                       // {...register('industry')}
+                    >
+                        <option value="">Select an industry</option>
+                        {categories.map((e)=>{
+                            return(
+                               
+                                <option key={e.id} value={e.name}>{ e.description }</option>
+                            
+                            )
+                        })}
+                    </select>
+                    
                 </div>
             </div>
 
