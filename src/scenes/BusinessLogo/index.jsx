@@ -92,7 +92,7 @@ const BusinessLogo = () => {
           // Handle success or perform any necessary actions
         } catch (error) {
           console.error('Error sending form data:', error);
-          setError(error);
+          setError(error.response.data.msg);
           // Handle error or display appropriate message
         } finally {
           setIsLoading(false);
@@ -133,7 +133,7 @@ const BusinessLogo = () => {
 
 
 <div>
-  {error? <div className='text-red-500 text-xl'> Oops, something went wrong:  {error}</div>: ''}
+  {error? <div className='text-red-500 text-base'> Oops, something went wrong:  {error}</div>: ''}
 </div>
            
         </div>

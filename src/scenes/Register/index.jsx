@@ -36,7 +36,7 @@ const Register = () => {
       console.log(address)
      
     };
-    console.log(`this is my location:${location}`)
+   // console.log(`this is my location:${location}`)
 
     const history = useNavigate();
     const initialState = {
@@ -63,7 +63,7 @@ const Register = () => {
             history('/verify');
           } else {
          throw new Error('Error posting data to API');}}catch (error) {
-          setError(error)
+          setError(error.response.data.msg)
           console.error('Error sending form data :', error);
         } finally {
           setIsLoading(false);
@@ -176,7 +176,7 @@ const Register = () => {
                     {isLoading? '...Submitting': 'Create Account'}
                 </button>
                 <div>
-  {error? <div className='text-red-500 text-xl'> Oops, something went wrong:  {error}</div>: ''}
+  {error? (<div className='text-red-500 text-base'> Oops, something went wrong:  {error} </div>): ''}
 </div>
 
             </form>
