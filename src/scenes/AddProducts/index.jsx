@@ -10,13 +10,76 @@ import { useNavigate } from 'react-router-dom';
 function AddProducts() {
     const history = useNavigate()
     const initialState = {
-        
-  };
+        name:'',
+        price:'',
+       // quantityTotal:'',
+       // quantityInstock:'',
+        description:'',
+        //specificationsType:'',
+       // specificationsColors:'',
+       // specificationsShippingcategory_id:'',
+       // specificationsWeight:'',
+        //specificationsDimensionsLength:'',
+        //specificationsDimensionsWidth:'',
+       // specificationsDimensionsHeight:'',
+       // shippingcategory:'',
+        images:''
+    };
+
+    let resizedImageSrc;
+
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+    
+      reader.onload = (e) => {
+        const image = new Image();
+        image.onload = () => {
+          resizedImageSrc = resizeImage(image, 800); // Resize the image to a maximum width of 800 pixels
+          displayImagePreview(resizedImageSrc); // Display the resized image preview
+        };
+        image.src = e.target.result;
+      };
+    
+      reader.readAsDataURL(file);
+    };
+
+    const resizeImage = (image, maxWidth) => {
+        const canvas = document.createElement('canvas');
+        let width = image.width;
+        let height = image.height;
+      
+        if (width > maxWidth) {
+          height = (maxWidth / width) * height;
+          width = maxWidth;
+        }
+      
+        canvas.width = width;
+        canvas.height = height;
+      
+        const context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0, width, height);
+      
+        return canvas.toDataURL('image/jpeg', 0.8); // Compress the image as a JPEG with 80% quality
+      };
+
+
+      const displayImagePreview = (imageSrc) => {
+        const imgPreview = document.getElementById('image-preview');
+        imgPreview.src = imageSrc;
+      };
+
+
+  
   const handleSubmitForm = async () => {
     const storeId = localStorage.getItem('storeId')
     const token = localStorage.getItem('access_token');
+    const newData = {
+        ...values,
+        images: resizedImageSrc
+      };
     try {
-      const response = await axios.post(`https://klick-api.onrender.com/product/?category=d6af82fb-ae29-45c6-afb1-4ea6ec915b10&storeId=${storeId}`, values,{
+      const response = await axios.post(`https://klick-api.onrender.com/product/?category=d6af82fb-ae29-45c6-afb1-4ea6ec915b10&storeId=${storeId}`, newData,{
         query:{
             category: 'd6af82fb-ae29-45c6-afb1-4ea6ec915b10',
             storeId: `${storeId}`,
@@ -34,7 +97,7 @@ function AddProducts() {
       } else {
      throw new Error('Error posting data to API');}        } catch (error) {
       console.error('Error sending form data :', error);
-      console.log(values)
+      console.log(newData)
     }
   };
   const { values, handleChange, handleSubmit, } = useSignup(initialState, handleSubmitForm);
@@ -88,23 +151,24 @@ function AddProducts() {
                 <div className=' grid grid-cols-2 gap-6'>
                     <div>
                         <div className="flex items-center justify-center w-full mb-5">
-                            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <div  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                 {/*<div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                   <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                     </svg>
                                     <p className="mb-2 font-semibold">Add Photo</p>
-                                    <p className="text-sm text-gray-500">0/5</p>
-                                </div>
-                                <input id="dropzone-file" type="file" className="hidden" />
-                            </label>
+    <p className="text-sm text-gray-500">0/5</p>
+                                </div>*/}
+                                <label htmlFor="dropzone-file">Add Photo</label>
+                                <input id="dropzone-file" type="file" className="hidden" onChange={handleImageUpload} />
+                                <img id='image-preview' alt='preview' className='w-full h-full'/>
+                            </div>
                         </div>
                         <div className=' text-gray-500'>
                             Image format should be in .jpg or .png and the image size should be at least 300px x 300px.
-                            Upload up to 5 images attract buyers to your product. Required to upload a minimum of 1 image
                         </div>
                     </div>
-                    <div>
+                    {/*<div>
                         <div className="flex items-center justify-center w-full mb-5">
                             <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -114,6 +178,7 @@ function AddProducts() {
                                     <p className="mb-2 font-semibold">Add video</p>
                                 </div>
                                 <input id="dropzone-file" type="file" className="hidden" />
+                               
                             </label>
                         </div>
                         <div className=' text-gray-500'>
@@ -121,7 +186,7 @@ function AddProducts() {
                             <p>Max resolution 1280 x 1280 and max size: 200MB</p>
                             <p>Duration 10-60 seconds</p>
                         </div>
-                    </div>
+                            </div>*/}
                 </div>
             </div>
 
