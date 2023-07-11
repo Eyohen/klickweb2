@@ -1,12 +1,107 @@
 import Logo from '../../assets/logo.png'
 import { useState } from 'react'
-import {Link } from "react-router-dom"
+//import {Link } from "react-router-dom"
+import { useLocation, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+//import { Activity}
+
 
 
 const BusinessLogo = () => {
-   
+    const location = useLocation();
+    const history = useNavigate()
+    const { form2Data } = location.state;
+
+    const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
 
+    
+    let resizedImageSrc;
+
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+    
+      reader.onload = (e) => {
+        const image = new Image();
+        image.onload = () => {
+          resizedImageSrc = resizeImage(image, 800); // Resize the image to a maximum width of 800 pixels
+          displayImagePreview(resizedImageSrc); // Display the resized image preview
+        };
+        image.src = e.target.result;
+      };
+    
+      reader.readAsDataURL(file);
+    };
+    
+    const resizeImage = (image, maxWidth) => {
+      const canvas = document.createElement('canvas');
+      let width = image.width;
+      let height = image.height;
+    
+      if (width > maxWidth) {
+        height = (maxWidth / width) * height;
+        width = maxWidth;
+      }
+    
+      canvas.width = width;
+      canvas.height = height;
+    
+      const context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0, width, height);
+    
+      return canvas.toDataURL('image/jpeg', 0.8); // Compress the image as a JPEG with 80% quality
+    };
+    
+    const displayImagePreview = (imageSrc) => {
+      const imgPreview = document.getElementById('image-preview');
+      imgPreview.src = imageSrc;
+    };
+
+
+
+
+    
+    const token = localStorage.getItem('access_token');
+    const handleSubmit = async () => {
+      setIsLoading(true);
+      const newData = {
+        ...form2Data,
+        file: resizedImageSrc
+      };
+        try {
+          const response = await axios.post('https://klick-api.onrender.com/auth/registerstore', 
+
+            newData,
+            {
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          if (response.data.success===true) {
+            localStorage.setItem('storeId', response.data.store.id)
+            // Navigate to another page
+            history('/dashboard');
+        //setLoggedIn(response.data.success)
+        // Perform any necessary actions after successful login
+      }
+          console.log('API response:', response.data);
+          // Handle success or perform any necessary actions
+        } catch (error) {
+          console.error('Error sending form data:', error);
+          setError(error.response.data.msg);
+          // Handle error or display appropriate message
+        } finally {
+          setIsLoading(false);
+          console.log( newData)
+        }
+      
+      };
+      
+//handleSubmit()
     return (
         <div className="flex flex-col items-center w-[25%] mx-auto space-y-5 mt-20">
             <img src={Logo} alt="Logo" className="" />
@@ -19,21 +114,27 @@ const BusinessLogo = () => {
 
             <div className="mx-auto w-64 text-center ">
   <div className="relative w-64">
-  <img className="w-64 h-64 rounded-full absolute" src="https://www.freeiconspng.com/thumbs/profile-icon-png/account-profile-user-icon--icon-search-engine-10.png" alt="" />
-  <div className="w-64 h-64 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
+  <img className="w-64 h-64 rounded-full absolute" id='image-preview' src="https://www.freeiconspng.com/thumbs/profile-icon-png/account-profile-user-icon--icon-search-engine-10.png" alt="" />
+  {/*<div className="w-64 h-64 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
     <img className="hidden group-hover:block w-12" src="https://www.svgrepo.com/show/33565/upload.svg" alt="" />
-  </div>
+    </div>*/}
+  <input type="file" onChange={handleImageUpload} />
+  {/*<img id="image-preview" alt="Preview" />*/}
+
+
 </div>
 </div>
 
-<button style={{marginTop:350}}  className='bg-secondary py-4 text-black rounded-full mt-10' type='submit'>
-                    Continue
+<button style={{marginTop:350}}  className='bg-secondary py-4 text-black rounded-full mt-10' type='submit' onClick={handleSubmit}>
+                   {isLoading ? '...Submitting': 'Continue'}
                 </button>
            
          
 
 
-
+<div>
+  {error? <div className='text-red-500 text-base'> Oops, something went wrong:  {error}</div>: ''}
+</div>
            
         </div>
     )

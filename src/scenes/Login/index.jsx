@@ -18,9 +18,6 @@ const Login = () => {
       const response = await axios.post('https://klick-api.onrender.com/auth/signin', values);
       console.log('API response:', response.data);
       if (response.data.success===true) {
-        //localStorage.setItem('access_token', response.data.access_token)
-        // Data was posted successfully
-        // Navigate to another page
         history('/');
       } else {
      throw new Error('Error posting data to API');}        } catch (error) {
@@ -96,7 +93,7 @@ const Login = () => {
 
                 {isAuthChange ? <div className='mb-4'>
                     <label className='block text-sm' htmlFor="email">Email</label>
-                    <input type="email" name="email" id="email" onChange={handleChange} className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
+                    <input type="email" name="email" id="email" value={values.email} onChange={handleChange} className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
                 </div>:
                 <div className='mb-4 relative items-center'>
                    
@@ -111,7 +108,7 @@ const Login = () => {
            
                 <div className=''>
                     <label className='block text-sm' htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" onChange={handleChange} className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
+                    <input type="password" name="password" id="password" value={values.password} onChange={handleChange} className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
                 </div>
                 <button className='bg-gray-50 py-4 text-gray-500 rounded-full mt-10' type='submit'>
                     Login
