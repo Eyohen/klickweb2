@@ -10,20 +10,50 @@ import { useEffect, useState } from 'react';
 
 function AddProducts() {
     const [categories, setCategories] = useState([])
+    const [shippingCategories, setShippingCategories] = useState([])
+    const [selectedId, setSelectedId] = useState('')
+    const [selectedShippingId, setSelectedShippingId] = useState('')
+    const [selectedValue, setSelectedValue] = useState('');
+    const [selectedShippingValue, setSelectedShippingValue] = useState('');
     useEffect(()=>{
         const getCategories = async ()=>{
             try{
                 const response = await axios.get('https://klick-api.onrender.com/category/getAll')
                 setCategories(response.data.data)
-                console.log(response.data.data[0])
-                const categoryId = localStorage.setItem('categoryId', response.data.data.id)
-                console.log(categoryId)
             } catch(error){
                 console.log(`this error was encounntered`)
             }
         }
         getCategories()
     },[])
+
+    useEffect(()=>{
+        const getShippingCategories = async ()=>{
+            try{
+                const response = await axios.get('https://klick-api.onrender.com/product/shipping/category')
+                setShippingCategories(response.data.data)
+            } catch(error){
+                console.log(`this error was encounntered`)
+            }
+        }
+        getShippingCategories()
+    },[])
+
+    const handleSelectChange = (event) => {
+        const selectedIndex = event.target.selectedIndex;
+        const selectedOption = event.target.options[selectedIndex];
+        setSelectedValue(selectedOption.value);
+        setSelectedId(selectedOption.id);
+        console.log(selectedValue)
+      };
+      const handleShippngSelectChange = (event) => {
+        const selectedIndex = event.target.selectedIndex;
+        const selectedOption = event.target.options[selectedIndex];
+        setSelectedShippingValue(selectedOption.value);
+        setSelectedShippingId(selectedOption.id);
+        console.log(selectedValue)
+        //console.log(selectedOption.id )
+      };
 
     const history = useNavigate()
     const initialState = {
@@ -83,12 +113,15 @@ function AddProducts() {
     const token = localStorage.getItem('access_token');
     const newData = {
         ...values,
-        images: resizedImageSrc
+        images: resizedImageSrc,
+        'specifications[type]':selectedValue,
+        'shippingcategory':selectedShippingValue,
+        'specifications[shippingcategory_id]': selectedShippingId
       };
     try {
-      const response = await axios.post(`https://klick-api.onrender.com/product/?category=d6af82fb-ae29-45c6-afb1-4ea6ec915b10&storeId=${storeId}`, newData,{
+      const response = await axios.post(`https://klick-api.onrender.com/product/?category=${selectedId}&storeId=${storeId}`, newData,{
         query:{
-            category: 'd6af82fb-ae29-45c6-afb1-4ea6ec915b10',
+            category: `${selectedId}`,
             storeId: `${storeId}`,
         },
         headers: {
@@ -182,30 +215,30 @@ function AddProducts() {
             <div className='block w-full  p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow'>
                 <h4 className='text-xl font-semibold'>Inventory</h4>
 
-                <div className='grid gap-6 grid-cols-2'>
-                    {/*< TextInput value={values.specificationsType} id='specificationsType' name="specifications[type]" title={"Specifications Type"} onChange={handleChange} />*/}
-                    < TextInput value={values.specificationsColors} id='specificationsColors' name="specifications[colors]"  title={"Specification Colors"} onChange={handleChange}/>
-                </div>
-                <div>
-
-                <select
-                        //name="industry"
-                        //id="industry"
-                        //className={`${inputClasses} ${errors.industry ? errorBorderClasses : ''}`}
-                        id='specificationsType' name="specifications[type]" onChange={handleChange}
-                       // {...register('industry')}
-                    >
-                        <option value="">Select an industry</option>
+               
+                <div className='flex flex-col'>
+                <label>Product Category</label>
+                <select className='className="block w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"' id='specificationsType' name="specifications[type]" onChange={handleSelectChange} value={values.specificationsType} >
+                        <option >Select a product category</option>
                         {categories.map((e)=>{
-                            return(
-                               
-                                <option key={e.id} value={e.name}>{ e.description }</option>
-                            
+                            return( 
+                                <option key={e.id} value={e.name} id={e.id}>{ e.name }</option>
                             )
                         })}
                     </select>
                     
                 </div>
+                <div className='flex flex-col'>
+                        <label>Shipping Category</label>
+                                <select className='className="block w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"' value={values.shippingcategory} id='shippingcategory' name="shippingcategory"  onChange={handleShippngSelectChange}  >
+                                     <option >Select a shipping category</option>
+                                         {shippingCategories.map((e)=>{
+                                         return(
+                                            <option key={e.category_id} value={e.category} id={e.category_id}>{ e.category}</option>
+                                         ) })}
+                                </select>
+    
+                    </div>
             </div>
 
             {/* Specification */}
@@ -213,10 +246,11 @@ function AddProducts() {
                 <h4 className='text-xl font-semibold'>Specification</h4>
 
                 <div className='grid gap-6 grid-cols-2'>
-                    <div>
-                                < TextInput value={values.specificationsShippingcategory_id} id='specificationsShippingcategory_id' name="specifications[shippingcategory_id]"  title={"Category"} onChange={handleChange}/>
-                                 <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
-                    </div>
+
+
+                <div>
+                    < TextInput value={values.specificationsColors} id='specificationsColors' name="specifications[colors]"  title={"Specification Colors"} onChange={handleChange}/>
+                </div>
                     <div>
                                 < TextInput value={values.specificationsWeight} id='specificationsWeight' name="specifications[weight]"  title={"Specifications Weight"} onChange={handleChange} />
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
@@ -241,10 +275,8 @@ function AddProducts() {
                                 < TextInput value={values.specificationsDimensionsHeight} id='specificationsDimensionsHeight' name="specifications[dimensions][height]"  title={"Height"} onChange={handleChange} />
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
-                    <div>
-                                < TextInput value={values.shippingcategory} id='shippingcategory' name="shippingcategory"  title={"Shipping Catergory"} onChange={handleChange} />
-                                 <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
-                    </div>
+                    
+                   
                 </div>
             </div>
             
