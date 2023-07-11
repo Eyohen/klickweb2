@@ -8,6 +8,7 @@ import { GrGroup } from "react-icons/gr";
 import { HiShoppingBag } from "react-icons/hi2";
 import { TbPresentationAnalytics,TbHelpSquare } from "react-icons/tb";
 import {PiGearSix } from "react-icons/pi";
+import { Link } from 'react-router-dom';
 
 
 
@@ -26,10 +27,12 @@ const Sidebar = ({ handleSidebarToggle }) => {
                         <IoHomeOutline className="h-5 w-5" />
                         <a href="">Home</a>
                     </div>
+                    <Link to={'/orders'}>
                     <div className="hover:bg-slate-100 rounded-lg flex space-x-4 text-tsecondary w-full px-8 py-4">
                         <DiNetbeans className="h-5 w-5" />
-                        <a href="">orders</a>
+                        <Link to={'/orders'}>orders</Link>
                     </div>
+                    </Link>
                     <div className="hover:bg-slate-100 rounded-lg flex space-x-4 text-tsecondary w-full px-8 py-4">
                         <BiMessageDots className="h-5 w-5" />
                         <a href="">Messages</a>

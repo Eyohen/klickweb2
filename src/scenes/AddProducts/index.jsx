@@ -25,22 +25,22 @@ function AddProducts() {
             </div>
                 
             {/* right side */}
-            <div className=' w-10/12'>        
+            <div className='space-y-5 w-10/12'>        
             {/* personal info card */}
             <div className='block w-full p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow'>
                 <h4 className='text-xl font-semibold'>Personal Information</h4>
 
                 <div className='grid gap-6 grid-cols-2'>
-                    <TextInput name="product_name" title={"Product Name"} />
-                    <TextInput name="product_category"  title={"Product Category"} />
+                    <TextInput name="product_name" title={"Name"} />
+                    <TextInput name="product_price"  title={"Price"} />
                 </div>
 
                 <div className='grid gap-6 grid-cols-2'>
-                    <TextInput name="sub_category"  title={"Sub-Category"} />
-                    <TextInput name="product_price"  title={"Product Price"} />
+                    <TextInput name="total"  title={"Quantity [total]"} />
+                    <TextInput name="in_stock"  title={"Quantity [inStock]"} />
                 </div>
                 
-                <TextInput name='product_desc' title={"Product Description"} />
+                <TextInput name='product_desc' title={"Description"} />
 
                 <h3 className=' text-gray-400 font-light text-xs mt-4'>
                     0/2000
@@ -97,12 +97,12 @@ function AddProducts() {
 
                 <div className='grid gap-6 grid-cols-2'>
                     <TextInput name="stock" title={"Stock"} />
-                    <TextInput name="stock_quantity"  title={"Stock quantity"} />
+                    <TextInput name="stock_quantity"  title={"Stock Quantity"} />
                 </div>
 
                 <div className='grid gap-6 grid-cols-2'>
-                    <TextInput name="select_unit" title={"Select Unit"} />
-                    <TextInput name="linked_liscount"  title={"Linked Discount"} />
+                    <TextInput name="unit_type" title={"Unit Type"} />
+                    <TextInput name="unit_price"  title={"Unit Price"} />
                 </div>
             </div>
 
@@ -112,11 +112,11 @@ function AddProducts() {
 
                 <div className='grid gap-6 grid-cols-2'>
                     <div>
-                                <TextInput name="size"  title={"Size"} />
+                                <TextInput name="category"  title={"Category"} />
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                     <div>
-                                <TextInput name="linked_liscount"  title={"Color"} />
+                                <TextInput name="category_id"  title={"Category ID"} />
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                 </div>
@@ -146,7 +146,7 @@ function AddProducts() {
                 </div>
             </div>
             
-                {/* sepc button */}
+                {/* button */}
                 <div className='mt-4'>
                     <button type="button" class=" hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 ">+  Add Specification</button>
                 </div>
