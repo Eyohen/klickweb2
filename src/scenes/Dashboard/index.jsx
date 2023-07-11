@@ -133,13 +133,14 @@ const Dashboard = () => {
                     </div>
                     <div className="border my-6" />
 
-                    <div className="flex justify-between items-center">
+                    <Link to='/socialmedialink'>  <div className="flex justify-between items-center">
                         <div className="flex items-center gap-4">
                             <img src={WebIcon} alt="web icon" />
                             <p>Add social media links</p>
                         </div>
                         <BsChevronRight className="text-gray-400" />
                     </div>
+                    </Link>
 
                     <div className="border my-6" />
 

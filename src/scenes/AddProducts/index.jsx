@@ -15,8 +15,8 @@ function AddProducts() {
             try{
                 const response = await axios.get('https://klick-api.onrender.com/category/getAll')
                 setCategories(response.data.data)
-                //console.log(response.data.data[0].id)
-                const categoryId = localStorage.setItem('categoryId', response.data.data[0].id)
+                console.log(response.data.data[0])
+                const categoryId = localStorage.setItem('categoryId', response.data.data.id)
                 console.log(categoryId)
             } catch(error){
                 console.log(`this error was encounntered`)
@@ -260,6 +260,3 @@ function AddProducts() {
 }
 
 export default AddProducts
-
-                                   
-               

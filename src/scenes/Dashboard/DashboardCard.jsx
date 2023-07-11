@@ -7,7 +7,7 @@ const DashboardCard = () => {
                 <span>
                     <img src={DollarIcon} alt="Dollar Icon" />
                 </span>
-                <p className="text-gray-400">Total Income</p>
+                <p className="text-gray-400">Total Sales</p>
             </div>
             <p className="text-xl font-semibold">N1.31m</p>
         </div>

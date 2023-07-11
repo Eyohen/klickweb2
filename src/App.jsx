@@ -12,6 +12,12 @@ import StoreAddress from "./scenes/StoreAddress";
 import StorebankDetails from "./scenes/StorebankDetails";
 import AddProducts from "./scenes/AddProducts";
 import BusinessLogo from "./scenes/BusinessLogo";
+import SocialMediaLinks from "./scenes/SocialMediaLinks";
+import StoreProfile from "./scenes/StoreProfile";
+import ProductDetails from "./scenes/ProductDetails.jsx";
+import CheckOut from "./scenes/CheckOut.jsx";
+import Orders from "./scenes/Orders";
+import OrderDetails from "./scenes/OrderDetails";
 
 
 
@@ -39,8 +45,16 @@ export default function App() {
 				<Route path="/storebankdetails" element={<StorebankDetails />} />
 				<Route path="/businesslogo" element={<BusinessLogo />} />
 				<Route path="/addproduct" element={<AddProducts />} />
+				<Route path="/socialmedialink" element={<SocialMediaLinks />} />
 				<Route path="/dashboard/store/create" element={<CreateStore />} />
-				
+				<Route path="/store" element={<StoreProfile />} />
+				<Route path="/productdetails" element={<ProductDetails />} />
+				<Route path="/checkout" element={<CheckOut />} />
+				<Route path="/orders" element={<Orders />} />
+				<Route path="/orderdetails" element={<OrderDetails />} />
+
+
+
 			</Routes>
 	
 		</BrowserRouter>
