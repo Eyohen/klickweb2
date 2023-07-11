@@ -1,9 +1,10 @@
 import Logo from '../../assets/logo.png'
-//import { useState } from 'react'
+import { useState } from 'react'
 //import {Link } from "react-router-dom"
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
-//import { useState } from 'react';
+//import { Activity}
+
 
 
 const BusinessLogo = () => {
@@ -11,7 +12,9 @@ const BusinessLogo = () => {
     const history = useNavigate()
     const { form2Data } = location.state;
 
-    
+    const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
 
     
     let resizedImageSrc;
@@ -55,65 +58,17 @@ const BusinessLogo = () => {
       const imgPreview = document.getElementById('image-preview');
       imgPreview.src = imageSrc;
     };
-    
-    
-    /*const sendImageToAPI = (imageSrc) => {
-      // Send the image to the API
-      console.log('Sending image to API:', imageSrc);
-      // Perform API call or further processing here
-    };*/
-    
-    
-    /*let imageSrc
-    const handleImageUpload = (event) => {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-    
-      return new Promise((resolve, reject) => {
-        reader.onload = (e) => {
-         imageSrc = e.target.result;
-          console.log(imageSrc);
-          const imgPreview = document.getElementById('image-preview');
-          imgPreview.src = imageSrc;
-          resolve(imageSrc);
-        };
-    
-        reader.onerror = (error) => {
-          reject(error);
-        };
-    
-        reader.readAsDataURL(file);
-      }).then((imageSrc) => {
-        // Access the imageSrc value here
-        console.log('Received imageSrc:', imageSrc);
-       handleSubmit(imageSrc)
-      })
-      .catch((error) => {
-        // Handle any errors that occurred during image loading
-        console.error('Error loading image:', error);
-      });
-    }
-
-    console.log(`heeey ${imageSrc}`)*/
 
 
-   
-    
-   
+
 
     
     const token = localStorage.getItem('access_token');
     const handleSubmit = async () => {
-
+      setIsLoading(true);
       const newData = {
         ...form2Data,
         file: resizedImageSrc
-        //file:JSON.stringify({ imageSrc: imageSrc }),
-        
-       //file:JSON.stringify({...resizedImageSrc})
-        //resizedImageSrc
-        //file:imageSrc,
-        //file:JSON.stringify({ file: imageSrc }),
       };
         try {
           const response = await axios.post('https://klick-api.onrender.com/auth/registerstore', 
@@ -137,9 +92,13 @@ const BusinessLogo = () => {
           // Handle success or perform any necessary actions
         } catch (error) {
           console.error('Error sending form data:', error);
+          setError(error);
           // Handle error or display appropriate message
+        } finally {
+          setIsLoading(false);
+          console.log( newData)
         }
-        console.log( newData)
+      
       };
       
 //handleSubmit()
@@ -167,13 +126,15 @@ const BusinessLogo = () => {
 </div>
 
 <button style={{marginTop:350}}  className='bg-secondary py-4 text-black rounded-full mt-10' type='submit' onClick={handleSubmit}>
-                    Continue
+                   {isLoading ? '...Submitting': 'Continue'}
                 </button>
            
          
 
 
-
+<div>
+  {error? <div className='text-red-500 text-xl'> Oops, something went wrong:  {error}</div>: ''}
+</div>
            
         </div>
     )

@@ -10,6 +10,9 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 const Register = () => {
     const [address, setAddress] = useState('');
     const [location, setLocation] = useState('')
+    
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleChangeLocation = (newAddress) => {
       setAddress(newAddress);
@@ -49,6 +52,7 @@ const Register = () => {
       };
  
       const handleSubmitForm = async () => {
+        setIsLoading(true)
         try {
           const response = await axios.post('https://klick-api.onrender.com/auth/signup', updatedValues);
           console.log('API response:', response.data);
@@ -58,8 +62,11 @@ const Register = () => {
             // Navigate to another page
             history('/verify');
           } else {
-         throw new Error('Error posting data to API');}        } catch (error) {
+         throw new Error('Error posting data to API');}}catch (error) {
+          setError(error)
           console.error('Error sending form data :', error);
+        } finally {
+          setIsLoading(false);
         }
         console.log(values)
       };
@@ -166,8 +173,12 @@ const Register = () => {
                     <input type="password" name="password" id="password" className={inputClasses} value={values.password} onChange={handleChange} />
                 </div>
                 <button className='bg-gray-50 py-4 text-gray-500 rounded-full mt-10' type='submit'>
-                    Create Account
+                    {isLoading? '...Submitting': 'Create Account'}
                 </button>
+                <div>
+  {error? <div className='text-red-500 text-xl'> Oops, something went wrong:  {error}</div>: ''}
+</div>
+
             </form>
             <p className='text-gray-500'>Already have an account? <a href='/login' className='text-primary font-semibold'>Login</a></p>
         </div>
