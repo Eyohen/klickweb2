@@ -1,4 +1,4 @@
-import React from 'react'
+//import React from 'react'
 
 function Stepper() {
     return (
@@ -10,7 +10,7 @@ function Stepper() {
                     01        
                 </div>
             </span>
-            <h3 class="font-medium leading-tight text-gray-500">Product Information</h3>
+            <h3 className="font-medium leading-tight text-gray-500">Product Information</h3>
         </li>
         <li className="mb-10 ml-6">
             <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-400 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900">

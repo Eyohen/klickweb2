@@ -43,7 +43,7 @@ const Verify = () => {
       if (response.data.success===true) {
         // Data was posted successfully
         // Navigate to another page
-        history('/login');
+        history('/');
       }
       console.log(response.data);
     } catch (error) {
