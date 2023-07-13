@@ -11,6 +11,7 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-au
 const Register = () => {
     const [address, setAddress] = useState('');
     const [location, setLocation] = useState('')
+    const [city, setCity] = useState('')
     
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -29,6 +30,8 @@ const Register = () => {
         console.log(results)
         console.log(results[0].formatted_address)
         setLocation(results[0].formatted_address)
+        setCity(results[0].address_components[0].long_name)
+        console.log(city)
         const location= results[0].formatted_address
         return location
       } catch (error) {

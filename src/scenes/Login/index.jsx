@@ -21,6 +21,7 @@ const Login = () => {
       const response = await axios.post('https://klick-api.onrender.com/auth/signin', values);
       console.log('API response:', response.data);
       if (response.data.success===true) {
+        localStorage.setItem('login_token', response.data.access_token)
         history('/');
       } else {
      throw new Error('Error posting data to API');}} catch (error) {

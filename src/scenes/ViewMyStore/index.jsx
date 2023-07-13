@@ -1,49 +1,19 @@
 // import './App.css';
 // import img1 from '../src/images/baby.png'
 import { useEffect, useState } from 'react';
-import img1 from '../../assets/images/baby.png'
+//import img1 from '../../assets/images/baby.png'
 import axios from 'axios';
-//import [useEffect]
+
 
 function ViewMyStore() {
-  /*const [store, setStore] = useState(null);
-  const [product, setProduct] = useState(null);
-  //const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const endpoint1 = 'https://api.example.com/endpoint1';
-        const endpoint2 = 'https://api.example.com/endpoint2';
-
-        const request1 = axios.get(endpoint1);
-        const request2 = axios.get(endpoint2);
-
-        const [response1, response2] = await axios.all([request1, request2]);
-
-        // Access response data from endpoint 1
-        setStore(response1.data);
-
-        // Access response data from endpoint 2
-        setProduct(response2.data);
-
-       // setLoading(false);
-        console.log(store, product)
-      } catch (error) {
-        console.error('Error:', error.message);
-      }
-    };
-
-    fetchData();
-  }, [product,store]);*/
-
   //const [user, setUser]= useState(null)
-  //const [store, setStore] = useState(null)
+  const [stores, setStores] = useState({})
   const [product, setProduct] = useState([])
   
   
   useEffect(()=>{
     const fetchData = async () => {
-      const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem('login_token');
       try {
         axios.get('https://klick-api.onrender.com/auth/user', {
           headers: {
@@ -52,17 +22,11 @@ function ViewMyStore() {
           }
         })
           .then(response => {
-            // Handle the response
-            //setUser(response.data.user)
-            //setStore(response.data.stores)
-            console.log(response.data);
-
-            if (response.data.success===true) {
-                // Navigate to another page
-               // history('/');
-            //setLoggedIn(response.data.success)
-            // Perform any necessary actions after successful login
-          }})
+            console.log(response.data.stores[0]);
+            console.log(response.data)
+            setStores(response.data.stores[0])
+            //console.log(stores)
+           })
           .catch(error => {
             // Handle any errors or display appropriate message
             console.error(error);
@@ -70,6 +34,7 @@ function ViewMyStore() {
       } catch (error) {
         console.error('Error:', error.message);
       }
+      //console.log(stores.address.address)
     };
 
     fetchData();
@@ -77,12 +42,11 @@ function ViewMyStore() {
   )
   useEffect(()=>{
     const fetchData = async () => {
-      const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem('login_token');
       const storeId = localStorage.getItem('storeId')
       try {
         axios.get(`https://klick-api.onrender.com/product/store/product?storeId=${storeId}`,
         { query:{
-          //category: 'd6af82fb-ae29-45c6-afb1-4ea6ec915b10',
           storeId: `${storeId}`,
       },
           headers: {
@@ -123,28 +87,28 @@ function ViewMyStore() {
         <h4 className='text-xl'>Show details</h4>
 
         <div className='mt-4 h-40'>
-          <img className="h-full w-full rounded-lg object-cover contain" src={img1} alt="image description" />
+          <img className="h-full w-full rounded-lg object-cover contain" src={stores.logo} alt="image description" />
         </div>
 
         <div className='mt-4'>
-          <img className="h-36 w-36 border border-gray-700 rounded-full" src={img1} alt="image description"/>
+          <img className="h-36 w-36 border border-gray-700 rounded-full" src={stores.logo} alt="image description"/>
         </div>
 
         <div className='space-y-4 mt-4'>
           <form>
             <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Store name</label>
-              <input  type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
+              <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.name}</p>
             </div>
 
             <div className='grid gap-6 grid-cols-2 mt-4'>
               <div>
                 <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email" required />
+                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.email}</p>
               </div>
               <div>
                 <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                <input type="text" id="first_name"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Phone Number" required />
+                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.phone}</p>
               </div>
             </div>
 
@@ -169,23 +133,23 @@ function ViewMyStore() {
 
         <div className=' space-y-4'>
           <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-          <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Address" required />
+          <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.address.address}</p>
             </div>
             
             <div className='grid gap-6 grid-cols-2 mt-4'>
               <div>
                 <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
-                <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Country" required />
+                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.address.country}</p>
               </div>
               <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
-                <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="State" required />
+              <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.address.state}</p>
               </div>
             </div>
 
             <div className='w-1/2 mt-4'>
             <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City/L.G.A</label>
-                <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="City/L.G.A" required />
+            <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.address.city}</p>
             </div>
         </div>
         </form>
@@ -465,7 +429,7 @@ function ViewMyStore() {
         <div className='flex justify-between'>
           <div className='flex'>
             <div className='mr-4'>
-              <img className="h-24 w-24 rounded-lg" src={img1} alt="image description"/>
+              <img className="h-24 w-24 rounded-lg" src={e.images[0]} alt="image description"/>
             </div>
           <div className=' items-center space-y-2'>
             <h3>{e.name}</h3>
