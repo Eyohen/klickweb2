@@ -9,19 +9,25 @@ const Login = () => {
     const history = useNavigate();
 
     const [isAuthChange, setIsAuthChange] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const initialState = {
         email: "",
         password: "" 
   };
   const handleSubmitForm = async () => {
+    setIsLoading(true)
     try {
       const response = await axios.post('https://klick-api.onrender.com/auth/signin', values);
       console.log('API response:', response.data);
       if (response.data.success===true) {
         history('/');
       } else {
-     throw new Error('Error posting data to API');}        } catch (error) {
+     throw new Error('Error posting data to API');}} catch (error) {
+      setError(error.response.data.msg)
       console.error('Error sending form data :', error);
+    } finally{
+      setIsLoading(false)
     }
   };
 
@@ -111,8 +117,11 @@ const Login = () => {
                     <input type="password" name="password" id="password" value={values.password} onChange={handleChange} className='border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600' />
                 </div>
                 <button className='bg-gray-50 py-4 text-gray-500 rounded-full mt-10' type='submit'>
-                    Login
+                {isLoading? '...Logging In': 'Login'}
                 </button>
+                <div>
+  {error? (<div className='text-red-500 text-base'> Oops, something went wrong:  {error} </div>): ''}
+</div>
             </form>
             <p className='text-gray-500'>Don't have an account? <Link to='/register' className='text-primary font-semibold'>Create Account</Link></p>
 

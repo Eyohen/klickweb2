@@ -22,8 +22,69 @@ function AddProducts() {
     const [selectedShippingValue, setSelectedShippingValue] = useState('');
     const [profileImage, setProfileImage]= useState('')
     const [imagePreview, setImagePreview] = useState(null)
-   // const [isLoading, setIsLoading] = useState(false)
-    //const [imageUrl, setImageUrl] = useState('')
+
+    const initialState = {
+        name:'',
+        price:'',
+        description:'',
+    };
+
+    const [objectState, setObjectState] = useState({
+        quantity:{
+            total:'',
+            instock:'',
+            checking:''
+        },
+        specifications:{
+            colors: '',
+            weight:'',
+            type:'',
+            shippingcategory_id:'',
+            dimensions:{
+                width:'',
+                height:'',
+                length:''
+            }
+
+        }
+      });
+
+    const handleQuantityChange = (e) => {
+        const { name, value } = e.target;
+        setObjectState(prevState => ({
+          ...prevState,
+          quantity: {
+            ...prevState.quantity,
+            [name]: value
+          }
+        }));
+      };
+
+      const handleSpecificationsChange = (e) => {
+        const { name, value } = e.target;
+        setObjectState(prevState => ({
+          ...prevState,
+          specifications: {
+            ...prevState.specifications,
+            [name]: value
+          }
+        }));
+      };
+
+      const handleSpecificationsDimensionsChange = (e) => {
+        const { name, value } = e.target;
+        setObjectState(prevState => ({
+          ...prevState,
+          specifications: {
+            ...prevState.specifications,
+            dimensions: {
+              ...prevState.specifications.dimensions,
+              [name]: value
+            }
+          }
+        }));
+      };
+    
 
     const handleImageChange = (e)=>{
         setProfileImage(e.target.files[0])
@@ -33,21 +94,6 @@ function AddProducts() {
         
     }
    
-
-   
-     // console.log( convertImageToBuffer(profileImage))
-//console.log(profileImage.stream())
-//const fileStream = profileImage.stream()
-//console.log(fileStream)
-    
-   // var imageFile = { "prop1": "val1", "prop2": "val2" };
-
-// eslint-disable-next-line no-undef
-
-
-
-//images: stream
-
     //let imageURL;
    /* const uploadImage = async (e)=>{
         e.preventDefault()
@@ -138,33 +184,19 @@ function AddProducts() {
       };
 
     //const history = useNavigate()
-    const initialState = {
-        name:'',
-        price:'',
-        description:'',
-        quantity:{
-            total:'',
-            instock:''
-        },
-        specifications:{
-            colors:''
-        }
-       // images:''
-    };
+   
 
   const handleSubmitForm = async () => {
-   // console.log(imageURL)
-               
-   
-   
-
-    const storeId = localStorage.getItem('storeId')
+   const storeId = localStorage.getItem('storeId')
    const token = localStorage.getItem('access_token');
+   //const newObjectState= objectState.specifications.append('hey', selectedValue)
+
     const newData = {
         ...values,
+        ...objectState,
         images:profileImage,
-        specifications:{
-            type:selectedValue,
+        specification:{
+            //type:selectedValue,
             shippingcategory_id:selectedShippingId,
         },
         shippingcategory:selectedShippingValue,
@@ -222,8 +254,8 @@ function AddProducts() {
                 </div>
 
                 <div className='grid gap-6 grid-cols-2'>
-                    < TextInput type='number' value={values.quantityTotal} id='quantityTotal' name="quantity[total]"  title={"Quantity [total]"}  onChange={handleChange} />
-                    < TextInput type='number' value={values.quantityInstock} id='quantityInstock' name="quantity[instock]"  title={"Quantity [inStock]"} onChange={handleChange}/>
+                    < TextInput type='number' value={objectState.quantity.total} id='total' name="total"  title={"Quantity [total]"}  onChange={handleQuantityChange} />
+                    < TextInput type='number' value={objectState.quantity.instock} id='instock' name="instock"  title={"Quantity [inStock]"} onChange={handleQuantityChange}/>
                 </div>
                 
                 < TextInput value={values.description} id='description' name='description' title={"Description"} onChange={handleChange}/>
@@ -292,22 +324,22 @@ function AddProducts() {
 
 
                 <div>
-                    < TextInput value={values.specificationsColors} id='specificationsColors' name="specifications[colors]"  title={"Specification Colors"} onChange={handleChange}/>
+                    < TextInput value={objectState.specifications.colors} id='colors' name="colors"  title={"Specification Colors"} onChange={handleSpecificationsChange }/>
                 </div>
                     <div>
-                                < TextInput value={values.specificationsWeight} id='specificationsWeight' name="specifications[weight]"  title={"Specifications Weight"} onChange={handleChange} />
+                                < TextInput value={objectState.specifications.weight} id='weight' name="weight"  title={"Specifications Weight"} onChange={handleSpecificationsChange} />
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                 </div>
 
                 <div className='grid gap-6 grid-cols-2'>
                     <div>
-                        < TextInput value={values.specificationsDimensionsLength} id='specificationsDimensionsLength' name="specifications[dimensions][length]" title={"Length"} onChange={handleChange}/>
+                        < TextInput value={objectState.specifications.dimensions.length} id='length' name="length" title={"Length"} onChange={handleSpecificationsDimensionsChange}/>
                         <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                             
                     <div>
-                                < TextInput value={values.specificationsDimensionsWidth} id='specificationsDimensionsWidth' name="specifications[dimensions][width]"  title={"Width"} onChange={handleChange}/>
+                                < TextInput value={objectState.specifications.dimensions.width} id='width' name="width"  title={"Width"} onChange={handleSpecificationsDimensionsChange}/>
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                     
@@ -315,7 +347,7 @@ function AddProducts() {
 
                 <div className='grid gap-6 grid-cols-2'>
                     <div>
-                                < TextInput value={values.specificationsDimensionsHeight} id='specificationsDimensionsHeight' name="specifications[dimensions][height]"  title={"Height"} onChange={handleChange} />
+                                < TextInput value={objectState.specifications.dimensions.height} id='height' name="height"  title={"Height"} onChange={handleSpecificationsDimensionsChange} />
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                     
