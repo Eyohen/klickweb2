@@ -25,6 +25,7 @@ import OrderDetails from "./scenes/OrderDetails";
 
 
 
+
 export default function App() {
 	return (
 		<BrowserRouter>
@@ -52,7 +53,7 @@ export default function App() {
 				<Route path="/checkout" element={<CheckOut />} />
 				<Route path="/orders" element={<Orders />} />
 				<Route path="/orderdetails" element={<OrderDetails />} />
-
+				
 
 
 			</Routes>

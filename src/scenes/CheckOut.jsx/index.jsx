@@ -10,10 +10,12 @@ import img1 from "../../assets/images/GridItem.png"
 import { AiFillStar } from 'react-icons/ai'
 import { RiDeleteBin2Fill } from 'react-icons/ri'
 import Footer from '../../components/Footer';
+import CheckOutAddress from './CheckOutAddress';
 
 function CheckOut() {
 
     const [count, setCount] = useState(0);
+    const [showModal, setShowModal] = useState(false);
 
     const handleIncrement = () => {
         setCount(count + 1);
@@ -26,7 +28,7 @@ function CheckOut() {
     };
 
     return (
-        <div className='p-10 font-medium'>
+        <div className='p-10 font-medium relative'>
             <BackArrow />
 
             <h3 className=' mb-8 font-semibold text-2xl'>Place Order</h3>
@@ -43,11 +45,17 @@ function CheckOut() {
                                 <div className=' text-sm text-gray-400 font-normal'>2 Block A, Ikoyi Link Road</div>
                             </div>
 
-                            <div>
-                                <OutlineButton name='Change' />
+                            <div >
+                                <OutlineButton onClick={()=>{
+                        setShowModal(true); }} name='Change' />
                             </div>
+                           
                         </div>
-                    </div>
+                        <CheckOutAddress className='absolute' isOpen={showModal} onClose={()=> {setShowModal(false)}}
+              
+              ></CheckOutAddress>
+                    </div> 
+                  
 
                     <div className='block p-6 bg-white border border-gray-200 rounded-lg'>
                         <div className=''>

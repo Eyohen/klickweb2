@@ -281,7 +281,20 @@ function AddProducts() {
                                     )
                                 }
                             </div>
+                           
+
                         </div>
+
+                        <div className='bg-red-500 rounded-lg '>
+                                {
+                                    isLoading? ('uploading...'):(
+                                        <button className='w-full px-1 py-2' onClick={uploadImage}>
+                                            Upload Image
+                                        </button>
+                                    )
+                                }
+                            </div>
+
                         <div className=' text-gray-500'>
                             Image format should be in .jpg or .png and the image size should be at least 300px x 300px.
                         </div>
