@@ -158,9 +158,8 @@ function AddProducts() {
    
    
 
-    //const storeId = localStorage.getItem('storeId')
-   //const token = localStorage.getItem('access_token');
-   const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE1ZDY5MTBmLWQyZTUtNGI2Ny04ZGM0LTA0ZTU4YWZlMWQxNCIsImZ1bGxOYW1lIjoiZW1tYW51ZWwgZGV2IiwiZW1haWwiOiJlbW1hMjIxOTk5QGdtYWlsLmNvbSIsInBob25lIjoiMjM0ODE2NzI5MTc0MSIsInJvbGUiOiJndWVzdCIsImlzQWN0aXZhdGVkIjp0cnVlLCJpc1ZlcmlmaWVkIjp0cnVlLCJ2ZW5kb3JNb2RlIjpmYWxzZSwid2Vic2l0ZSI6Imh0dHA6Ly9sb2NhbGhvc3Q6MzAwMCIsImp0aSI6ImEyNWYyMTA5LTEyMzEtNGVhOC1iNGE0LTBhOTdiOWU4YWVjNiIsImlhdCI6MTY4OTE3NTU3OCwiZXhwIjoxNjg5MjQ3NTc4fQ.iVtOyg2JtJAVz1a12hElf1fhP6ff66L7St4Zy9bWiTQ'
+    const storeId = localStorage.getItem('storeId')
+   const token = localStorage.getItem('access_token');
     const newData = {
         ...values,
         images:profileImage,
@@ -172,12 +171,10 @@ function AddProducts() {
       }
     console.log(newData)
     try {
-     
-   
-      const response = await axios.post(`https://klick-api.onrender.com/product/?category=${selectedId}&storeId=479ebcf8-a8c9-4a37-9345-ace2274dcbe2`, newData,{
+      const response = await axios.post(`https://klick-api.onrender.com/product/?category=${selectedId}&storeId=${storeId}`, newData,{
         query: {
             category: `${selectedId}`,
-            storeId: `479ebcf8-a8c9-4a37-9345-ace2274dcbe2`,
+            storeId: `${storeId}`,
         },
         headers: {
             'Authorization': `Bearer ${token}`,
