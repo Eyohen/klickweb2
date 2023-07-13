@@ -16,6 +16,7 @@ const Login = () => {
   const handleSubmitForm = async () => {
     try {
       const response = await axios.post('https://klick-api.onrender.com/auth/signin', values);
+      localStorage.setItem("user", JSON.stringify(response.data))
       console.log('API response:', response.data);
       if (response.data.success===true) {
         history('/');

@@ -1,7 +1,7 @@
 import HomePage from "./scenes/HomePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./Layout"
-import Register from "./scenes/Register"
+import Layout from "./Layout";
+import Register from "./scenes/Register";
 import Login from "./scenes/Login";
 import Dashboard from "./scenes/Dashboard";
 //import DashboardLayout from "./DashboardLayout";
@@ -19,45 +19,32 @@ import CheckOut from "./scenes/CheckOut.jsx";
 import Orders from "./scenes/Orders";
 import OrderDetails from "./scenes/OrderDetails";
 
-
-
-
-
-
-
 export default function App() {
-	return (
-		<BrowserRouter>
-			<Routes>
-				
-				<Route element={<Layout/>}>
-					<Route path="/" element={<HomePage />} />
-					<Route path="/dashboard" element={<Dashboard />} />
-				</Route>
-				
-				<Route path="/register" element={<Register />} />
-				<Route path="/login" element={<Login />} />
-				
-					
-				<Route path="/verify" element={<Verify />} />
-				<Route path="/viewmystore" element={<ViewMyStore />} />
-				<Route path="/storeaddress" element={<StoreAddress />} />
-				<Route path="/storebankdetails" element={<StorebankDetails />} />
-				<Route path="/businesslogo" element={<BusinessLogo />} />
-				<Route path="/addproduct" element={<AddProducts />} />
-				<Route path="/socialmedialink" element={<SocialMediaLinks />} />
-				<Route path="/dashboard/store/create" element={<CreateStore />} />
-				<Route path="/store" element={<StoreProfile />} />
-				<Route path="/productdetails" element={<ProductDetails />} />
-				<Route path="/checkout" element={<CheckOut />} />
-				<Route path="/orders" element={<Orders />} />
-				<Route path="/orderdetails" element={<OrderDetails />} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
 
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
-
-			</Routes>
-	
-		</BrowserRouter>
-	
-	)
+        <Route path="/verify" element={<Verify />} />
+        <Route path="/viewmystore" element={<ViewMyStore />} />
+        <Route path="/storeaddress" element={<StoreAddress />} />
+        <Route path="/storebankdetails" element={<StorebankDetails />} />
+        <Route path="/businesslogo" element={<BusinessLogo />} />
+        <Route path="/addproduct" element={<AddProducts />} />
+        <Route path="/socialmedialink" element={<SocialMediaLinks />} />
+        <Route path="/dashboard/store/create" element={<CreateStore />} />
+        <Route path="/store/:id" element={<StoreProfile />} />
+        <Route path="/productdetails" element={<ProductDetails />} />
+        <Route path="/checkout" element={<CheckOut />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/orderdetails" element={<OrderDetails />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
