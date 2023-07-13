@@ -9,6 +9,7 @@ function ViewMyStore() {
   //const [user, setUser]= useState(null)
   const [stores, setStores] = useState({})
   const [product, setProduct] = useState([])
+  const [address, setAddress]= useState({})
   
   
   useEffect(()=>{
@@ -25,6 +26,7 @@ function ViewMyStore() {
             console.log(response.data.stores[0]);
             console.log(response.data)
             setStores(response.data.stores[0])
+            setAddress(response.data.stores[0].address)
             //console.log(stores)
            })
           .catch(error => {
@@ -34,7 +36,7 @@ function ViewMyStore() {
       } catch (error) {
         console.error('Error:', error.message);
       }
-      //console.log(stores.address.address)
+      console.log(stores.address)
     };
 
     fetchData();
@@ -133,23 +135,23 @@ function ViewMyStore() {
 
         <div className=' space-y-4'>
           <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-          <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.address.address}</p>
+          <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{address.address}</p>
             </div>
             
             <div className='grid gap-6 grid-cols-2 mt-4'>
               <div>
                 <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
-                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.address.country}</p>
+                <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{address.country}</p>
               </div>
               <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
-              <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.address.state}</p>
+              <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{address.state}</p>
               </div>
             </div>
 
             <div className='w-1/2 mt-4'>
             <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City/L.G.A</label>
-            <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{stores.address.city}</p>
+            <p className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600  dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >{address.city}</p>
             </div>
         </div>
         </form>
