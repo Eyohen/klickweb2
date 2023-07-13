@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import BackArrow from './BackArrow';
 // import FillButton from './FillButton';
+import CancelOrder from './CancelOrder';
+
 
 import {BsExclamationCircleFill} from 'react-icons/bs'
 
 import img1 from "../../assets/images/GridItem.png"
 import { BiCopy } from 'react-icons/bi';
 import Footer from '../../components/Footer';
+import { Link } from 'react-router-dom';
 
 function OrdersDetails() {
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+        setOpenCancel(true);
+    }
+
+    const closeModal = () => {
+        setOpenCancel(false);
+    }
+
+
+
     return (
         <div className='p-10 font-medium'>
             <div className='flex justify-between mb-8'>
@@ -21,12 +36,21 @@ function OrdersDetails() {
                 </div>
 
                 {/* cancel button */}
-                <div className=' align-bottom'>
-                    <button className='bg-red-600 hover:bg-red-300 font-medium text-center rounded-full py-5 mr-2 px-14 mb-2'>
+                <div className=' align-bottom cursor-pointer'>
+                    <button onClick={()=>{
+                        setShowModal(true);
+                    }} className='bg-red-600 hover:bg-red-300 font-medium text-center rounded-full py-5 mr-2 px-14 mb-2'>
                     Cancel Order
                 </button>
+              
                 </div>
+                
+               
             </div>
+            <CancelOrder className='absolute' isOpen={showModal} onClose={()=> {setShowModal(false)}}
+                title={'Cancel Order'} content={'Are you sure you want to cancel your order'}
+                nevermind={'nevermind'} cancel={'yes, cancel'}
+                ></CancelOrder>
 
             {/* lower section */}
             <div className='flex gap-6 w-full'>
