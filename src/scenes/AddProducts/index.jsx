@@ -38,8 +38,6 @@ function AddProducts() {
         specifications:{
             colors: '',
             weight:'',
-            type:'',
-            shippingcategory_id:'',
             dimensions:{
                 width:'',
                 height:'',
@@ -189,19 +187,26 @@ function AddProducts() {
   const handleSubmitForm = async () => {
    const storeId = localStorage.getItem('storeId')
    const token = localStorage.getItem('access_token');
-   //const newObjectState= objectState.specifications.append('hey', selectedValue)
+   const newObjectState = {
+    ...objectState,
+    specifications: {
+      ...objectState.specifications,
+      type: selectedValue,
+      shippingcategory_id:selectedShippingId,
+
+    }
+  }
 
     const newData = {
         ...values,
-        ...objectState,
+        ...newObjectState,
         images:profileImage,
-        specification:{
-            //type:selectedValue,
-            shippingcategory_id:selectedShippingId,
-        },
         shippingcategory:selectedShippingValue,
       }
     console.log(newData)
+    
+   // console.log(objectState.append('specifications[shippingcategory_id]', '57487393'))
+    console.log(newObjectState)
     try {
       const response = await axios.post(`https://klick-api.onrender.com/product/?category=${selectedId}&storeId=${storeId}`, newData,{
         query: {
@@ -285,15 +290,6 @@ function AddProducts() {
 
                         </div>
 
-                        <div className='bg-red-500 rounded-lg '>
-                                {
-                                    isLoading? ('uploading...'):(
-                                        <button className='w-full px-1 py-2' onClick={uploadImage}>
-                                            Upload Image
-                                        </button>
-                                    )
-                                }
-                            </div>
 
                         <div className=' text-gray-500'>
                             Image format should be in .jpg or .png and the image size should be at least 300px x 300px.
