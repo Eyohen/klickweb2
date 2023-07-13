@@ -5,7 +5,7 @@ const TextInput = ({
   name,
   value,
   onChange,
-  id
+  id, type
   //noLabel= false,
   //required,
   //register = () => {},
@@ -18,7 +18,7 @@ const TextInput = ({
       </label>
       <input
         //{...props}
-        type="text"
+        type={type}
         id={id}
         //{...register(name)}
         value={value}
