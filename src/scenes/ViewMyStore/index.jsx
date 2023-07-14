@@ -10,6 +10,7 @@ function ViewMyStore() {
   const [stores, setStores] = useState({})
   const [product, setProduct] = useState([])
   const [address, setAddress]= useState({})
+  const [socials, setSocials]=useState({})
   
   
   useEffect(()=>{
@@ -27,6 +28,7 @@ function ViewMyStore() {
             console.log(response.data)
             setStores(response.data.stores[0])
             setAddress(response.data.stores[0].address)
+            setSocials(response.data.stores[0].socials)
             //console.log(stores)
            })
           .catch(error => {
@@ -36,7 +38,7 @@ function ViewMyStore() {
       } catch (error) {
         console.error('Error:', error.message);
       }
-      console.log(stores.address)
+      //console.log(stores.address)
     };
 
     fetchData();
@@ -399,19 +401,19 @@ function ViewMyStore() {
         <form className='space-y-5 mt-4'>
           <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Instagram</label>
-              <input type="text" id="first_name" className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="ig" required />
+              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {socials.instagram}</p>
           </div>
           <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Facebook</label>
-              <input type="text" id="first_name" className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="bird" required />
+              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {socials.facebook}</p>
           </div>
           <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Twitter</label>
-              <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="fc" required />
+              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {socials.twitter}</p>
           </div>
           <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">TikTok</label>
-              <input type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-700 text-sm rounded-lg block w-full p-2.5" placeholder="jb" required />
+              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {socials.tiktok}</p>
           </div>
         </form>
       </div>

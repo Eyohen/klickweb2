@@ -14,6 +14,8 @@ import { useEffect, useState } from 'react';
 
 
 function AddProducts() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [categories, setCategories] = useState([])
     const [shippingCategories, setShippingCategories] = useState([])
     const [selectedId, setSelectedId] = useState('')
@@ -184,7 +186,7 @@ function AddProducts() {
 
   const handleSubmitForm = async () => {
    const storeId = localStorage.getItem('storeId')
-   const token = localStorage.getItem('access_token');
+   const token = localStorage.getItem('login_token');
    const newObjectState = {
     ...objectState,
     specifications: {
@@ -201,10 +203,11 @@ function AddProducts() {
         images:profileImage,
         shippingcategory:selectedShippingValue,
       }
-    console.log(newData)
+    //console.log(newData)
     
    // console.log(objectState.append('specifications[shippingcategory_id]', '57487393'))
-    console.log(newObjectState)
+    //console.log(newObjectState)
+    setIsLoading(true)
     try {
       const response = await axios.post(`https://klick-api.onrender.com/product/?category=${selectedId}&storeId=${storeId}`, newData,{
         query: {
@@ -216,10 +219,18 @@ function AddProducts() {
             'Content-Type': 'multipart/form-data'
           }
       });
-
-      console.log('API response:', response.data);
+      if (response.data.success===true) {
+        localStorage.setItem('access_token', response.data.access_token)
+        // Data was posted successfully
+        // Navigate to another page
+        history('/dashboard');
+      } else {
+     throw new Error('Error posting data to API');}
+      //console.log('API response:', response.data);
     }catch (error) {
       console.error('Error sending form data :', error);
+      setError(error.response.data.msg)
+      
      
     }
     //console.log(newData)
@@ -234,7 +245,7 @@ function AddProducts() {
                 <div className='text-xl font-semibold'>Add New Product</div>
                 <div>
                     <button type="button" className=" hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 ">Cancel</button>
-                    <button  type="submit" className="text-gray-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 ">Save</button>
+                    <button  type="submit" className="text-gray-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 "> {isLoading? '...Submitting': 'Save'}</button>
                 </div>
             </div>
 
@@ -365,11 +376,12 @@ function AddProducts() {
                    
                 </div>
             </div>
+            {error? (<div className='text-red-500 text-base'> Oops, something went wrong:  {error} </div>): ''}
             
                 {/* button */}
-                <div className='mt-4'>
+                {/*<div className='mt-4'>
                     <button  type="button" className=" hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 ">+  Add Specification</button>
-                </div>
+                                         </div>*/}
             </div>    
             </div>
             </form>
