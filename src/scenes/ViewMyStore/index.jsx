@@ -439,7 +439,7 @@ function ViewMyStore() {
             <h3>{e.name}</h3>
             <h3 className=' text-gray-400 text-sm'>ID: 595580</h3>
             <div className='flex items-center gap-4'>
-              <div className=' text-blue-700'>{e.quantity.total}</div>
+              <div className=' text-blue-700'>{e.price}</div>
               <span className="bg-yellow-100 text-yellow-600 text-xs font-medium p-2 rounded-lg">
                 Available Stock: {e.quantity.instock}
               </span>
