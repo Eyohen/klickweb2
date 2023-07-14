@@ -25,11 +25,11 @@ const GridItem = () => {
 
   let specificStoreProduct = storeProducts.filter((x) => x.storeId === storeId);
   return (
-    <div>
+    <div className="grid grid-cols-3 gap-4">
       {specificStoreProduct.map((product) => {
         return (
-          <Link to="/productdetails">
-            <div className="rounded-xl flex flex-col gap-4 mb-4">
+          <Link to={`/productdetails/${product.id}`}>
+            <div className="rounded-xl">
               <img
                 src={product.images[0]}
                 alt="GridItem"

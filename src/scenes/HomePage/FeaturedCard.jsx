@@ -1,4 +1,4 @@
-import BabyImage from "../../assets/images/baby.png";
+// import BabyImage from "../../assets/images/baby.png";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -6,7 +6,7 @@ import axios from "axios";
 const FeaturedCard = () => {
   const [stores, setStores] = useState([]);
   useEffect(() => {
-    const getStore = async (storeId) => {
+    const getStore = async () => {
       try {
         const response = await axios.get(
           `https://klick-api.onrender.com/store/`
@@ -21,20 +21,24 @@ const FeaturedCard = () => {
   }, []);
   console.log(stores);
   return (
-    <div>
+    <div className="grid grid-cols-3 gap-4">
       {stores.map((store) => {
         return (
           <Link to={`/store/${store.id}`}>
-            <div className="rounded-xl border border-gray-200 shadow-sm">
-              <img src={store.logo} alt="" className="rounded-xl" />
-              <div className="flex flex-col px-4 py-2">
-                <h1 className="font-semibold my-2">{store.name}</h1>
-                <p className="text-gray-400 mb-2">
+            <div className="p-3 border rounded">
+              <img
+                src={store.logo}
+                alt=""
+                className=""
+                style={{ display: "block", width: "100%" }}
+              />
+              <div className="">
+                <h1 className="">{store.name}</h1>line-block
+                <p className="">
                   {store.deliveryAddress.city +
                     ", " +
                     store.deliveryAddress.state}
-                  <span className="border border-r border-gray-300 mx-2" /> 4.8
-                  (1.2k){" "}
+                  <span className="" /> 4.8 (1.2k){" "}
                 </p>
               </div>
             </div>

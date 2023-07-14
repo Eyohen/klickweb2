@@ -27,10 +27,21 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
-
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-
+        <Route path="/verify" element={<Verify />} />
+        <Route path="/viewmystore" element={<ViewMyStore />} />
+        <Route path="/storeaddress" element={<StoreAddress />} />
+        <Route path="/storebankdetails" element={<StorebankDetails />} />
+        <Route path="/businesslogo" element={<BusinessLogo />} />
+        <Route path="/addproduct" element={<AddProducts />} />
+        <Route path="/socialmedialink" element={<SocialMediaLinks />} />
+        <Route path="/dashboard/store/create" element={<CreateStore />} />
+        <Route path="/store" element={<StoreProfile />} />
+        <Route path="/productdetails" element={<ProductDetails />} />
+        <Route path="/checkout" element={<CheckOut />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/orderdetails" element={<OrderDetails />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/viewmystore" element={<ViewMyStore />} />
         <Route path="/storeaddress" element={<StoreAddress />} />
@@ -40,7 +51,7 @@ export default function App() {
         <Route path="/socialmedialink" element={<SocialMediaLinks />} />
         <Route path="/dashboard/store/create" element={<CreateStore />} />
         <Route path="/store/:id" element={<StoreProfile />} />
-        <Route path="/productdetails" element={<ProductDetails />} />
+        <Route path="/productdetails/:id" element={<ProductDetails />} />
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/orderdetails" element={<OrderDetails />} />

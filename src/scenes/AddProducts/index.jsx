@@ -5,8 +5,13 @@ import  TextInput from '../../components/TextInput';
 import Stepper from '../../components/Stepper';
 import useSignup from '../../hooks/useSignup';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
+
+
+
+
 
 function AddProducts() {
     const [categories, setCategories] = useState([])
@@ -17,16 +22,78 @@ function AddProducts() {
     const [selectedShippingValue, setSelectedShippingValue] = useState('');
     const [profileImage, setProfileImage]= useState('')
     const [imagePreview, setImagePreview] = useState(null)
-    const [isLoading, setIsLoading] = useState(false)
-    const [imageUrl, setImageUrl] = useState('')
+
+    const initialState = {
+        name:'',
+        price:'',
+        description:'',
+    };
+
+    const [objectState, setObjectState] = useState({
+        quantity:{
+            total:'',
+            instock:'',
+            checking:''
+        },
+        specifications:{
+            colors: '',
+            weight:'',
+            dimensions:{
+                width:'',
+                height:'',
+                length:''
+            }
+
+        }
+      });
+
+    const handleQuantityChange = (e) => {
+        const { name, value } = e.target;
+        setObjectState(prevState => ({
+          ...prevState,
+          quantity: {
+            ...prevState.quantity,
+            [name]: value
+          }
+        }));
+      };
+
+      const handleSpecificationsChange = (e) => {
+        const { name, value } = e.target;
+        setObjectState(prevState => ({
+          ...prevState,
+          specifications: {
+            ...prevState.specifications,
+            [name]: value
+          }
+        }));
+      };
+
+      const handleSpecificationsDimensionsChange = (e) => {
+        const { name, value } = e.target;
+        setObjectState(prevState => ({
+          ...prevState,
+          specifications: {
+            ...prevState.specifications,
+            dimensions: {
+              ...prevState.specifications.dimensions,
+              [name]: value
+            }
+          }
+        }));
+      };
+    
 
     const handleImageChange = (e)=>{
         setProfileImage(e.target.files[0])
         setImagePreview(URL.createObjectURL(e.target.files[0]))
-    }
 
-    let imageURL;
-    const uploadImage = async (e)=>{
+        console.log(e.target.result)
+        
+    }
+   
+    //let imageURL;
+   /* const uploadImage = async (e)=>{
         e.preventDefault()
         setIsLoading(true)
 
@@ -72,7 +139,7 @@ function AddProducts() {
         setImageUrl(imageURL)
     } 
     //alert(imageURL)
-    console.log(`this is image url ${imageUrl}`)
+    console.log(`this is image url ${imageUrl}`)*/
 
     useEffect(()=>{
         const getCategories = async ()=>{
@@ -114,30 +181,33 @@ function AddProducts() {
         //console.log(selectedOption.id )
       };
 
-    const history = useNavigate()
-    const initialState = {
-        name:'',
-        price:'',
-        description:'',
-       // images:''
-    };
+    //const history = useNavigate()
+   
 
   const handleSubmitForm = async () => {
-   // console.log(imageURL)
-               
-    
-    const storeId = localStorage.getItem('storeId')
-    const token = localStorage.getItem('access_token');
+   const storeId = localStorage.getItem('storeId')
+   const token = localStorage.getItem('access_token');
+   const newObjectState = {
+    ...objectState,
+    specifications: {
+      ...objectState.specifications,
+      type: selectedValue,
+      shippingcategory_id:selectedShippingId,
+
+    }
+  }
+
     const newData = {
         ...values,
-        images:`${imageUrl}` ,
-        'specifications[type]':selectedValue,
-        'shippingcategory':selectedShippingValue,
-        'specifications[shippingcategory_id]': selectedShippingId
+        ...newObjectState,
+        images:profileImage,
+        shippingcategory:selectedShippingValue,
       }
+    console.log(newData)
     
+   // console.log(objectState.append('specifications[shippingcategory_id]', '57487393'))
+    console.log(newObjectState)
     try {
-        
       const response = await axios.post(`https://klick-api.onrender.com/product/?category=${selectedId}&storeId=${storeId}`, newData,{
         query: {
             category: `${selectedId}`,
@@ -145,20 +215,16 @@ function AddProducts() {
         },
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'multipart/form-data'
           }
       });
 
       console.log('API response:', response.data);
-      if (response.data.success===true) {
-        history('/dashboard');
-        console.log('yes')
-      } else {
-     throw new Error('Error posting data to API');}        } catch (error) {
+    }catch (error) {
       console.error('Error sending form data :', error);
      
     }
-    console.log(newData)
+    //console.log(newData)
   };
   const { values, handleChange, handleSubmit, } = useSignup(initialState, handleSubmitForm);
     return (
@@ -193,8 +259,8 @@ function AddProducts() {
                 </div>
 
                 <div className='grid gap-6 grid-cols-2'>
-                    < TextInput value={values.quantityTotal} id='quantityTotal' name="quantity[total]"  title={"Quantity [total]"}  onChange={handleChange} />
-                    < TextInput value={values.quantityInstock} id='quantityInstock' name="quantity[instock]"  title={"Quantity [inStock]"} onChange={handleChange}/>
+                    < TextInput type='number' value={objectState.quantity.total} id='total' name="total"  title={"Quantity [total]"}  onChange={handleQuantityChange} />
+                    < TextInput type='number' value={objectState.quantity.instock} id='instock' name="instock"  title={"Quantity [inStock]"} onChange={handleQuantityChange}/>
                 </div>
                 
                 < TextInput value={values.description} id='description' name='description' title={"Description"} onChange={handleChange}/>
@@ -212,13 +278,6 @@ function AddProducts() {
                     <div>
                         <div className="flex items-center justify-center w-full mb-5">
                             <div  className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                 {/*<div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                   <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                    </svg>
-                                    <p className="mb-2 font-semibold">Add Photo</p>
-    <p className="text-sm text-gray-500">0/5</p>
-                                </div>*/}
                                 <label className={imagePreview && 'hidden'} htmlFor="dropzone-file">Add Photo</label>
                                 <input id="dropzone-file" type="file" accept='image/png, image/jpeg, image/jpg' name='image' className="hidden" onChange={handleImageChange} />
                                 {
@@ -231,15 +290,6 @@ function AddProducts() {
 
                         </div>
 
-                        <div className='bg-red-500 rounded-lg '>
-                                {
-                                    isLoading? ('uploading...'):(
-                                        <button className='w-full px-1 py-2' onClick={uploadImage}>
-                                            Upload Image
-                                        </button>
-                                    )
-                                }
-                            </div>
 
                         <div className=' text-gray-500'>
                             Image format should be in .jpg or .png and the image size should be at least 300px x 300px.
@@ -251,8 +301,6 @@ function AddProducts() {
             {/* Inventory */}
             <div className='block w-full  p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow'>
                 <h4 className='text-xl font-semibold'>Inventory</h4>
-
-               
                 <div className='flex flex-col'>
                 <label>Product Category</label>
                 <select className='className="block w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"' id='specificationsType' name="specifications[type]" onChange={handleSelectChange} value={selectedValue} >
@@ -262,8 +310,7 @@ function AddProducts() {
                                 <option key={e.id} value={e.name} id={e.id}>{ e.name }</option>
                             )
                         })}
-                    </select>
-                    
+                    </select>   
                 </div>
                 <div className='flex flex-col'>
                         <label>Shipping Category</label>
@@ -286,22 +333,22 @@ function AddProducts() {
 
 
                 <div>
-                    < TextInput value={values.specificationsColors} id='specificationsColors' name="specifications[colors]"  title={"Specification Colors"} onChange={handleChange}/>
+                    < TextInput value={objectState.specifications.colors} id='colors' name="colors"  title={"Specification Colors"} onChange={handleSpecificationsChange }/>
                 </div>
                     <div>
-                                < TextInput value={values.specificationsWeight} id='specificationsWeight' name="specifications[weight]"  title={"Specifications Weight"} onChange={handleChange} />
+                                < TextInput value={objectState.specifications.weight} id='weight' name="weight"  title={"Specifications Weight"} onChange={handleSpecificationsChange} />
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                 </div>
 
                 <div className='grid gap-6 grid-cols-2'>
                     <div>
-                        < TextInput value={values.specificationsDimensionsLength} id='specificationsDimensionsLength' name="specifications[dimensions][length]" title={"Length"} onChange={handleChange}/>
+                        < TextInput value={objectState.specifications.dimensions.length} id='length' name="length" title={"Length"} onChange={handleSpecificationsDimensionsChange}/>
                         <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                             
                     <div>
-                                < TextInput value={values.specificationsDimensionsWidth} id='specificationsDimensionsWidth' name="specifications[dimensions][width]"  title={"Width"} onChange={handleChange}/>
+                                < TextInput value={objectState.specifications.dimensions.width} id='width' name="width"  title={"Width"} onChange={handleSpecificationsDimensionsChange}/>
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                     
@@ -309,7 +356,7 @@ function AddProducts() {
 
                 <div className='grid gap-6 grid-cols-2'>
                     <div>
-                                < TextInput value={values.specificationsDimensionsHeight} id='specificationsDimensionsHeight' name="specifications[dimensions][height]"  title={"Height"} onChange={handleChange} />
+                                < TextInput value={objectState.specifications.dimensions.height} id='height' name="height"  title={"Height"} onChange={handleSpecificationsDimensionsChange} />
                                  <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
                     </div>
                     

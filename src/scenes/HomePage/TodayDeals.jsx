@@ -17,7 +17,7 @@ const TodayDeals = () => {
         <Tags tag="Beauty" />
         <Tags tag="Fashion" />
       </div>
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="">
         <RecommendedPRoductCards />
       </div>
     </section>

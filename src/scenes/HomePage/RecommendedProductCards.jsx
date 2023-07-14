@@ -18,12 +18,12 @@ const RecommendedPRoductCards = () => {
     };
     getProducts();
   }, []);
-  console.log(products);
+
   return (
-    <div className="rounded-xl border border-gray-200 shadow-sm">
+    <div className="grid grid-cols-3 gap-4">
       {products.map((product) => {
         return (
-          <Link to={`/product/${product.id}`}>
+          <Link to={`/productdetails/${product.id}`}>
             <img src={product.images[0]} alt="" className="rounded-xl w-full" />
             <div className="flex flex-col px-4 py-2">
               <h1 className="font-semibold my-2"></h1>
