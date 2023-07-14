@@ -1,4 +1,4 @@
-import React from "react";
+/*import React from "react";
 
 const CartComponent = () => {
   return (
@@ -46,8 +46,8 @@ const CartComponent = () => {
           <p className="mt-5">Discount Code</p>
 
           <form class="flex items-center mt-2">
-            {/* <label for="voice-search" class="sr-only">Search</label> */}
-            <div class="relative w-full">
+            {/* <label for="voice-search" class="sr-only">Search</label> */
+           {/* <div class="relative w-full">
               <input
                 type="text"
                 id="voice-search"
@@ -98,4 +98,4 @@ const CartComponent = () => {
   );
 };
 
-export default CartComponent;
+export default CartComponent;*/}
