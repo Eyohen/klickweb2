@@ -13,6 +13,7 @@ import PlacesAutocomplete, {
 const Register = () => {
   const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
+  const [city, setCity] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,6 +21,8 @@ const Register = () => {
   const handleChangeLocation = (newAddress) => {
     setAddress(newAddress);
   };
+
+  // console.log(`this is my location:${location}`)
 
   const handleSelect = async (selectedAddress) => {
     setAddress(selectedAddress);

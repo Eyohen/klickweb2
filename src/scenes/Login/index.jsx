@@ -22,9 +22,9 @@ const Login = () => {
         "https://klick-api.onrender.com/auth/signin",
         values
       );
-      localStorage.setItem("user", JSON.stringify(response.data));
       console.log("API response:", response.data);
       if (response.data.success === true) {
+        localStorage.setItem("login_token", response.data.access_token);
         history("/");
       } else {
         throw new Error("Error posting data to API");
