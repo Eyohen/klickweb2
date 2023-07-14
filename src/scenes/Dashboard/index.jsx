@@ -3,7 +3,7 @@ import WebIcon from "../../assets/icons/web.png"
 import PlusIcon from "../../assets/icons/plus.png"
 import { BsChevronRight } from "react-icons/bs"
 import QuickActions from "./QuickActions"
-import { LineChart, Line, PieChart, Pie, ComposedChart, Area, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
+import {  Line, PieChart, Pie, ComposedChart, Area, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 import {Link } from 'react-router-dom'
 
 const Dashboard = () => {

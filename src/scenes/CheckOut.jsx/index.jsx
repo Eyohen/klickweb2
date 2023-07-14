@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 
 import BackArrow from "./BackArrow";
 import FillButton from "./FillButton";
@@ -70,7 +70,7 @@ function CheckOut() {
               <div className=" flex justify-between">
                 <div className="mb-3">Ship with seller</div>
 
-                <div class="">
+                <div className="">
                   <input
                     id="default-checkbox"
                     type="checkbox"
@@ -95,7 +95,7 @@ function CheckOut() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="">
               <div className=" mb-6">Shipping Method</div>
@@ -103,7 +103,7 @@ function CheckOut() {
               <div className=" flex justify-between">
                 <div className="mb-3">Ship with seller</div>
 
-                <div class="">
+                <div className="">
                   <input
                     id="default-checkbox"
                     type="checkbox"
@@ -140,13 +140,13 @@ function CheckOut() {
 
               <button
                 type="button"
-                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 1000
               </button>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="">
               <div className=" mb-6">Shipping Method</div>
@@ -154,7 +154,7 @@ function CheckOut() {
               <div className=" flex justify-between">
                 <div className="mb-3">Ship with seller</div>
 
-                <div class="">
+                <div className="">
                   <input
                     id="default-checkbox"
                     type="checkbox"
@@ -215,7 +215,7 @@ function CheckOut() {
 
               <button
                 type="button"
-                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 1500
               </button>
@@ -232,7 +232,7 @@ function CheckOut() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="flex gap-3 items-center">
               <AiFillStar />
@@ -241,7 +241,7 @@ function CheckOut() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="flex gap-3 items-center">
               <AiFillStar />
@@ -274,7 +274,7 @@ function CheckOut() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="flex gap-4">
               <img src={img1} className="w-24 h-24 rounded-xl" />
@@ -296,26 +296,26 @@ function CheckOut() {
             <div className="">
               <p className="mt-5">Discount Code</p>
 
-              <form class="flex items-center mt-2">
-                {/* <label for="voice-search" class="sr-only">Search</label> */}
-                <div class="relative w-full">
+              <form className="flex items-center mt-2">
+                {/* <label for="voice-search" className="sr-only">Search</label> */}
+                <div className="relative w-full">
                   <input
                     type="text"
                     id="voice-search"
-                    class="bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required
                   />
                 </div>
                 <button
                   type="submit"
-                  class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-gray-200 rounded-lg border  hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-gray-200 rounded-lg border  hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Apply
                 </button>
               </form>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="space-y-5">
               <div className="flex justify-between">
@@ -332,7 +332,7 @@ function CheckOut() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className=" space-y-4">
               <div className="flex justify-between">

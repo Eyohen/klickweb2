@@ -23,7 +23,7 @@ const RecommendedPRoductCards = () => {
     <div className="grid grid-cols-4 gap-4">
       {products.map((product) => {
         return (
-          <Link to={`/productdetails/${product.id}`}>
+          <Link key={product.id} to={`/productdetails/${product.id}`}>
             <img
               src={product.images[0]}
               alt=""

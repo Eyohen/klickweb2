@@ -1,4 +1,4 @@
-import GridImage from "../../assets/images/GridItem.png";
+//import GridImage from "../../assets/images/GridItem.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
@@ -28,7 +28,7 @@ const GridItem = () => {
     <div className="grid grid-cols-3 gap-4">
       {specificStoreProduct.map((product) => {
         return (
-          <Link to={`/productdetails/${product.id}`}>
+          <Link key={product.id} to={`/productdetails/${product.id}`}>
             <div className="rounded-xl">
               <img
                 src={product.images[0]}

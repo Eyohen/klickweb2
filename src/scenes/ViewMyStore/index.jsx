@@ -10,7 +10,7 @@ function ViewMyStore() {
   const [stores, setStores] = useState({})
   const [product, setProduct] = useState([])
   const [address, setAddress]= useState({})
-  const [socials, setSocials]=useState({})
+  //const [socials, setSocials]=useState({})
   
   
   useEffect(()=>{
@@ -28,7 +28,7 @@ function ViewMyStore() {
             console.log(response.data)
             setStores(response.data.stores[0])
             setAddress(response.data.stores[0].address)
-            setSocials(response.data.stores[0].socials)
+            //setSocials(response.data.stores[0].socials)
             //console.log(stores)
            })
           .catch(error => {
@@ -401,19 +401,19 @@ function ViewMyStore() {
         <form className='space-y-5 mt-4'>
           <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Instagram</label>
-              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {socials.instagram}</p>
+              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> Instagram</p>
           </div>
           <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Facebook</label>
-              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {socials.facebook}</p>
+              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> Facebook</p>
           </div>
           <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Twitter</label>
-              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {socials.twitter}</p>
+              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> Twitter</p>
           </div>
           <div>
               <label htmlFor="first_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">TikTok</label>
-              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> {socials.tiktok}</p>
+              <p className="bg-gray-50 border border-gray-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">Tiktok</p>
           </div>
         </form>
       </div>
@@ -439,7 +439,7 @@ function ViewMyStore() {
             <h3>{e.name}</h3>
             <h3 className=' text-gray-400 text-sm'>ID: 595580</h3>
             <div className='flex items-center gap-4'>
-              <div className=' text-blue-700'>{e.quantity.total}</div>
+              <div className=' text-blue-700'>{e.price}</div>
               <span className="bg-yellow-100 text-yellow-600 text-xs font-medium p-2 rounded-lg">
                 Available Stock: {e.quantity.instock}
               </span>
