@@ -13,31 +13,34 @@ import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const [storeData, setStoreData] = useState({});
+  const [isLoading, setIsLoading] = useState(true); // Added loading state
 
   const params = useParams();
-
-  //   const getToken = () => {
-  //     return JSON.parse(localStorage.getItem("user").access_token);
-  //   };
-
   const storeId = params.id;
 
   useEffect(() => {
-    const getStore = async (storeId) => {
+    const getStore = async () => {
       try {
         const response = await axios.get(
           `https://klick-api.onrender.com/store/${storeId}`
         );
         const data = response.data.data;
         setStoreData(data);
+        setIsLoading(false); // Set loading to false once data is fetched
       } catch (error) {
         console.log(error);
+        setIsLoading(false); // Set loading to false even on error
       }
     };
-    getStore(storeId);
-  }, []);
 
-  console.log(storeData);
+    getStore();
+  }, [storeId]);
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Render a loading state while fetching data
+  }
+
+  console.log("This is store data ==== ",storeData);
 
   return (
     <div className=" mx-auto border-2 border-gray-200 rounded-xl flex flex-col space-y-5 max-w-md">
