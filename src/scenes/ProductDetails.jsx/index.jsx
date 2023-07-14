@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-// import img1 from "../../assets/images/GridItem.png";
+import img1 from "../../assets/images/GridItem.png";
 import { AiFillStar } from "react-icons/ai";
 import Footer from "../../components/Footer";
 import BackArrow from "./BackArrow";
@@ -60,14 +60,22 @@ function ProductDetails() {
       <div className="w-full gap-20 flex">
         {/* left */}
         <div className=" w-1/2">
-          {/* <div>
-            <img src={product.images[0]} className="rounded-xl" />
+          <div>
+            {product.images ? (
+              <img src={product.images[0]} className="rounded-xl" />
+            ) : (
+              <img src={img1} className="rounded-xl" />
+            )}
           </div>
           <div className="flex gap-4 h-28 w-28 mt-5">
-            {product.images.map((x) => {
-              return <img src={x} className="rounded-2xl" />;
-            })}
-          </div> */}
+            {product.images ? (
+              product.images.map((x) => {
+                return <img src={x} className="rounded-2xl" key={x} />;
+              })
+            ) : (
+              <img src={img1} className="rounded-xl" />
+            )}
+          </div>
 
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
@@ -75,12 +83,16 @@ function ProductDetails() {
 
           <div className=" flex justify-between">
             <div className="flex gap-4">
-              {/* <div>
-                    <img
-                      src={product.images[0]}
-                      className="h-10 w-10 rounded-full"
-                    />
-                  </div> */}
+              <div>
+                {product.images ? (
+                  <img
+                    src={product.images[0]}
+                    className="h-10 w-10 rounded-full"
+                  />
+                ) : (
+                  <img src={img1} className="h-10 w-10 rounded-full" />
+                )}
+              </div>
               <div className="">
                 <h3 className=" font-semibold">The Cuddle Club</h3>
                 <div className=" text-gray-500 flex items-center gap-2">

@@ -45,11 +45,7 @@ const Verify = () => {
       if (response.data.success === true) {
         // Data was posted successfully
         // Navigate to another page
-<<<<<<< HEAD
         history("/");
-=======
-        history('/login');
->>>>>>> 20750a417731e0ec7e0534283eea3f404b71b5b6
       }
       console.log(response.data);
     } catch (error) {

@@ -28,7 +28,7 @@ function ProductCard({ product }) {
     <div className="grid grid-cols-5 gap-4">
       {similarProduct.map((product) => {
         return (
-          <div className="">
+          <div className="" key={product.id}>
             <img className="h-auto max-w-full rounded-lg" src={img1} />
             <div className=" text-lg font-medium">{product.name}</div>
             <div className="flex space-x-3 items-center text-sm">
