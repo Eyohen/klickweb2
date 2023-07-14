@@ -34,6 +34,11 @@ const GridItem = () => {
                 src={product.images[0]}
                 alt="GridItem"
                 className="rounded-xl"
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                }}
               />
               <h1 className="text-xl font-semibold">{product.name}</h1>
               <p>

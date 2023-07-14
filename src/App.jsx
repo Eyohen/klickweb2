@@ -20,6 +20,8 @@ import Orders from "./scenes/Orders";
 import OrderDetails from "./scenes/OrderDetails";
 
 export default function App() {
+  // const cartState = []
+
   return (
     <BrowserRouter>
       <Routes>

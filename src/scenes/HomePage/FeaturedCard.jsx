@@ -21,7 +21,7 @@ const FeaturedCard = () => {
   }, []);
   console.log(stores);
   return (
-    <div className="grid grid-cols-3 gap-4">
+    <div className="grid grid-cols-4 gap-4">
       {stores.map((store) => {
         return (
           <Link to={`/store/${store.id}`}>
@@ -30,15 +30,20 @@ const FeaturedCard = () => {
                 src={store.logo}
                 alt=""
                 className=""
-                style={{ display: "block", width: "100%" }}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  height: "300px",
+                  objectFit: "cover",
+                }}
               />
               <div className="">
-                <h1 className="">{store.name}</h1>line-block
+                <h1 className="">{store.name}</h1>
                 <p className="">
                   {store.deliveryAddress.city +
                     ", " +
                     store.deliveryAddress.state}
-                  <span className="" /> 4.8 (1.2k){" "}
+                  <span className="" />{" "}
                 </p>
               </div>
             </div>

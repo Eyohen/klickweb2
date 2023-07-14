@@ -25,8 +25,20 @@ const Category = () => {
       {categories.map((x) => {
         return (
           <div className="flex flex-col space-y-4" key={x.id}>
-            <div className="w-[163px] h-[163px] rounded-lg">
-              <img src={x.image} alt="mum" className="" />
+            <div
+              className="w-[163px] h-[163px] rounded-lg"
+              style={{ background: "red", height: "120px" }}
+            >
+              <img
+                src={x.image}
+                alt="mum"
+                className="rounded"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
             </div>
             <p className="font-semibold">{x.name}</p>
           </div>

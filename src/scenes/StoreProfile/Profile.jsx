@@ -37,6 +37,8 @@ const Profile = () => {
     getStore(storeId);
   }, []);
 
+  console.log(storeData);
+
   return (
     <div className=" mx-auto border-2 border-gray-200 rounded-xl flex flex-col space-y-5 max-w-md">
       <img
@@ -46,12 +48,14 @@ const Profile = () => {
       />
       <div className="flex justify-between items-center px-4 bg-gray-50 py-4">
         <div className="flex justify-between items-center gap-4">
-          <img src={storeData.log} alt="Profile" className="w-12" />
+          <img src={storeData.logo} alt="Profile" className="w-12" />
           <div className="flex flex-col gap-1">
             <h1 className="font-bold text-xl">{storeData.name}</h1>
             <h1 className="text-gray-500 flex items-center gap-2">
               <LocationIcon />
-              {storeData.location}
+              {storeData.deliveryAddress.address +
+                ", " +
+                storeData.deliveryAddress.state}
             </h1>
           </div>
         </div>
