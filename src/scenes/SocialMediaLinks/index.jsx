@@ -61,7 +61,7 @@ const SocialMediaLinks = () => {
                     'Content-Type': 'application/json'
                   }
             })
-            if (response.success===true){
+            if (response.data.success===true){
                 console.log(`successfully added social media :${response}`)
                 navigate('/dashboard')
             }
