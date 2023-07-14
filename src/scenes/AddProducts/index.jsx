@@ -5,7 +5,7 @@ import  TextInput from '../../components/TextInput';
 import Stepper from '../../components/Stepper';
 import useSignup from '../../hooks/useSignup';
 import axios from 'axios';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 
@@ -182,6 +182,7 @@ function AddProducts() {
       };
 
     //const history = useNavigate()
+    const history = useNavigate();
    
 
   const handleSubmitForm = async () => {
@@ -229,10 +230,12 @@ function AddProducts() {
       //console.log('API response:', response.data);
     }catch (error) {
       console.error('Error sending form data :', error);
-      setError(error.response.data.msg)
+      setError(error.data.msg)
       
      
-    }
+    }finally {
+        setIsLoading(false);
+      }
     //console.log(newData)
   };
   const { values, handleChange, handleSubmit, } = useSignup(initialState, handleSubmitForm);
