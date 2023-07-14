@@ -84,13 +84,12 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. At
-                    velit illum provident a, ipsa maiores deleniti consectetur
-                    nobis et eaque.
+                  Your order will be handled completely by the seller from payment to delivery.
+Contact seller for delivery information
                   </p>
-                  <p>
+                  {/* <p>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>
@@ -98,10 +97,10 @@ function CheckOut() {
             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="">
-              <div className=" mb-6">Shipping Method</div>
+              {/* <div className=" mb-6">Shipping Method</div> */}
 
               <div className=" flex justify-between">
-                <div className="mb-3">Ship with seller</div>
+                <div className="mb-3">Ship with K-Ship</div>
 
                 <div className="">
                   <input
@@ -117,7 +116,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Delivered by K-verified shippers
                   </p>
                 </div>
               </div>
@@ -125,7 +124,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Real-Time package tracking
                   </p>
                 </div>
               </div>
@@ -133,7 +132,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Insurance on good in transit
                   </p>
                 </div>
               </div>
@@ -149,10 +148,10 @@ function CheckOut() {
             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="">
-              <div className=" mb-6">Shipping Method</div>
+            
 
               <div className=" flex justify-between">
-                <div className="mb-3">Ship with seller</div>
+                <div className="mb-3">Ship with K-Secure</div>
 
                 <div className="">
                   <input
@@ -168,7 +167,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Delivered by K-verified shippers
                   </p>
                 </div>
               </div>
@@ -176,7 +175,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Payment secured by Klick
                   </p>
                 </div>
               </div>
@@ -184,7 +183,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Real-Time package tracking
                   </p>
                 </div>
               </div>
@@ -192,7 +191,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Insurance on good in transit
                   </p>
                 </div>
               </div>
@@ -200,7 +199,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Insurance on good in transit
                   </p>
                 </div>
               </div>
@@ -208,7 +207,7 @@ function CheckOut() {
                 <AiFillStar />
                 <div className=" text-sm text-gray-400 font-normal">
                   <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  3 days return
                   </p>
                 </div>
               </div>
