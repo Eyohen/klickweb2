@@ -24,7 +24,7 @@ const FeaturedCard = () => {
     <div className="grid grid-cols-4 gap-4">
       {stores.map((store) => {
         return (
-          <Link to={`/store/${store.id}`}>
+          <Link key={store.id} to={`/store/${store.id}`}>
             <div className="p-3 border rounded">
               <img
                 src={store.logo}

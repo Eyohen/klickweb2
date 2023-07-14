@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+/*import  { useState } from "react";
 
 import BackArrow from "./BackArrow";
 import FillButton from "./FillButton";
@@ -32,7 +32,7 @@ function Cart() {
       <h3 className=" mb-8 font-semibold text-2xl">Place Order</h3>
 
       <div className="w-full flex gap-5">
-        {/* left */}
+        {/* left }
         <div className="w-4/6 space-y-5">
           <div className="block p-6 bg-white border border-gray-200 rounded-lg">
             <div className="mb-6">Delivery to</div>
@@ -70,7 +70,7 @@ function Cart() {
               <div className=" flex justify-between">
                 <div className="mb-3">Ship with seller</div>
 
-                <div class="">
+                <div className="">
                   <input
                     id="default-checkbox"
                     type="checkbox"
@@ -95,7 +95,7 @@ function Cart() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="">
               <div className=" mb-6">Shipping Method</div>
@@ -103,7 +103,7 @@ function Cart() {
               <div className=" flex justify-between">
                 <div className="mb-3">Ship with seller</div>
 
-                <div class="">
+                <div className="">
                   <input
                     id="default-checkbox"
                     type="checkbox"
@@ -140,13 +140,13 @@ function Cart() {
 
               <button
                 type="button"
-                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 1000
               </button>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="">
               <div className=" mb-6">Shipping Method</div>
@@ -154,7 +154,7 @@ function Cart() {
               <div className=" flex justify-between">
                 <div className="mb-3">Ship with seller</div>
 
-                <div class="">
+                <div className="">
                   <input
                     id="default-checkbox"
                     type="checkbox"
@@ -215,7 +215,7 @@ function Cart() {
 
               <button
                 type="button"
-                class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
               >
                 1500
               </button>
@@ -232,7 +232,7 @@ function Cart() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="flex gap-3 items-center">
               <AiFillStar />
@@ -241,7 +241,7 @@ function Cart() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className="flex gap-3 items-center">
               <AiFillStar />
@@ -252,7 +252,7 @@ function Cart() {
           </div>
         </div>
 
-        {/* right */}
+        {/* right }
       </div>
 
       <Footer />
@@ -260,4 +260,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default Cart;*/

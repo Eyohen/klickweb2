@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+//import React, { useState } from 'react'
 import { MdOutlineCancel } from 'react-icons/md'
 
 import FillButton from './FillButton';
@@ -47,11 +47,11 @@ function CheckOutAddress({isOpen, onClose}) {
                 </form>
 
                 <div className=' flex gap-5 items-center mt-3'>
-                    <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                     <p>Use as default address</p>
                 </div>
 
-                <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
                 <div className=' text-right'>
                     <FillButton name='Save' onClick={onClose} />

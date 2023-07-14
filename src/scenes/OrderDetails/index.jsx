@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import BackArrow from "./BackArrow";
 // import FillButton from './FillButton';
 import CancelOrder from "./CancelOrder";
@@ -8,18 +8,18 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 import img1 from "../../assets/images/GridItem.png";
 import { BiCopy } from "react-icons/bi";
 import Footer from "../../components/Footer";
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 function OrdersDetails() {
   const [showModal, setShowModal] = useState(false);
 
-  const openModal = () => {
+  /*const openModal = () => {
     setOpenCancel(true);
   };
 
   const closeModal = () => {
     setOpenCancel(false);
-  };
+  };*/
 
   return (
     <div className="p-10 font-medium">
@@ -129,7 +129,7 @@ function OrdersDetails() {
               </div>
             </div>
 
-            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
             <div className=" space-y-4">
               <div className="flex justify-between">
@@ -188,7 +188,7 @@ function OrdersDetails() {
 
                 <span
                   type="button"
-                  class="px-2 py-1 text-xs font-medium text-center text-gray-500 bg-gray-200 rounded-lg "
+                  className="px-2 py-1 text-xs font-medium text-center text-gray-500 bg-gray-200 rounded-lg "
                 >
                   Ongoing
                 </span>
@@ -206,7 +206,7 @@ function OrdersDetails() {
                   id="default-checkbox"
                   type="checkbox"
                   value=""
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <div className=" space-y-1">
                   <p className="">Order Confirmed</p>
@@ -230,7 +230,7 @@ function OrdersDetails() {
                   id="default-checkbox"
                   type="checkbox"
                   value=""
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <div className=" space-y-1">
                   <p className="">Order Confirmed</p>
@@ -257,7 +257,7 @@ function OrdersDetails() {
                   id="default-checkbox"
                   type="checkbox"
                   value=""
-                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <div className=" space-y-1">
                   <p className="">Order Confirmed</p>

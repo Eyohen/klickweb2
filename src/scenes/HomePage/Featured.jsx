@@ -14,7 +14,7 @@
 // export default Featured;
 
 import FeaturedCard from "./FeaturedCard";
-import React from "react";
+//import React from "react";
 
 const Featured = () => {
   return (

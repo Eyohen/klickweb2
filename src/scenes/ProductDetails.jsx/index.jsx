@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import img1 from "../../assets/images/GridItem.png";
 import { AiFillStar } from "react-icons/ai";
@@ -132,10 +132,10 @@ function ProductDetails() {
                 Available Colors
               </div>
               <div className=" flex gap-4">
-                <label class="block h-12 w-12 cursor-pointer rounded-full bg-[#d7f98c] transition hover:!opacity-100" />
-                <label class="block h-12 w-12 cursor-pointer rounded-full bg-[#348ee7] transition hover:!opacity-100" />
-                <label class="block h-12 w-12 cursor-pointer rounded-full bg-[#e345a6] transition hover:!opacity-100" />
-                <label class="block h-12 w-12 cursor-pointer rounded-full bg-[#230505] transition hover:!opacity-100" />
+                <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#d7f98c] transition hover:!opacity-100" />
+                <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#348ee7] transition hover:!opacity-100" />
+                <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#e345a6] transition hover:!opacity-100" />
+                <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#230505] transition hover:!opacity-100" />
               </div>
             </div>
 
