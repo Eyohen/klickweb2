@@ -19,6 +19,10 @@ function ProductDetails() {
   const cartContext = useContext(CartContext);
   const { addToCart } = cartContext;
 
+  const navigateToCheckout = () => {
+    navigate("/checkout");
+  };
+
   // after rendering
   const { cart } = useContext(CartContext);
   console.log("🚀 ~ file: index.jsx:25 ~ ProductDetails ~ cart:", cart)
@@ -71,7 +75,7 @@ function ProductDetails() {
             {product.images ? (
               <img
                 src={product.images[0]}
-                className="rounded-xl w-full h-full"
+                className="rounded-xl w-2/3 h-full"
               />
             ) : (
               <img src={img1} className="rounded-xl" alt="Product" />
@@ -173,6 +177,7 @@ function ProductDetails() {
 
             <div className="my-8 flex w-full">
               <FillButton
+              onClick={navigateToCheckout}
                 name="Buy Now"
                 className="w-1/2"
               />
