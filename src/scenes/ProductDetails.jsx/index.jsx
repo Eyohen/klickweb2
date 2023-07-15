@@ -62,7 +62,7 @@ function ProductDetails() {
         <div className=" w-1/2">
           <div>
             {product.images ? (
-              <img src={product.images[0]} className="rounded-xl" />
+              <img src={product.images[0]} className="rounded-xl w-full h-full" />
             ) : (
               <img src={img1} className="rounded-xl" />
             )}
