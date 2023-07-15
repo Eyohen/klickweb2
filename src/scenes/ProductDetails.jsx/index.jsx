@@ -9,7 +9,6 @@ import OutlineButton from "./OutlineButton";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../../contexts/CartContext";
-import useGetLoggedInUser from "../../hooks/useGetLoginUser";
 
 function ProductDetails() {
   const params = useParams();
