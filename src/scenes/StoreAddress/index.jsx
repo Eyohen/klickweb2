@@ -2,19 +2,24 @@ import Logo from '../../assets/logo.png';
 //import { useForm } from 'react-hook-form';
 //import { yupResolver } from '@hookform/resolvers/yup';
 //import * as yup from 'yup';
-//import {useState} from 'react';
+import {useState} from 'react';
 import { useNavigate } from 'react-router';
 //import { useNavigation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
+import PlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+  } from "react-places-autocomplete";
 
 
 
 const StoreAddress = () => {
     const { handleSubmit, register } = useForm();
-    const location = useLocation();
-    const { form1Data} = location.state
-
+    const locations = useLocation();
+    const { form1Data} = locations.state
+    const [address, setAddress] = useState("");
+    const [location, setLocation] = useState("");
    // const [change, setChange] = useState(false)
 
     const navigate = useNavigate();
@@ -26,11 +31,35 @@ const StoreAddress = () => {
         }
 
     }*/
+     const handleSelect = async (selectedAddress) => {
+    setAddress(selectedAddress);
+    try {
+      const results = await geocodeByAddress(selectedAddress);
+      const latLng = await getLatLng(results[0]);
+      console.log("Latitude: ", latLng.lat);
+      console.log("Longitude: ", latLng.lng);
+      console.log(results);
+      console.log(results[0].formatted_address);
+      setLocation(results[0].formatted_address);
+      const location = results[0].formatted_address;
+      return location;
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+    console.log(address);
+  };
+  
+
+  const handleChangeLocation = (newAddress) => {
+    setAddress(newAddress);
+  };
+
     const onSubmit = (data) => {
         console.log(data)
         const newData = {
             ...form1Data,
             ...data,
+            address: location,
           };
           console.log(newData)
         navigate('/businesslogo', {
@@ -59,6 +88,8 @@ const StoreAddress = () => {
     /*const onSubmit = (data) => {
         console.log(data);
     };*/
+    const inputClasses = "border border-gray-200 bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary";
+
 
     return (
         <div className="flex flex-col items-center w-[80%] md:w-[30%] mb-10 mx-auto space-y-5 mt-20">
@@ -88,14 +119,52 @@ const StoreAddress = () => {
                     <label className="block text-sm mb-2" htmlFor="address">
                         Address
                     </label>
-                    <input
+                    <PlacesAutocomplete
+            value={address}
+            onChange={handleChangeLocation}
+            onSelect={handleSelect}
+            placeholder='e.g 7 Gbenga Adeyinka lane'
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }) => (
+              <div>
+                <input
+                  {...getInputProps({ placeholder: "Enter address e.g 7 Gbenga Adeyinka lane" })}
+                  className={inputClasses}
+                />
+                <div>
+                  {loading ? <div>Loading...</div> : null}
+                  {suggestions.map((suggestion, index) => {
+                    const style = {
+                      backgroundColor: suggestion.active
+                        ? "#fafafa"
+                        : "#ffffff",
+                    };
+                    return (
+                      <div
+                        key={index}
+                        {...getSuggestionItemProps(suggestion, { style })}
+                      >
+                        {suggestion.description}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
+                    {/*<input
                         type="text"
                         name="address"
                         id="address"
                         placeholder='e.g 7 Gbenga Adeyinka lane'
                         className='border bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary'
                         {...register('address')}
-                    />
+                />*/}
                  
                 </div>
                 {/* ... */}
@@ -103,6 +172,7 @@ const StoreAddress = () => {
                     <label className="block text-sm mb-2" htmlFor="state">
                         State
                     </label>
+
                     <input
                         type="text"
                         name="state"
