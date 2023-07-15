@@ -109,6 +109,7 @@ const CreateStore = () => {
             type="number"
             name="phone"
             id="phone"
+            placeholder="e.g 09075638005"
             className={`${inputClasses} ${
               errors.phone ? errorBorderClasses : ""
             }`}
