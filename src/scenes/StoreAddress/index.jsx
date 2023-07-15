@@ -59,7 +59,7 @@ const StoreAddress = () => {
         const newData = {
             ...form1Data,
             ...data,
-            location: location,
+            address: location,
           };
           console.log(newData)
         navigate('/businesslogo', {
@@ -157,14 +157,14 @@ const StoreAddress = () => {
               </div>
             )}
           </PlacesAutocomplete>
-                    <input
+                    {/*<input
                         type="text"
                         name="address"
                         id="address"
                         placeholder='e.g 7 Gbenga Adeyinka lane'
                         className='border bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary'
                         {...register('address')}
-                    />
+                />*/}
                  
                 </div>
                 {/* ... */}
