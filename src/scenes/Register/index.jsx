@@ -161,7 +161,7 @@ const Register = () => {
               type="text"
               name="phone"
               id="phone"
-              placeholder="+2348152380723"
+              placeholder="2348152380723"
               className={` w-full outline-none px-3 bg-inherit text-gray-600 !border-0 !outline-0 focus:!border-0 focus:!outline-0 `}
               value={values.phone}
               onChange={handleChange}
