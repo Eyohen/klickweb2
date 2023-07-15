@@ -23,10 +23,15 @@ export const CartProvider = ({ children }) => {
     };
 
     const updateCartItemQuantity = (productId, quantity) => {
-        const updatedCart = cart.map((item) =>
-            item.id === productId ? { ...item, quantity } : item
-        );
-        setCart(updatedCart);
+        if (quantity === 0) {
+            const updatedCart = cart.filter((item) => item.id !== productId);
+            setCart(updatedCart);
+        } else {
+            const updatedCart = cart.map((item) =>
+                item.id === productId ? { ...item, quantity } : item
+            );
+            setCart(updatedCart);
+        }
     };
 
     const clearCart = () => {
