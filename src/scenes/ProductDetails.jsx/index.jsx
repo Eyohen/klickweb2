@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import ProductCard from "./ProductCard";
 import img1 from "../../assets/images/GridItem.png";
 import { AiFillStar } from "react-icons/ai";
@@ -6,17 +6,19 @@ import Footer from "../../components/Footer";
 import BackArrow from "./BackArrow";
 import FillButton from "./FillButton";
 import OutlineButton from "./OutlineButton";
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 
 function ProductDetails() {
   const params = useParams();
   const productId = params.id;
-  console.log(productId);
   const [product, setProduct] = useState({});
+  const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+  const cartContext = useContext(CartContext);
+  const { addToCart } = cartContext;
+
   useEffect(() => {
     const getProduct = async () => {
       try {
@@ -30,13 +32,7 @@ function ProductDetails() {
       }
     };
     getProduct();
-  }, []);
-  console.log(product);
-
-  const [check, setCheck] = useState(true);
-  const [count, setCount] = useState(0);
-
-  const navigate = useNavigate();
+  }, [productId]);
 
   const handleIncrement = () => {
     setCount(count + 1);
@@ -48,24 +44,18 @@ function ProductDetails() {
     }
   };
 
-  const checkOut = () => {
-    setCheck(!check);
-    if (check) {
-      navigate("/checkout");
-    }
-  };
+  const handleAddToCart = () => {
+    const selectedQty = count;
+    const amount = product.price * selectedQty;
+    const otherDetails = {};
 
-  const cartContext = useContext(CartContext);
-  const { addToCart } = cartContext;
-
-
-  const handleAddToCart = (selectedQty, amount, otherDetails) => {
     const productToAdd = {
       ...product,
       selectedQty,
       amount,
       otherDetails,
     };
+    console.log("🚀 ~ file: index.jsx:53 ~ handleAddToCart ~ productToAdd:", productToAdd)
     addToCart(productToAdd);
   };
 
@@ -75,58 +65,66 @@ function ProductDetails() {
 
       <div className="w-full gap-20 flex">
         {/* left */}
-        <div className=" w-1/2">
+        <div className="w-1/2">
           <div>
             {product.images ? (
-              <img src={product.images[0]} className="rounded-xl w-full h-full" />
+              <img
+                src={product.images[0]}
+                className="rounded-xl w-full h-full"
+              />
             ) : (
-              <img src={img1} className="rounded-xl" />
+              <img src={img1} className="rounded-xl" alt="Product" />
             )}
           </div>
           <div className="flex gap-4 h-28 w-28 mt-5">
             {product.images ? (
-              product.images.map((x) => {
-                return <img src={x} className="rounded-2xl" key={x} />;
-              })
+              product.images.map((x) => (
+                <img src={x} className="rounded-2xl" key={x} alt="Product" />
+              ))
             ) : (
-              <img src={img1} className="rounded-xl" />
+              <img src={img1} className="rounded-xl" alt="Product" />
             )}
           </div>
 
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700"></hr>
 
-          <div className=" font-semibold text-lg mb-5">Sellers Info:</div>
+          <div className="font-semibold text-lg mb-5">Sellers Info:</div>
 
-          <div className=" flex justify-between">
+          <div className="flex justify-between">
             <div className="flex gap-4">
               <div>
                 {product.images ? (
                   <img
                     src={product.images[0]}
                     className="h-10 w-10 rounded-full"
+                    alt="Seller"
                   />
                 ) : (
-                  <img src={img1} className="h-10 w-10 rounded-full" />
+                  <img
+                    src={img1}
+                    className="h-10 w-10 rounded-full"
+                    alt="Seller"
+                  />
                 )}
               </div>
               <div className="">
-                <h3 className=" font-semibold">The Cuddle Club</h3>
-                <div className=" text-gray-500 flex items-center gap-2">
+                <h3 className="font-semibold">The Cuddle Club</h3>
+                <div className="text-gray-500 flex items-center gap-2">
                   <AiFillStar />
-                  <h3 className=" text-xs">Ikoyi, Lagos</h3>
+                  <h3 className="text-xs">Ikoyi, Lagos</h3>
                 </div>
               </div>
             </div>
-            <div className=" text-blue-600">View Profile</div>
+            <div className="text-blue-600">View Profile</div>
           </div>
         </div>
 
         {/* right */}
         <div className="w-1/2">
-          <div className=" text-3xl font-bold">{product.name}</div>
+          <div className="text-3xl font-bold">{product.name}</div>
 
-          <div className=" items-center flex gap-4 my-5">
-            <div className=" flex">
+          <div className="items-center flex gap-4 my-5">
+            <div className="flex">
               <AiFillStar size={24} color="gold" />
               <AiFillStar size={24} color="gold" />
               <AiFillStar size={24} color="gold" />
@@ -138,16 +136,16 @@ function ProductDetails() {
           </div>
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
-          <div className=" text-2xl font-bold">₦ {product.price}</div>
+          <div className="text-2xl font-bold">₦ {product.price}</div>
 
           <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
           <div>
             <div>
-              <div className=" text-sm text-gray-500 mb-5">
+              <div className="text-sm text-gray-500 mb-5">
                 Available Colors
               </div>
-              <div className=" flex gap-4">
+              <div className="flex gap-4">
                 <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#d7f98c] transition hover:!opacity-100" />
                 <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#348ee7] transition hover:!opacity-100" />
                 <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#e345a6] transition hover:!opacity-100" />
@@ -157,16 +155,16 @@ function ProductDetails() {
 
             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
-            <div className=" items-center flex gap-12">
+            <div className="items-center flex gap-12">
               <div className="p-4 border rounded-xl bg-slate-200">
-                <div className=" text-xl flex gap-14">
+                <div className="text-xl flex gap-14">
                   <button onClick={handleDecrement}>-</button>
                   <h1>{count}</h1>
                   <button onClick={handleIncrement}>+</button>
                 </div>
               </div>
-              <div className="  text-gray-500">
-                Only <span className=" text-orange-500">9 items</span> left
+              <div className="text-gray-500">
+                Only <span className="text-orange-500">9 items</span> left
               </div>
             </div>
 
@@ -174,7 +172,7 @@ function ProductDetails() {
 
             <div className="my-8 flex w-full">
               <FillButton
-                onClick={() => checkOut()}
+                onClick={handleAddToCart}
                 name="Buy Now"
                 className="w-1/2"
               />
@@ -183,7 +181,7 @@ function ProductDetails() {
 
             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
-            <div className=" text-gray-500">{product.description}</div>
+            <div className="text-gray-500">{product.description}</div>
           </div>
         </div>
       </div>
@@ -191,7 +189,7 @@ function ProductDetails() {
       <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
       {/* bottom half */}
-      <div className=" font-medium mb-4">Related Products:</div>
+      <div className="font-medium mb-4">Related Products:</div>
 
       <div className="">
         <ProductCard product={product} />
@@ -204,8 +202,3 @@ function ProductDetails() {
 }
 
 export default ProductDetails;
-
-// sample how to use add to cart
-{/* <button onClick={() => handleAddToCart(3, 29.99, { color: 'blue', size: 'medium' })}>
-  Add to Cart
-</button> */}
