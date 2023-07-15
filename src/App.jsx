@@ -18,12 +18,14 @@ import ProductDetails from "./scenes/ProductDetails.jsx";
 import CheckOut from "./scenes/CheckOut.jsx";
 import Orders from "./scenes/Orders";
 import OrderDetails from "./scenes/OrderDetails";
+import { CartProvider } from "./contexts/CartContext";
 
 export default function App() {
   // const cartState = []
 
   return (
     <BrowserRouter>
+     <CartProvider>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
@@ -58,6 +60,7 @@ export default function App() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/orderdetails" element={<OrderDetails />} />
       </Routes>
+      </CartProvider>
     </BrowserRouter>
   );
 }

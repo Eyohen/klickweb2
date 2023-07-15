@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import img1 from "../../assets/images/GridItem.png";
 import { AiFillStar } from "react-icons/ai";
@@ -9,6 +9,8 @@ import OutlineButton from "./OutlineButton";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import { CartContext } from "../../contexts/CartContext";
 
 function ProductDetails() {
   const params = useParams();
@@ -51,6 +53,20 @@ function ProductDetails() {
     if (check) {
       navigate("/checkout");
     }
+  };
+
+  const cartContext = useContext(CartContext);
+  const { addToCart } = cartContext;
+
+
+  const handleAddToCart = (selectedQty, amount, otherDetails) => {
+    const productToAdd = {
+      ...product,
+      selectedQty,
+      amount,
+      otherDetails,
+    };
+    addToCart(productToAdd);
   };
 
   return (
@@ -188,3 +204,8 @@ function ProductDetails() {
 }
 
 export default ProductDetails;
+
+// sample how to use add to cart
+{/* <button onClick={() => handleAddToCart(3, 29.99, { color: 'blue', size: 'medium' })}>
+  Add to Cart
+</button> */}
