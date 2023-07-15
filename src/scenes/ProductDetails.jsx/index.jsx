@@ -9,6 +9,7 @@ import OutlineButton from "./OutlineButton";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../../contexts/CartContext";
+import useGetLoggedInUser from "../../hooks/useGetLoginUser";
 
 function ProductDetails() {
   const params = useParams();
@@ -18,6 +19,11 @@ function ProductDetails() {
   const navigate = useNavigate();
   const cartContext = useContext(CartContext);
   const { addToCart } = cartContext;
+
+  // after rendering
+  const { cart } = useContext(CartContext);
+  console.log("🚀 ~ file: index.jsx:25 ~ ProductDetails ~ cart:", cart)
+
 
   useEffect(() => {
     const getProduct = async () => {
@@ -46,16 +52,12 @@ function ProductDetails() {
 
   const handleAddToCart = () => {
     const selectedQty = count;
-    const amount = product.price * selectedQty;
-    const otherDetails = {};
 
+    const { id } = product;
     const productToAdd = {
-      ...product,
-      selectedQty,
-      amount,
-      otherDetails,
+      id,
+      count: selectedQty,
     };
-    console.log("🚀 ~ file: index.jsx:53 ~ handleAddToCart ~ productToAdd:", productToAdd)
     addToCart(productToAdd);
   };
 
@@ -172,11 +174,10 @@ function ProductDetails() {
 
             <div className="my-8 flex w-full">
               <FillButton
-                onClick={handleAddToCart}
                 name="Buy Now"
                 className="w-1/2"
               />
-              <OutlineButton name="Buy Later" className="w-1/2" />
+              <OutlineButton onClick={handleAddToCart} name="Buy Later" className="w-1/2" />
             </div>
 
             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
