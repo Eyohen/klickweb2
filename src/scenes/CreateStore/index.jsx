@@ -14,18 +14,7 @@ const validationSchema = yup.object().shape({
 });
 
 const CreateStore = () => {
-  //const [change, setChange] = useState(false)
-
   const navigate = useNavigate();
-
-  /*const changePage = () => {
-        setChange(!change);
-        if(!change){
-            navigate("/storeaddress")
-        }
-
-    }
-*/
 
   const inputClasses =
     "border bg-gray-50 outline-none rounded-md px-4 py-2 w-full text-gray-600 focus:ring-secondary focus:border-secondary";
@@ -71,9 +60,8 @@ const CreateStore = () => {
             type="text"
             name="storeName"
             id="storeName"
-            className={`${inputClasses} ${
-              errors.storeName ? errorBorderClasses : ""
-            }`}
+            className={`${inputClasses} ${errors.storeName ? errorBorderClasses : ""
+              }`}
             {...register("storeName")}
           />
           {errors.storeName && (
@@ -91,9 +79,8 @@ const CreateStore = () => {
             type="email"
             name="email"
             id="email"
-            className={`${inputClasses} ${
-              errors.email ? errorBorderClasses : ""
-            }`}
+            className={`${inputClasses} ${errors.email ? errorBorderClasses : ""
+              }`}
             {...register("email")}
           />
           {errors.email && (
@@ -105,16 +92,20 @@ const CreateStore = () => {
           <label className="block text-sm mb-2" htmlFor="phone">
             Business Phone Number
           </label>
-          <input
-            type="number"
-            name="phone"
-            id="phone"
-            placeholder="2348152380723"
-            className={`${inputClasses} ${
-              errors.phone ? errorBorderClasses : ""
-            }`}
-            {...register("phone")}
-          />
+          <div className={`${inputClasses} flex gap-4 ${errors.email ? errorBorderClasses : ""
+              }`} tabIndex="0">
+            <div className="mr-2">
+              <img className="w-7 h-7" src="https://www.svgrepo.com/show/405569/flag-for-flag-nigeria.svg" alt="Nigeria Flag" />
+            </div>
+            <input
+              type="text"
+              name="phone"
+              id="phone"
+              placeholder="+2348152380723"
+              className={`outline-none focus:ring-secondary focus:border-secondary bg-gray-50 ${errors.phone ? errorBorderClasses : ""}`}
+              {...register("phone")}
+            />
+          </div>
           {errors.phone && (
             <span className="text-red-500 text-xs">{errors.phone.message}</span>
           )}
@@ -127,9 +118,8 @@ const CreateStore = () => {
           <select
             name="industry"
             id="industry"
-            className={`${inputClasses} ${
-              errors.industry ? errorBorderClasses : ""
-            }`}
+            className={`${inputClasses} ${errors.industry ? errorBorderClasses : ""
+              }`}
             {...register("industry")}
           >
             <option value="">Select an industry</option>
@@ -152,7 +142,7 @@ const CreateStore = () => {
           className={`${isValid ? activeButtonClasses : disabledButtonClasses}`}
           type="submit"
           disabled={!isValid}
-          // onClick={changePage}
+        // onClick={changePage}
         >
           Continue
         </button>
