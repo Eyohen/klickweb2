@@ -6,9 +6,10 @@ import { CiSearch } from "react-icons/ci";
 import { BsBell, BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { BiUser } from "react-icons/bi";
 import Logo from "../assets/logo.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { CartContext } from "../contexts/CartContext";
 
 const Navbar = ({ handleSidebarToggle }) => {
   const [isBuyer, setIsBuyer] = useState(true);
@@ -22,6 +23,7 @@ const Navbar = ({ handleSidebarToggle }) => {
       navigate("/");
     }
   };
+  const { getCartItemCount } = useContext(CartContext);
 
   const navIconStyle = "w-6 h-6 text-gray-600 cursor-pointer";
   const toggleStyle = "w-7 h-7 text-primary cursor-pointer";
@@ -94,9 +96,9 @@ const Navbar = ({ handleSidebarToggle }) => {
         {/* cart */}
         <div className="flex items-center space-x-2 hover:cursor-pointer">
           <AiOutlineShoppingCart className={navIconStyle} />
-          <a href="#">Cart</a>
+          <a href="/cart">Cart</a>
           <div className="flex items-center justify-center rounded-full bg-primary text-white p-2.5 w-8 h-8">
-            <p className="text-center">0</p>
+            <p className="text-center">{getCartItemCount}</p>
           </div>
         </div>
       </div>
