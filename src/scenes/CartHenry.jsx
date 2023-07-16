@@ -8,7 +8,7 @@ const CartHenry = () => {
     const { cart } = useCart();
     console.log("🚀 ~ file: CartHenry.jsx ~ line 5 ~ CartHenry ~ cart", cart)
     return (
-        <div>
+        <div className='container'>
             <div className='w-[1252px]  bg-gray-200 rounded-lg mx-auto px-4 py-[20px] mt-10 '>
                 <div className='flex justify-between items-center'>
                     <p className=''>View Buy Later</p>

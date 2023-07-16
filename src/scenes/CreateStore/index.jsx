@@ -60,6 +60,7 @@ const CreateStore = () => {
             type="text"
             name="storeName"
             id="storeName"
+            placeholder="e.g. John Store"
             className={`${inputClasses} ${errors.storeName ? errorBorderClasses : ""
               }`}
             {...register("storeName")}
@@ -79,6 +80,7 @@ const CreateStore = () => {
             type="email"
             name="email"
             id="email"
+            placeholder="e.g. example@gmail.com"
             className={`${inputClasses} ${errors.email ? errorBorderClasses : ""
               }`}
             {...register("email")}

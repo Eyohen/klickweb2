@@ -23,7 +23,7 @@ const Navbar = ({ handleSidebarToggle }) => {
       navigate("/");
     }
   };
-  const { getCartItemCount } = useContext(CartContext);
+  const { numberOfItems } = useContext(CartContext);
 
   const navIconStyle = "w-6 h-6 text-gray-600 cursor-pointer";
   const toggleStyle = "w-7 h-7 text-primary cursor-pointer";
@@ -98,7 +98,7 @@ const Navbar = ({ handleSidebarToggle }) => {
           <AiOutlineShoppingCart className={navIconStyle} />
           <a href="/cart">Cart</a>
           <div className="flex items-center justify-center rounded-full bg-primary text-white p-2.5 w-8 h-8">
-            <p className="text-center">{getCartItemCount}</p>
+            <p className="text-center">{numberOfItems}</p>
           </div>
         </div>
       </div>
