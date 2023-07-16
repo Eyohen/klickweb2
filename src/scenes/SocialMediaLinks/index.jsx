@@ -52,7 +52,7 @@ const SocialMediaLinks = () => {
     const socialSubmit = async (e) => {
         e.preventDefault()
         const id = localStorage.getItem('storeId')
-        const token = localStorage.getItem('login_token');
+        const token = localStorage.getItem('access_token');
         setIsLoading(true)
         try{
             const response = await axios.put(`https://klick-api.onrender.com/store/update/${id}`, objectState,{

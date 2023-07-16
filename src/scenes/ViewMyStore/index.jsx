@@ -11,11 +11,12 @@ function ViewMyStore() {
   const [product, setProduct] = useState([])
   const [address, setAddress]= useState({})
   //const [socials, setSocials]=useState({})
+  const token = localStorage.getItem('access_token');
+  console.log("token", token)
   
   
   useEffect(()=>{
     const fetchData = async () => {
-      const token = localStorage.getItem('login_token');
       try {
         axios.get('https://klick-api.onrender.com/auth/user', {
           headers: {
@@ -46,7 +47,7 @@ function ViewMyStore() {
   )
   useEffect(()=>{
     const fetchData = async () => {
-      const token = localStorage.getItem('login_token');
+      const token = localStorage.getItem('access_token');
       const storeId = localStorage.getItem('storeId')
       try {
         axios.get(`https://klick-api.onrender.com/product/store/product?storeId=${storeId}`,

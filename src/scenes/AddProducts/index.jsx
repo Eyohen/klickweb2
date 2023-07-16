@@ -187,7 +187,7 @@ function AddProducts() {
 
   const handleSubmitForm = async () => {
    const storeId = localStorage.getItem('storeId')
-   const token = localStorage.getItem('login_token');
+   const token = localStorage.getItem('access_token');
    const newObjectState = {
     ...objectState,
     specifications: {
