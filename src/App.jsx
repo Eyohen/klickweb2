@@ -20,9 +20,10 @@ import Orders from "./scenes/Orders";
 import OrderDetails from "./scenes/OrderDetails";
 import { CartProvider } from "./contexts/CartContext";
 import CartHenry from "./scenes/CartHenry";
+import RequireAuth from "./RequireAuth";
 
 export default function App() {
-  // const cartState = []
+  const token = localStorage.getItem('access_token');
 
   return (
     <BrowserRouter>
@@ -33,10 +34,15 @@ export default function App() {
             <Route path="/cart" element={<CartHenry />} />
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
+
+          <Route element={<RequireAuth isAuthenticated={token ? true : false}/>}>
+            <Route path="/viewmystore" element={<ViewMyStore />} />
+          </Route>
+
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/viewmystore" element={<ViewMyStore />} />
+
           <Route path="/storeaddress" element={<StoreAddress />} />
           <Route path="/storebankdetails" element={<StorebankDetails />} />
           <Route path="/businesslogo" element={<BusinessLogo />} />
