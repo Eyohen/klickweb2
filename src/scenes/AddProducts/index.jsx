@@ -221,9 +221,6 @@ function AddProducts() {
           }
       });
       if (response.data.success===true) {
-        localStorage.setItem('access_token', response.data.access_token)
-        // Data was posted successfully
-        // Navigate to another page
         history('/dashboard');
       } else {
      throw new Error('Error posting data to API');}
