@@ -12,7 +12,12 @@ import PlacesAutocomplete, {
 
 const Register = () => {
     const [address, setAddress] = useState("");
-    const [location, setLocation] = useState("");
+    const [location, setLocation] = useState({
+        address: "",
+        city: "",
+        state: "",
+        country: "",
+    });
     //const [city, setCity] = useState("");
 
     const [isLoading, setIsLoading] = useState(false);
@@ -79,7 +84,13 @@ const Register = () => {
         try {
             const response = await axios.post(
                 "https://klick-api.onrender.com/auth/signup",
-                updatedValues
+                {
+                    ...updatedValues,
+                    location: location.address,
+                    city: location.city,
+                    state: location.state,
+                    country: location.country,
+                }
             );
             console.log("API response:", response.data);
             if (response.data.success === true) {
@@ -92,13 +103,12 @@ const Register = () => {
             }
         } catch (error) {
             setError(error.response.data.msg);
-            console.error("Error sending form data :", error);
+            console.error("Error sending form data:", error);
         } finally {
             setIsLoading(false);
         }
         console.log(values);
     };
-
     const { values, handleChange, handleSubmit } = useSignup(
         initialState,
         handleSubmitForm
@@ -251,7 +261,7 @@ const Register = () => {
                         id="city"
                         placeholder="e.g Your City"
                         className={inputClasses}
-                        value={values.city}
+                        value={location.city}
                         onChange={handleChange}
                     />
                 </div>
@@ -266,7 +276,7 @@ const Register = () => {
                         id="country"
                         placeholder="e.g Nigeria"
                         className={inputClasses}
-                        value={values.country}
+                        value={location.country}
                         onChange={handleChange}
                     />
                 </div>
@@ -280,7 +290,7 @@ const Register = () => {
                         id="state"
                         placeholder="e.g Lagos"
                         className={inputClasses}
-                        value={values.state}
+                        value={location.state}
                         onChange={handleChange}
                     />
                 </div>
