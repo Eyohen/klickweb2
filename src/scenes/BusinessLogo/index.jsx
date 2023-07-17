@@ -43,6 +43,7 @@ const BusinessLogo = () => {
         }
       );
       if (response.data.success === true) {
+        console.log(response.data)
         localStorage.setItem('storeId', response.data.store.id)
         // Navigate to another page
         history('/dashboard');
