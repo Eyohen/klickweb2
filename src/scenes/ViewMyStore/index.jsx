@@ -1,16 +1,11 @@
-// import './App.css';
-// import img1 from '../src/images/baby.png'
 import { useEffect, useState } from 'react';
-//import img1 from '../../assets/images/baby.png'
 import axios from 'axios';
 
 
 function ViewMyStore() {
-  //const [user, setUser]= useState(null)
   const [stores, setStores] = useState({})
   const [product, setProduct] = useState([])
   const [address, setAddress]= useState({})
-  //const [socials, setSocials]=useState({})
   const token = localStorage.getItem('access_token');
   console.log("token", token)
   
@@ -29,17 +24,13 @@ function ViewMyStore() {
             console.log(response.data)
             setStores(response.data.stores[0])
             setAddress(response.data.stores[0].address)
-            //setSocials(response.data.stores[0].socials)
-            //console.log(stores)
            })
           .catch(error => {
-            // Handle any errors or display appropriate message
             console.error(error);
           });
       } catch (error) {
         console.error('Error:', error.message);
       }
-      //console.log(stores.address)
     };
 
     fetchData();
