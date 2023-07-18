@@ -19,6 +19,8 @@ import CheckOut from "./scenes/CheckOut.jsx";
 import Orders from "./scenes/Orders";
 import OrderDetails from "./scenes/OrderDetails";
 import { CartProvider } from "./contexts/CartContext";
+import BuyLater from "./scenes/BuyLater";
+import Messages from "./scenes/Messages";
 
 export default function App() {
   // const cartState = []
@@ -58,7 +60,9 @@ export default function App() {
         <Route path="/productdetails/:id" element={<ProductDetails />} />
         <Route path="/checkout" element={<CheckOut />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/orderdetails" element={<OrderDetails />} />
+        <Route path="/buylater" element={<BuyLater />} />
+		<Route path="/messages" element={<Messages />} />
+
       </Routes>
       </CartProvider>
     </BrowserRouter>

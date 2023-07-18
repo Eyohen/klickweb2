@@ -35,7 +35,7 @@ const Sidebar = ({ handleSidebarToggle }) => {
                     </Link>
                     <div className="hover:bg-slate-100 rounded-lg flex space-x-4 text-tsecondary w-full px-8 py-4">
                         <BiMessageDots className="h-5 w-5" />
-                        <a href="">Messages</a>
+                        <Link to="/messages">Messages</Link>
                     </div>
                     <div className="hover:bg-slate-100 rounded-lg flex space-x-4 text-tsecondary w-full px-8 py-4">
                         <GrGroup className="h-5 w-5" />
