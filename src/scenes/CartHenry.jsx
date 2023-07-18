@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import img1 from '../assets/images/GridItem.png';
-import useGetLoggedInUser from '../hooks/useGetLoginUser';
+import { getCartId } from '../hooks/useGetLoginUser';
 import { useNavigate } from 'react-router-dom';
 
 const CartHenry = () => {
-    const { user } = useGetLoggedInUser();
-    const cartId = user?.cartId;
+    const cartId = getCartId();
     
     const navigate = useNavigate();
     const navigateToCheckout = () => {

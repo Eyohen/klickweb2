@@ -266,8 +266,8 @@ function CheckOut() {
                         <p className=" text-lg mb-6">Order Summary</p>
 
                         {cartItems.map((item) => (
-                            <>
-                                <div className="flex gap-4" key={item.id}>
+                            <div key={item.id}>
+                                <div className="flex gap-4">
                                     <img
                                         src={img1}
                                         className="w-24 h-24 rounded-xl"
@@ -288,7 +288,7 @@ function CheckOut() {
                                     </div>
                                 </div>
                                 <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-                            </>
+                            </div>
                         ))}
 
                         <div className="">
