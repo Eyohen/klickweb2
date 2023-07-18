@@ -132,10 +132,10 @@ function AddProducts() {
         const token = localStorage.getItem('access_token');
         const newObjectState = {
             ...objectState,
+            shippingId: selectedShippingId,
             specifications: {
                 ...objectState.specifications,
                 type: selectedValue,
-                shippingcategory_id: selectedShippingId,
 
             }
         }
