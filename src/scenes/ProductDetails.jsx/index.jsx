@@ -19,9 +19,9 @@ function ProductDetails() {
   const cartContext = useContext(CartContext);
   const { addToCart } = cartContext;
 
-  // after rendering
-  const { cart } = useContext(CartContext);
-  console.log("🚀 ~ file: index.jsx:25 ~ ProductDetails ~ cart:", cart)
+  const navigateToCheckout = () => {
+    navigate("/checkout");
+  };
 
 
   useEffect(() => {
@@ -59,6 +59,7 @@ function ProductDetails() {
     };
     addToCart(productToAdd);
   };
+  const colors = product?.specifications?.colors.toLowerCase().split(", ");
 
   return (
     <div className="p-10">
@@ -71,7 +72,7 @@ function ProductDetails() {
             {product.images ? (
               <img
                 src={product.images[0]}
-                className="rounded-xl w-full h-full"
+                className="rounded-xl w-2/3 h-full"
               />
             ) : (
               <img src={img1} className="rounded-xl" alt="Product" />
@@ -147,10 +148,19 @@ function ProductDetails() {
                 Available Colors
               </div>
               <div className="flex gap-4">
-                <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#d7f98c] transition hover:!opacity-100" />
-                <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#348ee7] transition hover:!opacity-100" />
-                <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#e345a6] transition hover:!opacity-100" />
-                <label className="block h-12 w-12 cursor-pointer rounded-full bg-[#230505] transition hover:!opacity-100" />
+                {colors && colors?.map((color, index) => (
+                  <label
+                    key={index}
+                    className={`block h-12 w-12 cursor-pointer rounded-full ${color === "black" ? 'bg-black' : ''} bg-${color}-500 transition`}
+                  />
+                ))}
+                {
+                  !colors && (
+                    <label
+                      className={`block h-12 w-12 cursor-pointer rounded-full bg-gray-500 transition`}
+                    />
+                  )
+                }
               </div>
             </div>
 
@@ -173,6 +183,7 @@ function ProductDetails() {
 
             <div className="my-8 flex w-full">
               <FillButton
+                onClick={navigateToCheckout}
                 name="Buy Now"
                 className="w-1/2"
               />

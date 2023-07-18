@@ -19,7 +19,6 @@ const FeaturedCard = () => {
     };
     getStore();
   }, []);
-  console.log(stores);
   return (
     <div className="grid grid-cols-4 gap-4">
       {stores.map((store) => {

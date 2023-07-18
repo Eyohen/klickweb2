@@ -24,7 +24,7 @@ const Login = () => {
       );
       console.log("API response:", response.data);
       if (response.data.success === true) {
-        localStorage.setItem("login_token", response.data.access_token);
+        localStorage.setItem("access_token", response.data.access_token);
         history("/");
       } else {
         throw new Error("Error posting data to API");

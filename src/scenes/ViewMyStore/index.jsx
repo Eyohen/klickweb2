@@ -1,21 +1,17 @@
-// import './App.css';
-// import img1 from '../src/images/baby.png'
 import { useEffect, useState } from 'react';
-//import img1 from '../../assets/images/baby.png'
 import axios from 'axios';
 
 
 function ViewMyStore() {
-  //const [user, setUser]= useState(null)
   const [stores, setStores] = useState({})
   const [product, setProduct] = useState([])
   const [address, setAddress]= useState({})
-  //const [socials, setSocials]=useState({})
+  const token = localStorage.getItem('access_token');
+  console.log("token", token)
   
   
   useEffect(()=>{
     const fetchData = async () => {
-      const token = localStorage.getItem('login_token');
       try {
         axios.get('https://klick-api.onrender.com/auth/user', {
           headers: {
@@ -28,17 +24,13 @@ function ViewMyStore() {
             console.log(response.data)
             setStores(response.data.stores[0])
             setAddress(response.data.stores[0].address)
-            //setSocials(response.data.stores[0].socials)
-            //console.log(stores)
            })
           .catch(error => {
-            // Handle any errors or display appropriate message
             console.error(error);
           });
       } catch (error) {
         console.error('Error:', error.message);
       }
-      //console.log(stores.address)
     };
 
     fetchData();
@@ -46,7 +38,7 @@ function ViewMyStore() {
   )
   useEffect(()=>{
     const fetchData = async () => {
-      const token = localStorage.getItem('login_token');
+      const token = localStorage.getItem('access_token');
       const storeId = localStorage.getItem('storeId')
       try {
         axios.get(`https://klick-api.onrender.com/product/store/product?storeId=${storeId}`,
@@ -370,26 +362,6 @@ function ViewMyStore() {
               </label>
             </div>
 
-            {/* <div className='flex justify-between gap-6'>
-              <div className='bg-white border border-gray-900 rounded-lg shadow p-1 text-xs flex justify-between'>
-                <h3>09:00AM</h3>
-                <div className=''>
-                  <svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                  </svg>
-                </div>
-              </div>
-              
-              <h3>TO</h3>
-              <div className='bg-white border border-gray-900 rounded-lg shadow p-1 text-xs flex justify-between'>
-                <h3>09:00AM</h3>
-                <div className=''>
-                  <svg className="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                  </svg>
-                </div>
-              </div>
-            </div> */}
           </div>
         </div>
       </div>
@@ -454,102 +426,6 @@ function ViewMyStore() {
           )
         })}
 
-        {/*<hr className="h-px mb-8 mt-4 bg-gray-200 border-0 dark:bg-gray-700" />
-
-        <div className='flex justify-between'>
-          <div className='flex'>
-            <div className='mr-4'>
-              <img className="h-24 w-24 rounded-lg" src={img1} alt="image description"/>
-            </div>
-          <div className=' items-center space-y-2'>
-            <h3>TMNT</h3>
-            <h3 className=' text-gray-400 text-sm'>ID: 595580</h3>
-            <div className='flex items-center gap-4'>
-              <div className=' text-blue-700'>4999</div>
-              <span className="bg-yellow-100 text-yellow-600 text-xs font-medium p-2 rounded-lg">
-                Available Stock: 144
-              </span>
-            </div>
-          </div>
-          </div>
-
-          <button>
-            a
-          </button>
-        </div>
-
-        <hr className="h-px mb-8 mt-4 bg-gray-200 border-0 dark:bg-gray-700" />
-
-        <div className='flex justify-between'>
-          <div className='flex'>
-            <div className='mr-4'>
-              <img className="h-24 w-24 rounded-lg" src={img1} alt="image description"/>
-            </div>
-          <div className=' items-center space-y-2'>
-            <h3>TMNT</h3>
-            <h3 className=' text-gray-400 text-sm'>ID: 595580</h3>
-            <div className='flex items-center gap-4'>
-              <div className=' text-blue-700'>4999</div>
-              <span className="bg-yellow-100 text-yellow-600 text-xs font-medium p-2 rounded-lg">
-                Available Stock: 144
-              </span>
-            </div>
-          </div>
-          </div>
-
-          <button>
-            a
-          </button>
-        </div>
-
-        <hr className="h-px mb-8 mt-4 bg-gray-200 border-0 dark:bg-gray-700" />
-
-        <div className='flex justify-between'>
-          <div className='flex'>
-            <div className='mr-4'>
-              <img className="h-24 w-24 rounded-lg" src={img1} alt="image description"/>
-            </div>
-          <div className=' items-center space-y-2'>
-            <h3>TMNT</h3>
-            <h3 className=' text-gray-400 text-sm'>ID: 595580</h3>
-            <div className='flex items-center gap-4'>
-              <div className=' text-blue-700'>4999</div>
-              <span className="bg-green-100 text-green-800 text-xs font-medium p-2 rounded-lg">
-                Available Stock: 144
-              </span>
-            </div>
-          </div>
-          </div>
-
-          <button>
-            a
-          </button>
-        </div>
-
-        <hr className="h-px mb-8 mt-4 bg-gray-200 border-0 dark:bg-gray-700" />
-
-        <div className='flex justify-between'>
-          <div className='flex'>
-            <div className='mr-4'>
-              <img className="h-24 w-24 rounded-lg" src={img1} alt="image description"/>
-            </div>
-          <div className=' items-center space-y-2'>
-            <h3>TMNT</h3>
-            <h3 className=' text-gray-400 text-sm'>ID: 595580</h3>
-            <div className='flex items-center gap-4'>
-              <div className=' text-blue-700'>4999</div>
-              <span className="bg-green-100 text-green-800 text-xs font-medium p-2 rounded-lg">
-                Available Stock: 144
-              </span>
-            </div>
-          </div>
-          </div>
-
-          <button>
-            a
-          </button>
-        </div>
-          <hr className="h-px mb-8 mt-4 bg-gray-200 border-0 dark:bg-gray-700" />*/}
       </div>
     </div>
   );

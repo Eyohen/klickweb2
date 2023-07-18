@@ -18,7 +18,6 @@ const Category = () => {
     };
     getCategories();
   }, []);
-  console.log(categories);
 
   return (
     <>
