@@ -31,7 +31,7 @@ function CheckOut() {
         };
 
         fetchCartItems();
-    }, []);
+    }, [cartId]);
 
     const handleIncrement = () => {
         setCount(count + 1);
@@ -45,7 +45,6 @@ function CheckOut() {
 
     const { user, loading } = useGetLoggedInUser();
     const address = getPrimaryAddress()
-    console.log("🚀 ~ file: index.jsx:48 ~ CheckOut ~ address:", address)
 
     if (loading) {
         return <LoadingScreen />
