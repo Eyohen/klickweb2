@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { createContext, useState, useEffect } from 'react';
+import useGetLoggedInUser from '../hooks/useGetLoginUser';
 
 export const CartContext = createContext();
 
@@ -8,12 +10,14 @@ export const CartProvider = ({ children }) => {
         return storedCart ? JSON.parse(storedCart) : [];
     });
 
+    const { user } = useGetLoggedInUser();
+    const cartId = user?.cartId;
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
 
 
-    const addToCart = (product) => {
+    const addToCart = async (product) => {
         const existingProductIndex = cart.findIndex((item) => item.id === product.id);
 
         if (existingProductIndex !== -1) {
@@ -21,7 +25,29 @@ export const CartProvider = ({ children }) => {
             updatedCart[existingProductIndex] = product;
             setCart(updatedCart);
         } else {
-            setCart([...cart, product]);
+            const newCart = [...cart, product];
+            setCart(newCart);
+        }
+        const data = {
+            items: cart.map((item) => ({
+                id: item.id,
+                count: item.count,
+            })),
+        };
+
+        const config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `https://klick-api.onrender.com/cart/update/${cartId || ''}`,
+            headers: {},
+            data: data,
+        };
+
+        try {
+            const response = await axios(config);
+            console.log(JSON.stringify(response.data));
+        } catch (error) {
+            console.log(error);
         }
     };
 
@@ -52,7 +78,7 @@ export const CartProvider = ({ children }) => {
 
     const getTotalItemCount = () => {
         return cart.length || 0;
-      }
+    }
 
     return (
         <CartContext.Provider

@@ -6,6 +6,7 @@ import { useCart } from '../hooks/useCart';
 
 const CartHenry = () => {
     const { cart } = useCart();
+    // write a use effect to make api request to get cart items
     console.log("🚀 ~ file: CartHenry.jsx ~ line 5 ~ CartHenry ~ cart", cart)
     return (
         <div className='container'>
