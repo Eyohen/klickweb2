@@ -36,7 +36,7 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
 
-          <Route element={<RequireAuth isAuthenticated={token ? true : false}/>}>
+          <Route element={<RequireAuth isAuthenticated={token ? true : false} />}>
             <Route path="/viewmystore" element={<ViewMyStore />} />
           </Route>
 
@@ -68,7 +68,7 @@ export default function App() {
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/orderdetails" element={<OrderDetails />} />
-		  <Route path="/messages" element={<Messages />} />
+          <Route path="/messages" element={<Messages />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>
