@@ -19,21 +19,69 @@ const useGetLoggedInUser = () => {
                 const data = response.data;
 
                 // Extract the necessary information from the user object
-                const { id: userId, Cart: { id: cartId } } = data.user;
+                const {
+                    id: userId,
+                    firstName,
+                    lastName,
+                    email,
+                    phone,
+                    role,
+                    status,
+                    vendorMode,
+                    Cart: { id: cartId },
+                    Wallet: { id: walletId },
+                    DeliveryAddresses
+                } = data.user;
 
-                // Update the state with the user and cart IDs
-                setUser({ userId, cartId });
+                // Save the extracted data
+                setUser({ userId, firstName, lastName, email, phone, role, status, vendorMode });
                 setLoading(false);
+
+                // Save cartId to localStorage
+                localStorage.setItem('cartId', cartId);
+
+                // Save walletId to localStorage
+                localStorage.setItem('walletId', walletId);
+
+                // Save delivery addresses to localStorage
+                localStorage.setItem('deliveryAddresses', JSON.stringify(DeliveryAddresses));
             } catch (error) {
                 setError(error);
                 setLoading(false);
             }
         };
 
-        fetchUser();
+        // Check if the user data already exists in localStorage
+        const existingUserData = JSON.parse(localStorage.getItem('user'));
+        if (existingUserData) {
+            setUser(existingUserData);
+            setLoading(false);
+        } else {
+            fetchUser();
+        }
     }, []);
 
-    return { user, loading, error };
+    // Function to clear user data from localStorage
+    const logout = () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('cartId');
+        localStorage.removeItem('walletId');
+        localStorage.removeItem('deliveryAddresses');
+    };
+
+    return { user, loading, error, logout };
 };
 
 export default useGetLoggedInUser;
+
+export const getCartId = () => localStorage.getItem('cartId');
+export const getWalletId = () => localStorage.getItem('walletId');
+export const getDeliveryAddresses = () => JSON.parse(localStorage.getItem('deliveryAddresses'));
+export const getPrimaryAddress = () => {
+    const deliveryAddresses = JSON.parse(localStorage.getItem('deliveryAddresses'));
+    if (Array.isArray(deliveryAddresses) && deliveryAddresses.length > 0) {
+      return deliveryAddresses[0].address;
+    }
+    return null;
+  };
+  
