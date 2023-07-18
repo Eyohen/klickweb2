@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { createContext, useState, useEffect } from 'react';
-import useGetLoggedInUser from '../hooks/useGetLoginUser';
+import { getCartId } from '../hooks/useGetLoginUser';
 
 export const CartContext = createContext();
 
@@ -10,8 +10,8 @@ export const CartProvider = ({ children }) => {
         return storedCart ? JSON.parse(storedCart) : [];
     });
 
-    const { user } = useGetLoggedInUser();
-    const cartId = user?.cartId;
+    const cartId = getCartId()
+    
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);

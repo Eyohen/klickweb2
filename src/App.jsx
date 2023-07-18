@@ -25,7 +25,6 @@ import Messages from "./scenes/Messages";
 
 export default function App() {
   const token = localStorage.getItem('access_token');
-
   return (
     <BrowserRouter>
       <CartProvider>
@@ -34,12 +33,13 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/cart" element={<CartHenry />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/checkout" element={<CheckOut />} />
           </Route>
 
           <Route element={<RequireAuth isAuthenticated={token ? true : false} />}>
+            <Route path="/checkout" element={<CheckOut />} />
             <Route path="/viewmystore" element={<ViewMyStore />} />
           </Route>
+
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

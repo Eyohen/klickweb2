@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, Outlet } from 'react-router-dom';
 
-const RequireAuth = ({ isAuthenticated, children }) => {
+const RequireAuth = ({ isAuthenticated }) => {
     const location = useLocation();
 
     useEffect(() => {
@@ -11,7 +11,7 @@ const RequireAuth = ({ isAuthenticated, children }) => {
     }, [isAuthenticated, location.pathname]);
 
     if (isAuthenticated) {
-        return <>{children}</>;
+        return <Outlet />;
     } else {
         return <Navigate to="/login" state={{ from: location }} replace />
     }
