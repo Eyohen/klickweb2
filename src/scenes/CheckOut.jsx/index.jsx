@@ -8,7 +8,10 @@ import { AiFillStar } from "react-icons/ai";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import Footer from "../../components/Footer";
 import CheckOutAddress from "./CheckOutAddress";
-import useGetLoggedInUser, { getCartId, getPrimaryAddress } from "../../hooks/useGetLoginUser";
+import useGetLoggedInUser, {
+    getCartId,
+    getPrimaryAddress,
+} from "../../hooks/useGetLoginUser";
 import LoadingScreen from "../../components/LoadingScreen";
 
 function CheckOut() {
@@ -44,10 +47,10 @@ function CheckOut() {
     };
 
     const { user, loading } = useGetLoggedInUser();
-    const address = getPrimaryAddress()
+    const address = getPrimaryAddress();
 
     if (loading) {
-        return <LoadingScreen />
+        return <LoadingScreen />;
     }
     return (
         <div className="p-10 font-medium relative">
@@ -63,7 +66,9 @@ function CheckOut() {
 
                         <div className=" flex justify-between items-center">
                             <div className=" space-y-1">
-                                <div className=" text-xl">{user.firstName} {user.lastName}</div>
+                                <div className=" text-xl">
+                                    {user.firstName} {user.lastName}
+                                </div>
                                 <div className=" text-sm text-gray-400 font-normal">
                                     {address || "No address"}
                                 </div>
@@ -108,8 +113,8 @@ function CheckOut() {
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
                                     <p>
-                                        Your order will be handled completely by the seller from payment to delivery.
-                                        Contact seller for delivery information
+                                        Your order will be handled completely by the seller from
+                                        payment to delivery. Contact seller for delivery information
                                     </p>
                                     {/* <p>
                     Lorem ipsum dolor sit, amet consectetur adipisicing elit.
@@ -139,25 +144,19 @@ function CheckOut() {
                             <div className="mb-2 flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        Delivered by K-verified shippers
-                                    </p>
+                                    <p>Delivered by K-verified shippers</p>
                                 </div>
                             </div>
                             <div className=" mb-2 flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        Real-Time package tracking
-                                    </p>
+                                    <p>Real-Time package tracking</p>
                                 </div>
                             </div>
                             <div className=" mb-2 flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        Insurance on good in transit
-                                    </p>
+                                    <p>Insurance on good in transit</p>
                                 </div>
                             </div>
 
@@ -172,8 +171,6 @@ function CheckOut() {
                         <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
                         <div className="">
-
-
                             <div className=" flex justify-between">
                                 <div className="mb-3">Ship with K-Secure</div>
 
@@ -190,49 +187,37 @@ function CheckOut() {
                             <div className=" flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        Delivered by K-verified shippers
-                                    </p>
+                                    <p>Delivered by K-verified shippers</p>
                                 </div>
                             </div>
                             <div className=" mb-2 flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        Payment secured by Klick
-                                    </p>
+                                    <p>Payment secured by Klick</p>
                                 </div>
                             </div>
                             <div className=" mb-2 flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        Real-Time package tracking
-                                    </p>
+                                    <p>Real-Time package tracking</p>
                                 </div>
                             </div>
                             <div className=" mb-2 flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        Insurance on good in transit
-                                    </p>
+                                    <p>Insurance on good in transit</p>
                                 </div>
                             </div>
                             <div className=" mb-2 flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        Insurance on good in transit
-                                    </p>
+                                    <p>Insurance on good in transit</p>
                                 </div>
                             </div>
                             <div className=" mb-2 flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
-                                    <p>
-                                        3 days return
-                                    </p>
+                                    <p>3 days return</p>
                                 </div>
                             </div>
 
@@ -283,7 +268,11 @@ function CheckOut() {
                         {cartItems.map((item) => (
                             <>
                                 <div className="flex gap-4" key={item.id}>
-                                    <img src={img1} className="w-24 h-24 rounded-xl" alt="Product" />
+                                    <img
+                                        src={img1}
+                                        className="w-24 h-24 rounded-xl"
+                                        alt="Product"
+                                    />
 
                                     <div className="">
                                         <div className="flex justify-between items-center">
@@ -300,7 +289,6 @@ function CheckOut() {
                                 </div>
                                 <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
                             </>
-
                         ))}
 
                         <div className="">

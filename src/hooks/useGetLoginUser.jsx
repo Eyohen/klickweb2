@@ -5,6 +5,7 @@ const useGetLoggedInUser = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [shippingOptions, setShippingOptions] = useState([]);
     const token = localStorage.getItem('access_token');
 
     useEffect(() => {
@@ -55,6 +56,16 @@ const useGetLoggedInUser = () => {
 
                     // Save user data to localStorage
                     localStorage.setItem('user', JSON.stringify({ userId, firstName, lastName, email, phone, role, status, vendorMode }));
+
+                    // Fetch shipping options
+                    const shippingOptionsResponse = await axios.get('https://klick-api.onrender.com/cart/checkout/rates', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    const shippingOptionsData = shippingOptionsResponse.data;
+                    setShippingOptions(shippingOptionsData.data.shippingdetails.couriers);
                 } catch (error) {
                     setError(error);
                     setLoading(false);
@@ -73,10 +84,11 @@ const useGetLoggedInUser = () => {
         localStorage.removeItem('deliveryAddresses');
     };
 
-    return { user, loading, error, logout };
+    return { user, loading, error, logout, shippingOptions };
 };
 
 export default useGetLoggedInUser;
+
 
 export const getCartId = () => localStorage.getItem('cartId');
 export const getWalletId = () => localStorage.getItem('walletId');
