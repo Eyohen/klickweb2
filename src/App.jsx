@@ -21,6 +21,7 @@ import OrderDetails from "./scenes/OrderDetails";
 import { CartProvider } from "./contexts/CartContext";
 import CartHenry from "./scenes/CartHenry";
 import RequireAuth from "./RequireAuth";
+import Messages from "./scenes/Messages";
 
 export default function App() {
   const token = localStorage.getItem('access_token');
@@ -67,6 +68,7 @@ export default function App() {
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/orderdetails" element={<OrderDetails />} />
+		  <Route path="/messages" element={<Messages />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>
