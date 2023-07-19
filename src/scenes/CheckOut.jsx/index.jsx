@@ -13,13 +13,49 @@ import useGetLoggedInUser, {
     getPrimaryAddress,
 } from "../../hooks/useGetLoginUser";
 import LoadingScreen from "../../components/LoadingScreen";
+import DeliveryCard from "../../components/DeliveryCard";
 
 function CheckOut() {
     const [showModal, setShowModal] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const cartId = getCartId();
     const [shippingOptions, setShippingOptions] = useState([]);
+    const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
 
+    const handleShippingMethodChange = (methodId) => {
+        setSelectedShippingMethod(methodId);
+    };
+
+    const handleConfirmOrder = async () => {
+        if (!selectedShippingMethod) {
+            alert("Please select a shipping method.");
+            return;
+        }
+
+        try {
+            // Your API request to confirm the order
+            const token = localStorage.getItem("access_token");
+            const response = await axios.post(
+                "https://klick-api.onrender.com/cart/checkout/confirm",
+                {
+                    cartId: cartId,
+                    shippingMethodId: selectedShippingMethod,
+                    // Add other relevant data for order confirmation
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            // Handle the response as needed, e.g., show success message
+            console.log(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
@@ -102,14 +138,16 @@ function CheckOut() {
                         <div className="">
                             <div className=" mb-6">Shipping Method</div>
 
-                            <div className=" flex justify-between">
+                            <div className="flex justify-between items-center">
                                 <div className="mb-3">Ship with seller</div>
 
-                                <div className="">
+                                <div>
                                     <input
-                                        id="default-checkbox"
-                                        type="checkbox"
-                                        value=""
+                                        type="radio"
+                                        name="shippingMethod"
+                                        value="seller"
+                                        checked={selectedShippingMethod === "seller"}
+                                        onChange={() => handleShippingMethodChange("seller")}
                                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500"
                                     />
                                 </div>
@@ -119,35 +157,20 @@ function CheckOut() {
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
                                     <p>
-                                        Your order will be handled completely by the seller from
-                                        payment to delivery. Contact seller for delivery information
+                                        Your order will be handled completely by the seller from payment to
+                                        delivery. Contact seller for delivery information
                                     </p>
                                     {/* <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  </p> */}
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-
-                        <div className="">
-                            {/* <div className=" mb-6">Shipping Method</div> */}
-
-                            <div className=" flex justify-between">
-                                <div className="mb-3">Ship with K-Ship</div>
-
-                                <div className="">
-                                    <input
-                                        id="default-checkbox"
-                                        type="checkbox"
-                                        value=""
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500"
-                                    />
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                          </p> */}
                                 </div>
                             </div>
 
-                            <div className="mb-2 flex gap-3 items-center">
+                            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+
+                            <div className="mb-3">Ship with K-Ship</div>
+
+                            <div className=" flex gap-3 items-center">
                                 <AiFillStar />
                                 <div className=" text-sm text-gray-400 font-normal">
                                     <p>Delivered by K-verified shippers</p>
@@ -169,26 +192,14 @@ function CheckOut() {
                             <button
                                 type="button"
                                 className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                                onClick={() => handleShippingMethodChange("k-ship")}
                             >
                                 1000
                             </button>
-                        </div>
 
-                        <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+                            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
-                        <div className="">
-                            <div className=" flex justify-between">
-                                <div className="mb-3">Ship with K-Secure</div>
-
-                                <div className="">
-                                    <input
-                                        id="default-checkbox"
-                                        type="checkbox"
-                                        value=""
-                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500"
-                                    />
-                                </div>
-                            </div>
+                            <div className="mb-3">Ship with K-Secure</div>
 
                             <div className=" flex gap-3 items-center">
                                 <AiFillStar />
@@ -230,9 +241,12 @@ function CheckOut() {
                             <button
                                 type="button"
                                 className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                                onClick={() => handleShippingMethodChange("k-secure")}
                             >
                                 1500
                             </button>
+
+                            {/* Rest of the existing code... */}
                         </div>
                     </div>
 
@@ -292,6 +306,7 @@ function CheckOut() {
                             </div>
                         ))}
 
+                        <DeliveryCard />    
                         <div className="">
                             <p className="mt-5">Discount Code</p>
 
@@ -344,7 +359,7 @@ function CheckOut() {
                             </div>
 
                             <div className=" items-center">
-                                <FillButton name="Confirm Order" />
+                                <FillButton name="Confirm Order" onClick={handleConfirmOrder} />
                             </div>
                         </div>
                     </div>
