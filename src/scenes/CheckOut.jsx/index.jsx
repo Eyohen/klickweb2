@@ -318,11 +318,15 @@ function CheckOut() {
 
                         <div className="space-y-5">
                             <div className="flex justify-between">
-                                <p className=" text-gray-400">Subtotal</p>
+                                <p className=" text-gray-400">Discount</p>
                                 <p>N209,000</p>
                             </div>
                             <div className="flex justify-between">
-                                <p className=" text-gray-400">Subtotal</p>
+                                <p className=" text-gray-400">Shipping fee</p>
+                                <p className="text-blue-500">- 9,000</p>
+                            </div>
+                            <div className="flex justify-between">
+                                <p className=" text-gray-400">K-secure/K-ship fee</p>
                                 <p className="text-blue-500">- 9,000</p>
                             </div>
                             <div className="flex justify-between">
