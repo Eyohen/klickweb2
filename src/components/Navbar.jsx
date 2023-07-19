@@ -10,6 +10,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
+import { logout } from "../hooks/useLogout";
 
 const Navbar = ({ handleSidebarToggle }) => {
   const [isBuyer, setIsBuyer] = useState(true);
@@ -79,12 +80,17 @@ const Navbar = ({ handleSidebarToggle }) => {
         </div>
 
         {/* profile not logged in */}
-        {!loggedIn && (
+        {!loggedIn ? (
           <div className="flex items-center space-x-2 hover:cursor-pointer">
             <BiUser className={navIconStyle} />
             <Link to="/login">Login</Link>
           </div>
-        )}
+        ) :
+          <div className="flex items-center space-x-2 hover:cursor-pointer">
+            <BiUser className={navIconStyle} />
+            <Link onClick={() => logout()}>Logout</Link>
+          </div>
+        }
 
         {/* logged in user */}
         <div className="hidden 7xl:flex items-center space-x-2 hover:cursor-pointer">

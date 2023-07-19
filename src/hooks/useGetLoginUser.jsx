@@ -56,7 +56,7 @@ const useGetLoggedInUser = () => {
                     // Save user data to localStorage
                     localStorage.setItem('user', JSON.stringify({ userId, firstName, lastName, email, phone, role, status, vendorMode }));
 
-                    
+
                 } catch (error) {
                     setError(error);
                     setLoading(false);
@@ -68,16 +68,11 @@ const useGetLoggedInUser = () => {
     }, []);
 
     // Function to clear user data from localStorage
-    const logout = () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('cartId');
-        localStorage.removeItem('walletId');
-        localStorage.removeItem('deliveryAddresses');
-    };
 
-    return { user, loading, error, logout };
 
-    
+    return { user, loading, error };
+
+
 };
 
 export default useGetLoggedInUser;
@@ -86,6 +81,7 @@ export default useGetLoggedInUser;
 export const getCartId = () => localStorage.getItem('cartId');
 export const getWalletId = () => localStorage.getItem('walletId');
 export const getDeliveryAddresses = () => JSON.parse(localStorage.getItem('deliveryAddresses'));
+
 export const getPrimaryAddress = () => {
     const deliveryAddresses = JSON.parse(localStorage.getItem('deliveryAddresses'));
     if (Array.isArray(deliveryAddresses) && deliveryAddresses.length > 0) {

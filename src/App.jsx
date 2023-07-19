@@ -71,7 +71,7 @@ export default function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/orderdetails" element={<OrderDetails />} />
           <Route path="/messages" element={<Messages />} />
-		  <Route path="/searchpage" element={<SearchPage />} />
+          <Route path="/searchpage" element={<SearchPage />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>
