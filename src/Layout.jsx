@@ -7,6 +7,8 @@ import { Outlet } from "react-router-dom"
 
 const Layout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('default');
+
 
     const handleSidebarToggle = () => {
         setSidebarOpen((prevState) => !prevState);
@@ -16,9 +18,9 @@ const Layout = () => {
             <div className="relative">
                 <div className={`${sidebarOpen ? 'blur-background blur-active' : ''}`} />
                 {/* Render other components */}
-                <Navbar handleSidebarToggle={handleSidebarToggle} />
-                {sidebarOpen && <Sidebar handleSidebarToggle={handleSidebarToggle} />}
-                <Outlet />
+                <Navbar handleSidebarToggle={handleSidebarToggle} setSearchQuery={setSearchQuery} />
+                {sidebarOpen && <Sidebar handleSidebarToggle={handleSidebarToggle}/>}
+                <Outlet searchQuery={searchQuery}/>
                 <Footer />
             </div>
         </main>
