@@ -15,10 +15,10 @@ import useGetLoggedInUser, {
 import LoadingScreen from "../../components/LoadingScreen";
 
 function CheckOut() {
-    const [count, setCount] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const cartId = getCartId();
+    const [shippingOptions, setShippingOptions] = useState([]);
 
     useEffect(() => {
         const fetchCartItems = async () => {
@@ -33,18 +33,24 @@ function CheckOut() {
             }
         };
 
+        const getShippingOptions = async () => {
+            // Fetch shipping options
+            const token = localStorage.getItem('access_token');
+            const shippingOptionsResponse = await axios.get('https://klick-api.onrender.com/cart/checkout/rates', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            const shippingOptionsData = shippingOptionsResponse.data;
+            setShippingOptions(shippingOptionsData.data.shippingdetails.couriers);
+            return shippingOptions
+        }
+
         fetchCartItems();
+        getShippingOptions();
     }, [cartId]);
 
-    const handleIncrement = () => {
-        setCount(count + 1);
-    };
-
-    const handleDecrement = () => {
-        if (count > 0) {
-            setCount(count - 1);
-        }
-    };
 
     const { user, loading } = useGetLoggedInUser();
     const address = getPrimaryAddress();
@@ -274,17 +280,12 @@ function CheckOut() {
                                         alt="Product"
                                     />
 
-                                    <div className="">
-                                        <div className="flex justify-between items-center">
+                                    <div className="space-y-10">
+                                        <div className="flex justify-between items-center gap-4">
                                             <p>{item.info.name}</p>
                                             <RiDeleteBin2Fill />
                                         </div>
                                         <p className="my-3">{`N ${item.info.UnitPrice}`}</p>
-                                        <div className="flex gap-3 text-center">
-                                            <button onClick={handleDecrement}>-</button>
-                                            <h1>{count}</h1>
-                                            <button onClick={handleIncrement}>+</button>
-                                        </div>
                                     </div>
                                 </div>
                                 <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />

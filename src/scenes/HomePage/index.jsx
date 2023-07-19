@@ -4,8 +4,10 @@ import Categories from "./Categories";
 import Recommended from "./Recommended";
 import Featured from "./Featured";
 import TodayDeals from "./TodayDeals";
+import useGetLoggedInUser from "../../hooks/useGetLoginUser";
 
 const HomePage = () => {
+  const { user } = useGetLoggedInUser()
   return (
     <section>
       <Hero />

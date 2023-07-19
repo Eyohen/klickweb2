@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import img1 from "../../assets/images/GridItem.png";
 import { AiFillStar } from "react-icons/ai";
 import axios from "axios";
