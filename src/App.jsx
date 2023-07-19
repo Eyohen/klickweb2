@@ -22,10 +22,12 @@ import { CartProvider } from "./contexts/CartContext";
 import CartHenry from "./scenes/CartHenry";
 import RequireAuth from "./RequireAuth";
 import Messages from "./scenes/Messages";
+import SearchPage from "./components/SearchPage";
 
 export default function App() {
   const token = localStorage.getItem('access_token');
   return (
+
     <BrowserRouter>
       <CartProvider>
         <Routes>
@@ -69,6 +71,7 @@ export default function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/orderdetails" element={<OrderDetails />} />
           <Route path="/messages" element={<Messages />} />
+		  <Route path="/searchpage" element={<SearchPage />} />
         </Routes>
       </CartProvider>
     </BrowserRouter>
