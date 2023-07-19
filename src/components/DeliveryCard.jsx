@@ -1,11 +1,15 @@
-const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, setSelectedCourier }) => {
+import { useState } from "react";
+
+const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, selectedCourier, setSelectedCourier }) => {
+    const [cashOnDeliverySelected, setCashOnDeliverySelected] = useState(false)
     const handleCourierSelection = () => {
         setSelectedCourier({
             courierName: name,
             courierId: id,
             serviceCode: code,
             code: isCOD,
-            total: price
+            total: price,
+            cash: cashOnDeliverySelected
         }); // Set the selected courier when the radio button is clicked
     };
 
@@ -34,7 +38,13 @@ const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, setSelectedC
                                 name="mode"
                                 id={name}
                                 className="peer"
-                                onChange={handleCourierSelection} // Call the handler when the radio button is clicked
+                                checked={selectedCourier?.courierId === id}
+                                onChange={
+                                    () => {
+                                        handleCourierSelection
+                                        setCashOnDeliverySelected(true)
+                                    }
+                                } // Call the handler when the radio button is clicked
                             />
                         </div>
                         <div className="flex gap-2">
@@ -44,6 +54,7 @@ const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, setSelectedC
                                 name="mode"
                                 id={name}
                                 className="peer"
+                                checked={selectedCourier?.courierId === id}
                                 onChange={handleCourierSelection} // Call the handler when the radio button is clicked
                             />
                         </div>
@@ -54,9 +65,9 @@ const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, setSelectedC
                         <input
                             type="radio"
                             name="mode"
-                            checked={''}
                             id={name}
                             className="peer"
+                            checked={selectedCourier?.courierId === id}
                             onChange={handleCourierSelection} // Call the handler when the radio button is clicked
                         />
                     </div>
@@ -68,7 +79,7 @@ const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, setSelectedC
 
 
 
-const DeliveryCard = ({ shippingOptions, setSelectedCourier }) => {
+const DeliveryCard = ({ shippingOptions, selectedCourier, setSelectedCourier }) => {
     return (
         <div className="flex flex-col space-y-4">
             <div className="space-y-1">
@@ -86,6 +97,7 @@ const DeliveryCard = ({ shippingOptions, setSelectedCourier }) => {
                             code={courier.service_code}
                             isCOD={courier.is_cod_available}
                             setSelectedCourier={setSelectedCourier}
+                            selectedCourier={selectedCourier}
                         />
                     ))}
                 </div>

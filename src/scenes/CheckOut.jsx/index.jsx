@@ -21,7 +21,7 @@ function CheckOut() {
     const cartId = getCartId();
     const [shippingOptions, setShippingOptions] = useState([]);
 
-    const storeId = 0
+    const [storeId, setStoreId] = useState("")
 
     const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
     const [selectedCourier, setSelectedCourier] = useState(null);
@@ -42,9 +42,16 @@ function CheckOut() {
             const response = await axios.post(
                 `https://klick-api.onrender.com/order/?${storeId}`,
                 {
-                    cartId: cartId,
-                    courier: selectedCourier,
-                    // Add other relevant data for order confirmation
+                    shipMethod: selectedShipmentMethod,
+                    option: "cash", // or kcredit or wallet
+                    "service": "flutterwave",//"seerbit"
+                    "shippingCourier": {
+                        "courierName": "",
+                        "courierId": "",
+                        "serviceCode": "",
+                        "cod": "",
+                        "total": ""
+                    }
                 },
                 {
                     headers: {
@@ -83,6 +90,8 @@ function CheckOut() {
                 }
             });
             const shippingOptionsData = shippingOptionsResponse.data;
+
+            setStoreId(shippingOptionsResponse.data.data.store)
             setShippingOptions(shippingOptionsData.data.shippingdetails.couriers);
             return shippingOptions
         }
@@ -337,7 +346,7 @@ function CheckOut() {
                             </div>
                         ))}
 
-                        <DeliveryCard shippingOptions={shippingOptions} setSelectedCourier={setSelectedCourier}/>
+                        <DeliveryCard shippingOptions={shippingOptions} setSelectedCourier={setSelectedCourier} selectedCourier={selectedCourier} />
                         <div className="">
                             <p className="mt-5">Discount Code</p>
 
