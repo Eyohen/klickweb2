@@ -288,7 +288,6 @@ function AddProducts() {
 
                                 <div>
                                     <Select
-                                        defaultValue={[colorOptions[2], colorOptions[3]]}
                                         isMulti
                                         name="colors"
                                         options={colorOptions}
@@ -296,7 +295,6 @@ function AddProducts() {
                                         classNamePrefix="select"
                                         id='colors'
                                         title={"Specification Colors"}
-                                        onChange={handleSpecificationsChange}
                                     />
                                 </div>
                                 <div>
