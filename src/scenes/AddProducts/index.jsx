@@ -19,6 +19,7 @@ function AddProducts() {
     const [selectedShippingValue, setSelectedShippingValue] = useState('');
     const [profileImage, setProfileImage] = useState('')
     const [imagePreview, setImagePreview] = useState(null)
+    const [selectedColors, setSelectedColors] = useState([]);
 
     const initialState = {
         name: '',
@@ -78,7 +79,13 @@ function AddProducts() {
         }));
     };
 
-
+    const handleColorSelectChange = (selectedOptions) => {
+      if (selectedOptions.length <= 5) {
+        setSelectedColors(selectedOptions);
+      } else {
+        setSelectedColors(selectedOptions.slice(0, 5));
+      }
+    };
 
     const handleImageChange = (e) => {
         setProfileImage(e.target.files[0])
@@ -177,164 +184,282 @@ function AddProducts() {
     };
     const { values, handleChange, handleSubmit, } = useSignup(initialState, handleSubmitForm);
     return (
-        <div className='p-6 space-y-5'>
+      <div className="p-6 space-y-5">
+        {/* top section */}
+        <form onSubmit={handleSubmit}>
+          <div className=" flex justify-between">
+            <div className="text-xl font-semibold">Add New Product</div>
+            <div>
+              <button
+                type="button"
+                className=" hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 "
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="text-gray-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 "
+              >
+                {" "}
+                {isLoading ? "...Submitting" : "Save"}
+              </button>
+            </div>
+          </div>
 
-            {/* top section */}
-            <form onSubmit={handleSubmit}>
-                <div className=' flex justify-between'>
-                    <div className='text-xl font-semibold'>Add New Product</div>
-                    <div>
-                        <button type="button" className=" hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 ">Cancel</button>
-                        <button type="submit" className="text-gray-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 "> {isLoading ? '...Submitting' : 'Save'}</button>
-                    </div>
+          <div className="flex w-full">
+            {/* left side */}
+            <div className=" w-2/12">
+              {/* Stepper */}
+              <Stepper />
+            </div>
+
+            {/* right side */}
+            <div className="space-y-5 w-10/12">
+              {/* personal info card */}
+              <div className="block w-full p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow">
+                <h4 className="text-xl font-semibold">Personal Information</h4>
+
+                <div className="grid gap-6 grid-cols-2">
+                  <TextInput
+                    value={values.name}
+                    id="name"
+                    name="name"
+                    title={"Name"}
+                    onChange={handleChange}
+                  />
+                  <TextInput
+                    value={values.price}
+                    id="price"
+                    name="price"
+                    title={"Price"}
+                    onChange={handleChange}
+                  />
                 </div>
 
-                <div className='flex w-full'>
-                    {/* left side */}
-                    <div className=' w-2/12'>
-                        {/* Stepper */}
-                        <Stepper />
+                <div className="grid gap-6 grid-cols-2">
+                  <TextInput
+                    type="number"
+                    value={objectState.quantity.total}
+                    id="total"
+                    name="total"
+                    title={"Quantity [total]"}
+                    onChange={handleQuantityChange}
+                  />
+                  <TextInput
+                    type="number"
+                    value={objectState.quantity.instock}
+                    id="instock"
+                    name="instock"
+                    title={"Quantity [inStock]"}
+                    onChange={handleQuantityChange}
+                  />
+                </div>
+
+                <TextInput
+                  value={values.description}
+                  id="description"
+                  name="description"
+                  title={"Description"}
+                  onChange={handleChange}
+                />
+
+                <h3 className=" text-gray-400 font-light text-xs mt-4">
+                  0/2000
+                </h3>
+              </div>
+
+              {/* Photo Card */}
+              <div className="block w-full  p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow">
+                <h4 className="text-xl">Product Image</h4>
+
+                <div className=" grid grid-cols-2 gap-6">
+                  <div>
+                    <div className="flex items-center justify-center w-full mb-5">
+                      <div className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        <label
+                          className={imagePreview && "hidden"}
+                          htmlFor="dropzone-file"
+                        >
+                          <svg
+                            className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 16"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                            />
+                          </svg>
+                          Click to Add Product Photo
+                        </label>
+                        <input
+                          id="dropzone-file"
+                          type="file"
+                          accept="image/png, image/jpeg, image/jpg"
+                          name="image"
+                          className="hidden"
+                          onChange={handleImageChange}
+                        />
+                        {imagePreview && (
+                          <img
+                            src={imagePreview && imagePreview}
+                            alt="preview"
+                            className="w-full h-full"
+                          />
+                        )}
+                      </div>
                     </div>
 
-                    {/* right side */}
-                    <div className='space-y-5 w-10/12'>
-                        {/* personal info card */}
-                        <div className='block w-full p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow'>
-                            <h4 className='text-xl font-semibold'>Personal Information</h4>
+                    <div className=" text-gray-500">
+                      Image format should be in .jpg or .png and the image size
+                      should be at least 300px x 300px.
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                            <div className='grid gap-6 grid-cols-2'>
-                                < TextInput value={values.name} id='name' name="name" title={"Name"} onChange={handleChange} />
-                                < TextInput value={values.price} id='price' name="price" title={"Price"} onChange={handleChange} />
-                            </div>
+              {/* Inventory */}
+              <div className="block w-full  p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow">
+                <h4 className="text-xl font-semibold">Inventory</h4>
+                <div className="flex flex-col">
+                  <label>Product Category</label>
+                  <select
+                    className='className="block w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"'
+                    id="specificationsType"
+                    name="specifications[type]"
+                    onChange={handleSelectChange}
+                    value={selectedValue}
+                  >
+                    <option>Select a product category</option>
+                    {categories.map((e) => {
+                      return (
+                        <option key={e.id} value={e.name} id={e.id}>
+                          {e.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <div className="flex flex-col">
+                  <label>Shipping Category</label>
+                  <select
+                    className='className="block w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"'
+                    value={selectedShippingValue}
+                    onChange={handleShippngSelectChange}
+                  >
+                    <option>Select a shipping category</option>
+                    {shippingCategories.map((e) => {
+                      return (
+                        <option
+                          key={e.category_id}
+                          value={e.category}
+                          id={e.category_id}
+                        >
+                          {e.category}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              </div>
 
-                            <div className='grid gap-6 grid-cols-2'>
-                                < TextInput type='number' value={objectState.quantity.total} id='total' name="total" title={"Quantity [total]"} onChange={handleQuantityChange} />
-                                < TextInput type='number' value={objectState.quantity.instock} id='instock' name="instock" title={"Quantity [inStock]"} onChange={handleQuantityChange} />
-                            </div>
+              {/* Specification */}
+              <div className="block w-full  p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow">
+                <h4 className="text-xl font-semibold">Specification</h4>
 
-                            < TextInput value={values.description} id='description' name='description' title={"Description"} onChange={handleChange} />
+                <div className="grid gap-6 grid-cols-2">
+                  <div>
+                    <Select
+                      isMulti
+                      name="colors"
+                      options={colorOptions}
+                      className="basic-multi-select w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"
+                      classNamePrefix="select"
+                      id="colors"
+                      title={"Specification Colors"}
+                      value={selectedColors}
+                      onChange={handleColorSelectChange}
+                    />
+                  </div>
+                  <div>
+                    <TextInput
+                      value={objectState.specifications.weight}
+                      id="weight"
+                      name="weight"
+                      title={"Specifications Weight"}
+                      onChange={handleSpecificationsChange}
+                    />
+                    <p className=" text-gray-400 text-xs mt-2">
+                      Seperate tags with comma
+                    </p>
+                  </div>
+                </div>
 
-                            <h3 className=' text-gray-400 font-light text-xs mt-4'>
-                                0/2000
-                            </h3>
-                        </div>
+                <div className="grid gap-6 grid-cols-2">
+                  <div>
+                    <TextInput
+                      value={objectState.specifications.dimensions.length}
+                      id="length"
+                      name="length"
+                      title={"Length"}
+                      onChange={handleSpecificationsDimensionsChange}
+                    />
+                    <p className=" text-gray-400 text-xs mt-2">
+                      Seperate tags with comma
+                    </p>
+                  </div>
 
-                        {/* Photo Card */}
-                        <div className='block w-full  p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow'>
-                            <h4 className='text-xl'>Product Image</h4>
+                  <div>
+                    <TextInput
+                      value={objectState.specifications.dimensions.width}
+                      id="width"
+                      name="width"
+                      title={"Width"}
+                      onChange={handleSpecificationsDimensionsChange}
+                    />
+                    <p className=" text-gray-400 text-xs mt-2">
+                      Seperate tags with comma
+                    </p>
+                  </div>
+                </div>
 
-                            <div className=' grid grid-cols-2 gap-6'>
-                                <div>
-                                    <div className="flex items-center justify-center w-full mb-5">
-                                        <div className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                            <label className={imagePreview && 'hidden'} htmlFor="dropzone-file">
-                                                <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                </svg>
-                                                Click to Add Product Photo</label>
-                                            <input id="dropzone-file" type="file" accept='image/png, image/jpeg, image/jpg' name='image' className="hidden" onChange={handleImageChange} />
-                                            {
-                                                imagePreview && (
-                                                    <img src={imagePreview && imagePreview} alt='preview' className='w-full h-full' />
-                                                )
-                                            }
-                                        </div>
+                <div className="grid gap-6 grid-cols-2">
+                  <div>
+                    <TextInput
+                      value={objectState.specifications.dimensions.height}
+                      id="height"
+                      name="height"
+                      title={"Height"}
+                      onChange={handleSpecificationsDimensionsChange}
+                    />
+                    <p className=" text-gray-400 text-xs mt-2">
+                      Seperate tags with comma
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {error ? (
+                <div className="text-red-500 text-base">
+                  {" "}
+                  Oops, something went wrong: {error}{" "}
+                </div>
+              ) : (
+                ""
+              )}
 
-
-                                    </div>
-
-
-                                    <div className=' text-gray-500'>
-                                        Image format should be in .jpg or .png and the image size should be at least 300px x 300px.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Inventory */}
-                        <div className='block w-full  p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow'>
-                            <h4 className='text-xl font-semibold'>Inventory</h4>
-                            <div className='flex flex-col'>
-                                <label>Product Category</label>
-                                <select className='className="block w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"' id='specificationsType' name="specifications[type]" onChange={handleSelectChange} value={selectedValue} >
-                                    <option >Select a product category</option>
-                                    {categories.map((e) => {
-                                        return (
-                                            <option key={e.id} value={e.name} id={e.id}>{e.name}</option>
-                                        )
-                                    })}
-                                </select>
-                            </div>
-                            <div className='flex flex-col'>
-                                <label>Shipping Category</label>
-                                <select className='className="block w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"' value={selectedShippingValue} onChange={handleShippngSelectChange}  >
-                                    <option >Select a shipping category</option>
-                                    {shippingCategories.map((e) => {
-                                        return (
-                                            <option key={e.category_id} value={e.category} id={e.category_id}>{e.category}</option>
-                                        )
-                                    })}
-                                </select>
-
-                            </div>
-                        </div>
-
-                        {/* Specification */}
-                        <div className='block w-full  p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow'>
-                            <h4 className='text-xl font-semibold'>Specification</h4>
-
-                            <div className='grid gap-6 grid-cols-2'>
-
-
-                                <div>
-                                    <Select
-                                        isMulti
-                                        name="colors"
-                                        options={colorOptions}
-                                        className="basic-multi-select w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"
-                                        classNamePrefix="select"
-                                        id='colors'
-                                        title={"Specification Colors"}
-                                    />
-                                </div>
-                                <div>
-                                    < TextInput value={objectState.specifications.weight} id='weight' name="weight" title={"Specifications Weight"} onChange={handleSpecificationsChange} />
-                                    <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
-                                </div>
-                            </div>
-
-                            <div className='grid gap-6 grid-cols-2'>
-                                <div>
-                                    < TextInput value={objectState.specifications.dimensions.length} id='length' name="length" title={"Length"} onChange={handleSpecificationsDimensionsChange} />
-                                    <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
-                                </div>
-
-                                <div>
-                                    < TextInput value={objectState.specifications.dimensions.width} id='width' name="width" title={"Width"} onChange={handleSpecificationsDimensionsChange} />
-                                    <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
-                                </div>
-
-                            </div>
-
-                            <div className='grid gap-6 grid-cols-2'>
-                                <div>
-                                    < TextInput value={objectState.specifications.dimensions.height} id='height' name="height" title={"Height"} onChange={handleSpecificationsDimensionsChange} />
-                                    <p className=' text-gray-400 text-xs mt-2'>Seperate tags with comma</p>
-                                </div>
-
-
-                            </div>
-                        </div>
-                        {error ? (<div className='text-red-500 text-base'> Oops, something went wrong:  {error} </div>) : ''}
-
-                        {/* button */}
-                        {/*<div className='mt-4'>
+              {/* button */}
+              {/*<div className='mt-4'>
                     <button  type="button" className=" hover:text-white border border-yellow-400 hover:bg-yellow-500 font-medium rounded-full text-sm px-10 py-3 text-center mr-2 mb-2 ">+  Add Specification</button>
                                          </div>*/}
-                    </div>
-                </div>
-            </form>
-        </div>
+            </div>
+          </div>
+        </form>
+      </div>
     );
 }
 
