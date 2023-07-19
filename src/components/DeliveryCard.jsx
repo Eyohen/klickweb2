@@ -1,8 +1,4 @@
-const DeliveryTiles = ({ name, image, time, price, isCOD, onSelectShippingOption }) => {
-    const handleSelectShippingOption = () => {
-        onSelectShippingOption({ name, price });
-    };
-
+const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
     return (
         <div
             htmlFor={name} // Use a unique identifier for the radio button
@@ -29,7 +25,6 @@ const DeliveryTiles = ({ name, image, time, price, isCOD, onSelectShippingOption
                                 name="mode"
                                 id={name} // Use the same unique identifier for the radio button
                                 className="peer"
-                                onClick={handleSelectShippingOption} // Call the handler when clicked
                             />
                         </div>
                         <div className="flex gap-2">
@@ -39,7 +34,6 @@ const DeliveryTiles = ({ name, image, time, price, isCOD, onSelectShippingOption
                                 name="mode"
                                 id={name} // Use the same unique identifier for the radio button
                                 className="peer"
-                                onClick={handleSelectShippingOption} // Call the handler when clicked
                             />
                         </div>
                     </div>
@@ -51,7 +45,6 @@ const DeliveryTiles = ({ name, image, time, price, isCOD, onSelectShippingOption
                             name="mode"
                             id={name} // Use the same unique identifier for the radio button
                             className="peer"
-                            onClick={handleSelectShippingOption} // Call the handler when clicked
                         />
                     </div>
                 )}
@@ -61,12 +54,7 @@ const DeliveryTiles = ({ name, image, time, price, isCOD, onSelectShippingOption
 };
 
 
-const DeliveryCard = ({ shippingOptions, setSelectedShippingOption, setSubtotal, setSelectedCourier }) => {
-    const handleSelectShippingOption = (option) => {
-        setSelectedShippingOption(option);
-        setSelectedCourier(option.name);
-        setSubtotal(option.price);
-    };
+const DeliveryCard = ({ shippingOptions }) => {
     return (
         <div className="flex flex-col space-y-4">
             <div className="space-y-1">
@@ -81,7 +69,6 @@ const DeliveryCard = ({ shippingOptions, setSelectedShippingOption, setSubtotal,
                             time={courier.delivery_eta}
                             price={courier.total}
                             isCOD={courier.is_cod_available}
-                            onSelectShippingOption={handleSelectShippingOption}
                         />
                     ))}
                 </div>

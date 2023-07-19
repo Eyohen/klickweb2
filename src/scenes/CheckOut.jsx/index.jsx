@@ -21,24 +21,25 @@ function CheckOut() {
     const cartId = getCartId();
     const [shippingOptions, setShippingOptions] = useState([]);
 
-    const [selectedShippingOption, setSelectedShippingOption] = useState(null);
-    const [subtotal, setSubtotal] = useState(0);
+    const storeId = 0
 
-    const [selectedCourier, setSelectedCourier] = useState(null);
     const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
-    console.log("🚀 ~ file: index.jsx:30 ~ CheckOut ~ selectedShipmentMethod:", selectedShipmentMethod)
+    const [selectedCourier, setSelectedCourier] = useState(null);
 
     const handleConfirmOrder = async () => {
         if (!selectedCourier) {
             alert("Please select a courier.");
             return;
         }
+        if (!selectedShipmentMethod) {
+            alert("Please select a shipment method")
+        }
 
         try {
             // Your API request to confirm the order
             const token = localStorage.getItem("access_token");
             const response = await axios.post(
-                "https://klick-api.onrender.com/cart/checkout/confirm",
+                `https://klick-api.onrender.com/order/?${storeId}`,
                 {
                     cartId: cartId,
                     courier: selectedCourier,
@@ -335,7 +336,7 @@ function CheckOut() {
                             </div>
                         ))}
 
-                        <DeliveryCard shippingOptions={shippingOptions} setSelectedShippingOption={setSelectedShippingOption} setSubtotal={setSubtotal} setSelectedCourier={setSelectedCourier} />
+                        <DeliveryCard shippingOptions={shippingOptions} />
                         <div className="">
                             <p className="mt-5">Discount Code</p>
 
