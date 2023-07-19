@@ -306,7 +306,7 @@ function CheckOut() {
                             </div>
                         ))}
 
-                        <DeliveryCard />    
+                        <DeliveryCard shippingOptions={shippingOptions}/>    
                         <div className="">
                             <p className="mt-5">Discount Code</p>
 
