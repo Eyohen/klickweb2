@@ -20,7 +20,6 @@ function CheckOut() {
     const [cartItems, setCartItems] = useState([]);
     const cartId = getCartId();
     const [shippingOptions, setShippingOptions] = useState([]);
-    const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
 
     const [selectedShippingOption, setSelectedShippingOption] = useState(null);
     const [subtotal, setSubtotal] = useState(0);
@@ -29,16 +28,7 @@ function CheckOut() {
     const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
     console.log("🚀 ~ file: index.jsx:30 ~ CheckOut ~ selectedShipmentMethod:", selectedShipmentMethod)
 
-    const handleShippingMethodChange = (methodId) => {
-        setSelectedShipmentMethod(methodId);
-    };
-
     const handleConfirmOrder = async () => {
-        if (!selectedShippingMethod) {
-            alert("Please select a shipping method.");
-            return;
-        }
-
         if (!selectedCourier) {
             alert("Please select a courier.");
             return;
@@ -51,7 +41,6 @@ function CheckOut() {
                 "https://klick-api.onrender.com/cart/checkout/confirm",
                 {
                     cartId: cartId,
-                    shippingMethodId: selectedShippingMethod,
                     courier: selectedCourier,
                     // Add other relevant data for order confirmation
                 },
@@ -159,8 +148,8 @@ function CheckOut() {
                                         type="radio"
                                         name="shippingMethod"
                                         value="seller"
-                                        checked={selectedShippingMethod === "seller"}
-                                        onChange={() => handleShippingMethodChange("seller")}
+                                        checked={selectedShipmentMethod === "seller"}
+                                        onChange={() => setSelectedShipmentMethod("seller")}
                                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500"
                                     />
                                 </div>
@@ -173,88 +162,115 @@ function CheckOut() {
                                         Your order will be handled completely by the seller from payment to
                                         delivery. Contact seller for delivery information
                                     </p>
-                                    {/* <p>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                          </p> */}
                                 </div>
                             </div>
 
                             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
-                            <div className="mb-3">Ship with K-Ship</div>
+                            {/* ship with k-ship */}
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <div className="mb-3">Ship with K-Ship</div>
 
-                            <div className=" flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>Delivered by K-verified shippers</p>
+                                    <div className=" flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>Delivered by K-verified shippers</p>
+                                        </div>
+                                    </div>
+                                    <div className=" mb-2 flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>Real-Time package tracking</p>
+                                        </div>
+                                    </div>
+                                    <div className=" mb-2 flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>Insurance on good in transit</p>
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                                        onClick={() => setSelectedShipmentMethod("k-ship")}
+                                    >
+                                        1000
+                                    </button>
+                                </div>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        name="shippingMethod"
+                                        value="seller"
+                                        checked={selectedShipmentMethod === "k-ship"}
+                                        onChange={() => setSelectedShipmentMethod("k-ship")}
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500"
+                                    />
                                 </div>
                             </div>
-                            <div className=" mb-2 flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>Real-Time package tracking</p>
+
+                            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+
+                            {/* ship with option */}
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <div>
+                                        <div className="mb-3">Ship with K-Secure</div>
+                                    </div>
+                                    <div className=" flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>Delivered by K-verified shippers</p>
+                                        </div>
+                                    </div>
+                                    <div className=" mb-2 flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>Payment secured by Klick</p>
+                                        </div>
+                                    </div>
+                                    <div className=" mb-2 flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>Real-Time package tracking</p>
+                                        </div>
+                                    </div>
+                                    <div className=" mb-2 flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>Insurance on good in transit</p>
+                                        </div>
+                                    </div>
+                                    <div className=" mb-2 flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>Insurance on good in transit</p>
+                                        </div>
+                                    </div>
+                                    <div className=" mb-2 flex gap-3 items-center">
+                                        <AiFillStar />
+                                        <div className=" text-sm text-gray-400 font-normal">
+                                            <p>3 days return</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className=" mb-2 flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>Insurance on good in transit</p>
+                                <div>
+                                    <input
+                                        type="radio"
+                                        name="shippingMethod"
+                                        value="seller"
+                                        checked={selectedShipmentMethod === "k-secure"}
+                                        onChange={() => setSelectedShipmentMethod("k-secure")}
+                                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500"
+                                    />
                                 </div>
                             </div>
 
                             <button
                                 type="button"
                                 className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
-                                onClick={() => handleShippingMethodChange("k-ship")}
-                            >
-                                1000
-                            </button>
-
-                            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-
-                            <div className="mb-3">Ship with K-Secure</div>
-
-                            <div className=" flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>Delivered by K-verified shippers</p>
-                                </div>
-                            </div>
-                            <div className=" mb-2 flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>Payment secured by Klick</p>
-                                </div>
-                            </div>
-                            <div className=" mb-2 flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>Real-Time package tracking</p>
-                                </div>
-                            </div>
-                            <div className=" mb-2 flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>Insurance on good in transit</p>
-                                </div>
-                            </div>
-                            <div className=" mb-2 flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>Insurance on good in transit</p>
-                                </div>
-                            </div>
-                            <div className=" mb-2 flex gap-3 items-center">
-                                <AiFillStar />
-                                <div className=" text-sm text-gray-400 font-normal">
-                                    <p>3 days return</p>
-                                </div>
-                            </div>
-
-                            <button
-                                type="button"
-                                className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
-                                onClick={() => handleShippingMethodChange("k-secure")}
                             >
                                 1500
                             </button>
