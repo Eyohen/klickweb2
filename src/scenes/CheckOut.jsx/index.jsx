@@ -22,13 +22,25 @@ function CheckOut() {
     const [shippingOptions, setShippingOptions] = useState([]);
     const [selectedShippingMethod, setSelectedShippingMethod] = useState(null);
 
+    const [selectedShippingOption, setSelectedShippingOption] = useState(null);
+    const [subtotal, setSubtotal] = useState(0);
+
+    const [selectedCourier, setSelectedCourier] = useState(null);
+    const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
+    console.log("🚀 ~ file: index.jsx:30 ~ CheckOut ~ selectedShipmentMethod:", selectedShipmentMethod)
+
     const handleShippingMethodChange = (methodId) => {
-        setSelectedShippingMethod(methodId);
+        setSelectedShipmentMethod(methodId);
     };
 
     const handleConfirmOrder = async () => {
         if (!selectedShippingMethod) {
             alert("Please select a shipping method.");
+            return;
+        }
+
+        if (!selectedCourier) {
+            alert("Please select a courier.");
             return;
         }
 
@@ -40,6 +52,7 @@ function CheckOut() {
                 {
                     cartId: cartId,
                     shippingMethodId: selectedShippingMethod,
+                    courier: selectedCourier,
                     // Add other relevant data for order confirmation
                 },
                 {
@@ -306,7 +319,7 @@ function CheckOut() {
                             </div>
                         ))}
 
-                        <DeliveryCard shippingOptions={shippingOptions}/>    
+                        <DeliveryCard shippingOptions={shippingOptions} setSelectedShippingOption={setSelectedShippingOption} setSubtotal={setSubtotal} setSelectedCourier={setSelectedCourier} />
                         <div className="">
                             <p className="mt-5">Discount Code</p>
 

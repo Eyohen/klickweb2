@@ -1,7 +1,11 @@
-const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
+const DeliveryTiles = ({ name, image, time, price, isCOD, onSelectShippingOption }) => {
+    const handleSelectShippingOption = () => {
+        onSelectShippingOption({ name, price });
+    };
+
     return (
         <div
-            htmlFor="user1"
+            htmlFor={name} // Use a unique identifier for the radio button
             className="flex justify-between items-center gap-4 p-4 rounded-xl bg-white bg-opacity-90 backdrop-blur-2xl shadow-xl hover:bg-opacity-75 cursor-pointer transition"
         >
             <div className="flex gap-4 items-center justify-end">
@@ -20,17 +24,35 @@ const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
                     <div className="flex flex-col gap-4">
                         <div className="flex gap-2">
                             <h3 className="font-bold">Cash</h3>
-                            <input type="radio" name="mode" id="mode" className="peer" />
+                            <input
+                                type="radio"
+                                name="mode"
+                                id={name} // Use the same unique identifier for the radio button
+                                className="peer"
+                                onClick={handleSelectShippingOption} // Call the handler when clicked
+                            />
                         </div>
                         <div className="flex gap-2">
                             <h3 className="font-bold">N {price}</h3>
-                            <input type="radio" name="mode" id="mode" className="peer" />
+                            <input
+                                type="radio"
+                                name="mode"
+                                id={name} // Use the same unique identifier for the radio button
+                                className="peer"
+                                onClick={handleSelectShippingOption} // Call the handler when clicked
+                            />
                         </div>
                     </div>
                 ) : (
                     <div className="flex gap-2">
                         <h3 className="font-bold">N {price}</h3>
-                        <input type="radio" name="mode" id="mode" className="peer" />
+                        <input
+                            type="radio"
+                            name="mode"
+                            id={name} // Use the same unique identifier for the radio button
+                            className="peer"
+                            onClick={handleSelectShippingOption} // Call the handler when clicked
+                        />
                     </div>
                 )}
             </div>
@@ -39,7 +61,12 @@ const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
 };
 
 
-const DeliveryCard = ({ shippingOptions }) => {
+const DeliveryCard = ({ shippingOptions, setSelectedShippingOption, setSubtotal, setSelectedCourier }) => {
+    const handleSelectShippingOption = (option) => {
+        setSelectedShippingOption(option);
+        setSelectedCourier(option.name);
+        setSubtotal(option.price);
+    };
     return (
         <div className="flex flex-col space-y-4">
             <div className="space-y-1">
@@ -54,6 +81,7 @@ const DeliveryCard = ({ shippingOptions }) => {
                             time={courier.delivery_eta}
                             price={courier.total}
                             isCOD={courier.is_cod_available}
+                            onSelectShippingOption={handleSelectShippingOption}
                         />
                     ))}
                 </div>
