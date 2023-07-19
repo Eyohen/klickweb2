@@ -4,6 +4,8 @@ import useSignup from '../../hooks/useSignup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Select from 'react-select';
+import { colorOptions } from '../../constants/colors';
 
 
 function AddProducts() {
@@ -75,6 +77,7 @@ function AddProducts() {
             }
         }));
     };
+
 
 
     const handleImageChange = (e) => {
@@ -284,7 +287,17 @@ function AddProducts() {
 
 
                                 <div>
-                                    < TextInput value={objectState.specifications.colors} id='colors' name="colors" title={"Specification Colors"} onChange={handleSpecificationsChange} />
+                                    <Select
+                                        defaultValue={[colorOptions[2], colorOptions[3]]}
+                                        isMulti
+                                        name="colors"
+                                        options={colorOptions}
+                                        className="basic-multi-select w-full mt-2 p-2.5 text-sm text-gray-900 rounded-lg bg-white border-[2px] border-[#cb4a1f] shadow-[#E8F5F4] focus:border-[#761007] focus:outline-none hover:border-[#c95c44] focus:ring-2  focus:ring-[#d11c1c]"
+                                        classNamePrefix="select"
+                                        id='colors'
+                                        title={"Specification Colors"}
+                                        onChange={handleSpecificationsChange}
+                                    />
                                 </div>
                                 <div>
                                     < TextInput value={objectState.specifications.weight} id='weight' name="weight" title={"Specifications Weight"} onChange={handleSpecificationsChange} />
