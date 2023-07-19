@@ -7,7 +7,7 @@ const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, selectedCour
             courierName: name,
             courierId: id,
             serviceCode: code,
-            code: isCOD,
+            cod: isCOD,
             total: price,
             cash: cashOnDeliverySelected
         }); // Set the selected courier when the radio button is clicked

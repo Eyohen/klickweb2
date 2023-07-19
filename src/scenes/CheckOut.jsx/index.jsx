@@ -43,14 +43,14 @@ function CheckOut() {
                 `https://klick-api.onrender.com/order/?${storeId}`,
                 {
                     shipMethod: selectedShipmentMethod,
-                    option: "cash", // or kcredit or wallet
-                    "service": "flutterwave",//"seerbit"
-                    "shippingCourier": {
-                        "courierName": "",
-                        "courierId": "",
-                        "serviceCode": "",
-                        "cod": "",
-                        "total": ""
+                    option: "card", // or kcredit or cash
+                    service: "flutterwave",//"seerbit"
+                    shippingCourier: {
+                        courierName: selectedCourier.courierName,
+                        courierId: selectedCourier.courierId,
+                        serviceCode: selectedCourier.serviceCode,
+                        cod: selectedCourier.cod,
+                        total: selectedCourier.total,
                     }
                 },
                 {
@@ -62,7 +62,7 @@ function CheckOut() {
             );
 
             // Handle the response as needed, e.g., show success message
-            console.log(response.data);
+            console.log("made order", response.data);
         } catch (error) {
             console.error(error);
         }
@@ -205,7 +205,7 @@ function CheckOut() {
                                     <button
                                         type="button"
                                         className="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-yellow-400 rounded-lg hover:bg-yellow-200 focus:ring-4 focus:outline-none focus:ring-blue-300"
-                                        onClick={() => setSelectedShipmentMethod("k-ship")}
+                                        onClick={() => setSelectedShipmentMethod("kship")}
                                     >
                                         1000
                                     </button>
@@ -215,8 +215,8 @@ function CheckOut() {
                                         type="radio"
                                         name="shippingMethod"
                                         value="seller"
-                                        checked={selectedShipmentMethod === "k-ship"}
-                                        onChange={() => setSelectedShipmentMethod("k-ship")}
+                                        checked={selectedShipmentMethod === "kship"}
+                                        onChange={() => setSelectedShipmentMethod("kship")}
                                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500"
                                     />
                                 </div>
@@ -272,8 +272,8 @@ function CheckOut() {
                                         type="radio"
                                         name="shippingMethod"
                                         value="seller"
-                                        checked={selectedShipmentMethod === "k-secure"}
-                                        onChange={() => setSelectedShipmentMethod("k-secure")}
+                                        checked={selectedShipmentMethod === "ksecure"}
+                                        onChange={() => setSelectedShipmentMethod("ksecure")}
                                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500"
                                     />
                                 </div>
