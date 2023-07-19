@@ -1,7 +1,16 @@
-const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
+const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, setSelectedCourier }) => {
+    const handleCourierSelection = () => {
+        setSelectedCourier({
+            courierName: name,
+            courierId: id,
+            serviceCode: code,
+            code: isCOD,
+            total: price
+        }); // Set the selected courier when the radio button is clicked
+    };
+
     return (
         <div
-            htmlFor={name} // Use a unique identifier for the radio button
             className="flex justify-between items-center gap-4 p-4 rounded-xl bg-white bg-opacity-90 backdrop-blur-2xl shadow-xl hover:bg-opacity-75 cursor-pointer transition"
         >
             <div className="flex gap-4 items-center justify-end">
@@ -23,8 +32,9 @@ const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
                             <input
                                 type="radio"
                                 name="mode"
-                                id={name} // Use the same unique identifier for the radio button
+                                id={name}
                                 className="peer"
+                                onChange={handleCourierSelection} // Call the handler when the radio button is clicked
                             />
                         </div>
                         <div className="flex gap-2">
@@ -32,8 +42,9 @@ const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
                             <input
                                 type="radio"
                                 name="mode"
-                                id={name} // Use the same unique identifier for the radio button
+                                id={name}
                                 className="peer"
+                                onChange={handleCourierSelection} // Call the handler when the radio button is clicked
                             />
                         </div>
                     </div>
@@ -43,8 +54,10 @@ const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
                         <input
                             type="radio"
                             name="mode"
-                            id={name} // Use the same unique identifier for the radio button
+                            checked={''}
+                            id={name}
                             className="peer"
+                            onChange={handleCourierSelection} // Call the handler when the radio button is clicked
                         />
                     </div>
                 )}
@@ -54,7 +67,8 @@ const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
 };
 
 
-const DeliveryCard = ({ shippingOptions }) => {
+
+const DeliveryCard = ({ shippingOptions, setSelectedCourier }) => {
     return (
         <div className="flex flex-col space-y-4">
             <div className="space-y-1">
@@ -64,11 +78,14 @@ const DeliveryCard = ({ shippingOptions }) => {
                     {shippingOptions.map((courier) => (
                         <DeliveryTiles
                             key={courier.courier_id}
+                            id={courier.courier_id}
                             name={courier.courier_name}
                             image={courier.courier_image}
                             time={courier.delivery_eta}
                             price={courier.total}
+                            code={courier.service_code}
                             isCOD={courier.is_cod_available}
+                            setSelectedCourier={setSelectedCourier}
                         />
                     ))}
                 </div>

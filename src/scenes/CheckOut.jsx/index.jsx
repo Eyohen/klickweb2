@@ -25,6 +25,7 @@ function CheckOut() {
 
     const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
     const [selectedCourier, setSelectedCourier] = useState(null);
+    console.log("🚀 ~ file: index.jsx:28 ~ CheckOut ~ selectedCourier:", selectedCourier)
 
     const handleConfirmOrder = async () => {
         if (!selectedCourier) {
@@ -336,7 +337,7 @@ function CheckOut() {
                             </div>
                         ))}
 
-                        <DeliveryCard shippingOptions={shippingOptions} />
+                        <DeliveryCard shippingOptions={shippingOptions} setSelectedCourier={setSelectedCourier}/>
                         <div className="">
                             <p className="mt-5">Discount Code</p>
 
