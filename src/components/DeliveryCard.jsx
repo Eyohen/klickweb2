@@ -12,16 +12,27 @@ const DeliveryTiles = ({ name, image, time, price, isCOD }) => {
                 />
                 <div>
                     <h6 className="text-base">{name}</h6>
-                    <span className="text-sm opacity-">{time} </span>
+                    <span className="text-[11px] opacity-">{time} </span>
                 </div>
             </div>
             <div className="flex items-center gap-4">
                 {isCOD ? (
-                    <h3 className="font-bold">Cash on Delivery</h3>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex gap-2">
+                            <h3 className="font-bold">Cash</h3>
+                            <input type="radio" name="mode" id="mode" className="peer" />
+                        </div>
+                        <div className="flex gap-2">
+                            <h3 className="font-bold">N {price}</h3>
+                            <input type="radio" name="mode" id="mode" className="peer" />
+                        </div>
+                    </div>
                 ) : (
-                    <h3 className="font-bold">N {price}</h3>
+                    <div className="flex gap-2">
+                        <h3 className="font-bold">N {price}</h3>
+                        <input type="radio" name="mode" id="mode" className="peer" />
+                    </div>
                 )}
-                <input type="radio" name="mode" id="mode" className="peer" />
             </div>
         </div>
     );
@@ -33,9 +44,6 @@ const DeliveryCard = ({ shippingOptions }) => {
         <div className="flex flex-col space-y-4">
             <div className="space-y-1">
                 <div className="font-bold">Your Order</div>
-                <div className="bg-red-300 rounded-lg text-white">
-                    Get Delivery Prices
-                </div>
                 <div className="font-bold">Select a delivery option</div>
                 <div className="flex flex-col space-y-2">
                     {shippingOptions.map((courier) => (
@@ -44,7 +52,7 @@ const DeliveryCard = ({ shippingOptions }) => {
                             name={courier.courier_name}
                             image={courier.courier_image}
                             time={courier.delivery_eta}
-                            price={courier.is_cod_available ? "Cash on Delivery" : courier.total}
+                            price={courier.total}
                             isCOD={courier.is_cod_available}
                         />
                     ))}
