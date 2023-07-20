@@ -30,16 +30,12 @@ const CartHenry = () => {
                 );
                 const { data } = response.data;
                 const { items, totalAmount } = data;
-                if (!items) {
-                    setCartItems([]);
-                    setTotalAmount(0)
-                }
-                if (data.items.length === 0) {
+                if (!items || !items.length || !totalAmount) {
                     setCartItems([]);
                     setTotalAmount(0)
                 } else {
-                    setCartItems(data.items);
-                    setTotalAmount(data.totalAmount)
+                    setCartItems(items);
+                    setTotalAmount(dtotalAmount)
                 }
             } catch (error) {
                 console.log(error);
