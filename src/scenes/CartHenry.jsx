@@ -29,7 +29,6 @@ const CartHenry = () => {
                     `https://klick-api.onrender.com/cart/${cartId || ''}`
                 );
                 const { data } = response.data;
-                console.log(data);
                 const { items, totalAmount } = data;
                 if (!items || !items.length || !totalAmount) {
                     setCartItems([]);

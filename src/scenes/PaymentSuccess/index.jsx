@@ -19,7 +19,7 @@ const PaymentSuccess = () => {
         // Make a GET request to validate the payment
         const validatePayment = async () => {
             try {
-                await axios.get(`https://klick-api.onrender.com/order/validate?status=${status}&tx_ref=${tx_ref}&transaction_id=${transaction_id}`, {
+                await axios.get(`https://klick-api.onrender.com/order/validate/order?status=${status}&tx_ref=${tx_ref}&transaction_id=${transaction_id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

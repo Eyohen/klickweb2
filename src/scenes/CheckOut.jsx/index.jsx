@@ -133,6 +133,7 @@ function CheckOut() {
         getShippingOptions();
     }, [cartId]);
 
+    console.log(selectedCourier)
 
     const { user, loading } = useGetLoggedInUser();
     const address = getPrimaryAddress();
@@ -357,8 +358,10 @@ function CheckOut() {
                 <div className=" w-2/6 space-y-5">
                     <div className="block p-6 bg-white border border-gray-200 rounded-lg">
                         <p className=" text-lg mb-6">Order Summary</p>
-
-                        {cartItems.map((item) => (
+                        {
+                            cartItems?.length === 0 ? <p className="text-center">No item in cart</p> : null
+                        }
+                        {cartItems?.length !== 0 & cartItems.map((item) => (
                             <div key={item.id}>
                                 <div className="flex gap-4">
                                     <img
