@@ -10,9 +10,10 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
-import { logout } from "../hooks/useLogout";
+import { useLogout } from "../hooks/useLogout";
 
 const Navbar = ({ handleSidebarToggle }) => {
+  const handleLogout = useLogout();
   const [isBuyer, setIsBuyer] = useState(true);
   const navigate = useNavigate();
   const token = localStorage.getItem('access_token');
@@ -88,7 +89,7 @@ const Navbar = ({ handleSidebarToggle }) => {
         ) :
           <div className="flex items-center space-x-2 hover:cursor-pointer">
             <BiUser className={navIconStyle} />
-            <Link onClick={() => logout()}>Logout</Link>
+            <Link onClick={handleLogout}>Logout</Link>
           </div>
         }
 
