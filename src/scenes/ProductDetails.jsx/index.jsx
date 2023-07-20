@@ -11,19 +11,16 @@ import axios from "axios";
 import { CartContext } from "../../contexts/CartContext";
 
 function ProductDetails() {
-    const params = useParams();
-    const productId = params.id;
     const [product, setProduct] = useState({});
     const [count, setCount] = useState(1);
-    const navigate = useNavigate();
+    
     const cartContext = useContext(CartContext);
     const { addToCart } = cartContext;
-
-    const navigateToCheckout = () => {
-        navigate("/cart");
-    };
-
-
+    
+    const params = useParams();
+    const productId = params.id;
+    const navigate = useNavigate();
+    
     useEffect(() => {
         const getProduct = async () => {
             try {
@@ -69,7 +66,7 @@ function ProductDetails() {
             count: selectedQty,
         };
         addToCart(productToAdd);
-        navigateToCheckout();
+        navigate('/cart')
     };
     const colors = product?.specifications?.colors.toLowerCase().split(", ");
 

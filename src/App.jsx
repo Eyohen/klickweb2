@@ -4,7 +4,6 @@ import Layout from "./Layout";
 import Register from "./scenes/Register";
 import Login from "./scenes/Login";
 import Dashboard from "./scenes/Dashboard";
-//import DashboardLayout from "./DashboardLayout";
 import CreateStore from "./scenes/CreateStore";
 import Verify from "./scenes/Verify";
 import ViewMyStore from "./scenes/ViewMyStore";
@@ -26,10 +25,7 @@ import SearchPage from "./components/SearchPage";
 
 export default function App() {
   const token = localStorage.getItem('access_token');
-  console.log("🚀 ~ file: App.jsx:29 ~ App ~ token:", token)
-  
   return (
-
     <BrowserRouter>
       <CartProvider>
         <Routes>

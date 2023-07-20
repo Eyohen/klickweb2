@@ -61,6 +61,7 @@ function CheckOut() {
             );
 
             // Handle the response as needed, e.g., show success message
+            // toast here
             console.log("made order", response.data);
         } catch (error) {
             console.error(error);

@@ -5,15 +5,16 @@ import { getCartId } from '../hooks/useGetLoginUser';
 import { useNavigate } from 'react-router-dom';
 
 const CartHenry = () => {
-    const cartId = getCartId();
+    const [cartItems, setCartItems] = useState([]);
+    const [totalAmount, setTotalAmount] = useState(0)
     
     const navigate = useNavigate();
+    const cartId = getCartId();
+    
     const navigateToCheckout = () => {
         navigate("/checkout");
     };
-    const [cartItems, setCartItems] = useState([]);
-    const [totalAmount, setTotalAmount] = useState(0)
-
+    
     useEffect(() => {
         const fetchCartItems = async () => {
             try {
@@ -65,7 +66,7 @@ const CartHenry = () => {
                 <div className='border border-gray-400 mt-2'></div>
 
                 {/* product card */}
-                {cartItems.map((item) => (
+                {cartItems & cartItems.map((item) => (
                     <div className='flex justify-between items-center p-5' key={item.id}>
                         <img src={img1} className='rounded-xl w-[80px] h-[80px]' alt='Product' />
                         <p className=''>{item.info.name}</p>
@@ -93,7 +94,7 @@ const CartHenry = () => {
                         className='bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm py-5 mr-2 px-14 mb-2'
                         onClick={navigateToCheckout}
                     >
-                        Checkout - N{totalAmount}
+                        Checkout - N {totalAmount}
                     </button>
                 </div>
             </div>

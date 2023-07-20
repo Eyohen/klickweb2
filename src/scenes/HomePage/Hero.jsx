@@ -1,5 +1,4 @@
-const Hero = ({searchQuery}) => {
-  console.log("🚀 ~ file: Hero.jsx:2 ~ Hero ~ searchQuery:", searchQuery)
+const Hero = () => {
   return (
     <div className="hero-bg flex flex-col justify-center items-center text-center z-[-1] space-y-4 font-semibold">
       <h1 className="text-[40px] leading-[48px] text-white z-0">
