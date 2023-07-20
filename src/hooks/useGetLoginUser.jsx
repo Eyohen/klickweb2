@@ -67,9 +67,6 @@ const useGetLoggedInUser = () => {
         }
     }, []);
 
-    // Function to clear user data from localStorage
-
-
     return { user, loading, error };
 
 

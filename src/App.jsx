@@ -26,6 +26,8 @@ import SearchPage from "./components/SearchPage";
 
 export default function App() {
   const token = localStorage.getItem('access_token');
+  console.log("🚀 ~ file: App.jsx:29 ~ App ~ token:", token)
+  
   return (
 
     <BrowserRouter>

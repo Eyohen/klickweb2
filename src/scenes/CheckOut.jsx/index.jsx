@@ -25,7 +25,6 @@ function CheckOut() {
 
     const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
     const [selectedCourier, setSelectedCourier] = useState(null);
-    console.log("🚀 ~ file: index.jsx:28 ~ CheckOut ~ selectedCourier:", selectedCourier)
 
     const handleConfirmOrder = async () => {
         if (!selectedCourier) {
@@ -40,7 +39,7 @@ function CheckOut() {
             // Your API request to confirm the order
             const token = localStorage.getItem("access_token");
             const response = await axios.post(
-                `https://klick-api.onrender.com/order/?${storeId}`,
+                `https://klick-api.onrender.com/order/?storeId=${storeId}`,
                 {
                     shipMethod: selectedShipmentMethod,
                     option: "card", // or kcredit or cash
@@ -405,7 +404,6 @@ function CheckOut() {
                     </div>
                 </div>
             </div>
-
             <Footer />
         </div>
     );
