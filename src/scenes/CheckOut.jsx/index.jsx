@@ -25,12 +25,27 @@ function CheckOut() {
     const cartId = getCartId();
     const [shippingOptions, setShippingOptions] = useState([]);
 
+    const [ksecureCommission, setKsecureCommission] = useState(0)
+    const [totalAmount, setTotalAmount] = useState(0)
+
+
     const [storeId, setStoreId] = useState("")
     const { navigate } = useNavigate();
 
     const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
+    console.log("🚀 ~ file: index.jsx:32 ~ CheckOut ~ selectedShipmentMethod:", selectedShipmentMethod)
     const [selectedCourier, setSelectedCourier] = useState(null);
 
+    const [subTotal, setSubTotal] = useState(
+        ksecureCommission ? ksecureCommission : 0 + totalAmount ? totalAmount : 0 + selectedCourier?.total ? selectedCourier?.total : 0
+    )
+    useEffect(() => {
+        const ksecureCommissionValue = selectedShipmentMethod !== "seller" ? ksecureCommission : 0;
+        const shippingFee = selectedCourier?.total ? selectedCourier.total : 0;
+        const subtotalValue = ksecureCommissionValue + totalAmount + shippingFee;
+        setSubTotal(subtotalValue);
+    }, [selectedShipmentMethod, selectedCourier, ksecureCommission, totalAmount]);
+    
     const removeCartItem = async (cartItemId) => {
         removeFromCart(cartItemId)
         toast.success("removed from cart")
@@ -91,6 +106,7 @@ function CheckOut() {
                 );
                 const { data } = response.data;
                 setCartItems(data.items);
+                setTotalAmount(data.totalAmount)
             } catch (error) {
                 console.log(error);
             }
@@ -108,6 +124,7 @@ function CheckOut() {
             const shippingOptionsData = shippingOptionsResponse.data;
 
             setStoreId(shippingOptionsResponse.data.data.store)
+            setKsecureCommission(shippingOptionsResponse.data.data.ksecureCommission)
             setShippingOptions(shippingOptionsData.data.shippingdetails.couriers);
             return shippingOptions
         }
@@ -392,19 +409,19 @@ function CheckOut() {
                         <div className="space-y-5">
                             <div className="flex justify-between">
                                 <p className=" text-gray-400">Discount</p>
-                                <p>N209,000</p>
+                                <p>N0.00</p>
                             </div>
                             <div className="flex justify-between">
                                 <p className=" text-gray-400">Shipping fee</p>
-                                <p className="text-blue-500">- 9,000</p>
+                                <p className="text-blue-500">N{selectedCourier?.total ? selectedCourier.total : '0.00'}</p>
                             </div>
                             <div className="flex justify-between">
-                                <p className=" text-gray-400">K-secure/K-ship fee</p>
-                                <p className="text-blue-500">- 9,000</p>
+                                <p className=" text-gray-400">K-secure fee</p>
+                                <p className="text-blue-500">N{selectedShipmentMethod !== "seller" ? ksecureCommission : '0.00'}</p>
                             </div>
                             <div className="flex justify-between">
-                                <p className=" text-gray-400">Subtotal</p>
-                                <p>N200,000</p>
+                                <p className=" text-gray-400">total</p>
+                                <p>N{totalAmount || 0}</p>
                             </div>
                         </div>
 
@@ -413,7 +430,7 @@ function CheckOut() {
                         <div className=" space-y-4">
                             <div className="flex justify-between">
                                 <p className=" text-gray-400">Subtotal</p>
-                                <p>N209,000</p>
+                                <p>N{subTotal || 0}</p>
                             </div>
 
                             <div className=" items-center">

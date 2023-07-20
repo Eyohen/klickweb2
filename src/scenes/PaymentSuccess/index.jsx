@@ -1,7 +1,40 @@
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 
 const PaymentSuccess = () => {
+    const location = useLocation();
     const navigate = useNavigate();
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const status = urlParams.get("status");
+        const tx_ref = urlParams.get("tx_ref");
+        const transaction_id = urlParams.get("transaction_id");
+
+        // Get the token from localStorage
+        const token = localStorage.getItem("access_token");
+
+        // Make a GET request to validate the payment
+        const validatePayment = async () => {
+            try {
+                await axios.get(`https://klick-api.onrender.com/order/validate?status=${status}&tx_ref=${tx_ref}&transaction_id=${transaction_id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                // Redirect to the home page on successful validation
+                navigate("/");
+            } catch (error) {
+                console.error(error);
+                toast.error("An error occurred while validating your payment");
+            }
+        };
+
+        // Call the validatePayment function
+        validatePayment();
+    }, [location, navigate]);
     return (
         <div className='flex flex-col justify-center items-center p-8 bg-white rounded-lg shadow-md'>
             <div className='bg-green-500 rounded-full p-4'>
