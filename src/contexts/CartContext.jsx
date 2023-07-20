@@ -11,7 +11,7 @@ export const CartProvider = ({ children }) => {
     });
 
     const cartId = getCartId()
-    
+
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
@@ -51,20 +51,39 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    const removeFromCart = (product) => {
+    const removeFromCart = async (product) => {
         const newCart = cart.filter((item) => item.id !== product.id);
+        const config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `https://klick-api.onrender.com/cart/update/${cartId || ''}`,
+            headers: {},
+            data: {
+                items: newCart,
+            },
+        };
+
+        try {
+            const response = await axios(config);
+            console.log(JSON.stringify(response.data));
+        } catch (error) {
+            console.log(error);
+        }
         setCart(newCart);
+        localStorage.removeItem("cart");
     };
 
     const updateCartItemQuantity = (productId, quantity) => {
         if (quantity === 0) {
             const updatedCart = cart.filter((item) => item.id !== productId);
             setCart(updatedCart);
+            localStorage.setItem("cart", JSON.stringify(updatedCart));
         } else {
             const updatedCart = cart.map((item) =>
                 item.id === productId ? { ...item, quantity } : item
             );
             setCart(updatedCart);
+            localStorage.removeItem("cart");
         }
     };
 
@@ -86,6 +105,8 @@ export const CartProvider = ({ children }) => {
             console.log(error);
         }
         setCart([]);
+        localStorage.removeItem("cart");
+
     };
 
     const getCartItemCount = () => {

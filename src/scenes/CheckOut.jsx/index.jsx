@@ -16,18 +16,26 @@ import LoadingScreen from "../../components/LoadingScreen";
 import DeliveryCard from "../../components/DeliveryCard";
 import { toast } from "react-toastify";
 import { CartContext } from "../../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function CheckOut() {
-    const { clearCart } = useContext(CartContext)
+    const { clearCart, removeFromCart } = useContext(CartContext)
     const [showModal, setShowModal] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const cartId = getCartId();
     const [shippingOptions, setShippingOptions] = useState([]);
 
     const [storeId, setStoreId] = useState("")
+    const { navigate } = useNavigate();
 
     const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
     const [selectedCourier, setSelectedCourier] = useState(null);
+
+    const removeCartItem = async (cartItemId) => {
+        removeFromCart(cartItemId)
+        toast.success("removed from cart")
+        navigate("/")
+    }
 
     const handleConfirmOrder = async () => {
         if (!selectedCourier) {
@@ -345,7 +353,9 @@ function CheckOut() {
                                     <div className="space-y-10">
                                         <div className="flex justify-between items-center gap-4">
                                             <p>{item.info.name}</p>
-                                            <RiDeleteBin2Fill />
+                                            <div className="hover:cursor-pointer" onClick={() => removeCartItem(item)}>
+                                                <RiDeleteBin2Fill />
+                                            </div>
                                         </div>
                                         <p className="my-3">{`N ${item.info.UnitPrice}`}</p>
                                     </div>
