@@ -74,7 +74,9 @@ export const CartProvider = ({ children }) => {
             maxBodyLength: Infinity,
             url: `https://klick-api.onrender.com/cart/update/${cartId || ''}`,
             headers: {},
-            data: {},
+            data: {
+                items: [],
+            },
         };
 
         try {
