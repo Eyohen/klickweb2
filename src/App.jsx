@@ -24,6 +24,7 @@ import Messages from "./scenes/Messages";
 import SearchPage from "./components/SearchPage";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PaymentSuccess from "./scenes/PaymentSuccess";
 
 export default function App() {
   const token = localStorage.getItem('access_token');
@@ -40,8 +41,8 @@ export default function App() {
           <Route element={<RequireAuth isAuthenticated={token ? true : false} />}>
             <Route path="/checkout" element={<CheckOut />} />
             <Route path="/viewmystore" element={<ViewMyStore />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
           </Route>
-
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />

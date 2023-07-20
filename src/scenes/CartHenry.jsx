@@ -29,6 +29,7 @@ const CartHenry = () => {
                     `https://klick-api.onrender.com/cart/${cartId || ''}`
                 );
                 const { data } = response.data;
+                console.log(data);
                 const { items, totalAmount } = data;
                 if (!items || !items.length || !totalAmount) {
                     setCartItems([]);
@@ -48,7 +49,11 @@ const CartHenry = () => {
     }, [cartId]);
 
     if (Object.keys(cartItems).length === 0) {
-        return <>No cart itme</>
+        return <div className="container">
+            <div className="flex items-center justify-center h-screen">
+                <p className="text-xl">No items in the cart.</p>
+            </div>
+        </div>
     }
     if (cartItems.length === 0) {
         return <LoadingScreen />;
