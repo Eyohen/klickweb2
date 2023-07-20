@@ -12,6 +12,7 @@ const PaymentSuccess = () => {
         const status = urlParams.get("status");
         const tx_ref = urlParams.get("tx_ref");
         const transaction_id = urlParams.get("transaction_id");
+        const tracking_url = urlParams.get("trackingUrl");
 
         // Get the token from localStorage
         const token = localStorage.getItem("access_token");
@@ -23,9 +24,11 @@ const PaymentSuccess = () => {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
+                }).then((res) => {
+                    window.location.href(res.data.trackingUrl);
                 });
                 // Redirect to the home page on successful validation
-                navigate("/");
+                
             } catch (error) {
                 console.error(error);
                 toast.error("An error occurred while validating your payment");

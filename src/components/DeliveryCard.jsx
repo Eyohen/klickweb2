@@ -31,7 +31,7 @@ const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, selectedCour
             <div className="flex items-center gap-4">
                 {isCOD ? (
                     <div className="flex flex-col gap-4">
-                        <div className="flex gap-2">
+                        {/* <div className="flex gap-2">
                             <h3 className="font-bold">Cash</h3>
                             <input
                                 type="radio"
@@ -46,7 +46,7 @@ const DeliveryTiles = ({ id, name, image, time, price, isCOD, code, selectedCour
                                     }
                                 } // Call the handler when the radio button is clicked
                             />
-                        </div>
+                        </div> */}
                         <div className="flex gap-2">
                             <h3 className="font-bold">N {price}</h3>
                             <input
