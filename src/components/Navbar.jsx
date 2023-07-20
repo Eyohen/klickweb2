@@ -37,7 +37,7 @@ const Navbar = ({ handleSidebarToggle }) => {
     return (
         <div className="container flex justify-between items-center h-[108px] bg-white">
             {/* hamburger and icon */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4" onClick={()=> navigate('/')}>
                 <GiHamburgerMenu
                     onClick={handleSidebarToggle}
                     className="w-8 h-8 text-gray-600 hover:cursor-pointer"

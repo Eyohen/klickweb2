@@ -29,8 +29,18 @@ const CartHenry = () => {
                     `https://klick-api.onrender.com/cart/${cartId || ''}`
                 );
                 const { data } = response.data;
-                setCartItems(data.items);
-                setTotalAmount(data.totalAmount)
+                const { items, totalAmount } = data;
+                if (!items) {
+                    setCartItems([]);
+                    setTotalAmount(0)
+                }
+                if (data.items.length === 0) {
+                    setCartItems([]);
+                    setTotalAmount(0)
+                } else {
+                    setCartItems(data.items);
+                    setTotalAmount(data.totalAmount)
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -41,8 +51,9 @@ const CartHenry = () => {
         }
     }, [cartId]);
 
-    console.log(cartItems);
-
+    if (Object.keys(cartItems).length === 0) {
+        return <>No cart itme</>
+    }
     if (cartItems.length === 0) {
         return <LoadingScreen />;
     }
