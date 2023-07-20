@@ -35,7 +35,7 @@ const CartHenry = () => {
                     setTotalAmount(0)
                 } else {
                     setCartItems(items);
-                    setTotalAmount(dtotalAmount)
+                    setTotalAmount(totalAmount)
                 }
             } catch (error) {
                 console.log(error);
