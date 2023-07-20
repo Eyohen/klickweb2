@@ -14,13 +14,13 @@ function ProductDetails() {
     const params = useParams();
     const productId = params.id;
     const [product, setProduct] = useState({});
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const navigate = useNavigate();
     const cartContext = useContext(CartContext);
     const { addToCart } = cartContext;
 
     const navigateToCheckout = () => {
-        navigate("/checkout");
+        navigate("/cart");
     };
 
 
