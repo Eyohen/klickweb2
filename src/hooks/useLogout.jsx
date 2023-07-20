@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const useLogout = () => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ export const useLogout = () => {
         localStorage.removeItem('cartId');
         localStorage.removeItem('walletId');
         localStorage.removeItem('deliveryAddresses');
-
+        toast.success("Logged out!");
         navigate('/');
     };
 

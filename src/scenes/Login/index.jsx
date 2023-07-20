@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useSignup from "../../hooks/useSignup";
+import { toast } from "react-toastify";
 
 const Login = () => {
     const history = useNavigate();
@@ -24,6 +25,7 @@ const Login = () => {
             );
             if (response.data.success === true) {
                 localStorage.setItem("access_token", response.data.access_token);
+                toast.success("Logged in!");
                 history("/");
             } else {
                 throw new Error("Error posting data to API");

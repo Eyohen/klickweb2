@@ -14,6 +14,7 @@ import useGetLoggedInUser, {
 } from "../../hooks/useGetLoginUser";
 import LoadingScreen from "../../components/LoadingScreen";
 import DeliveryCard from "../../components/DeliveryCard";
+import { toast } from "react-toastify";
 
 function CheckOut() {
     const [showModal, setShowModal] = useState(false);
@@ -61,7 +62,7 @@ function CheckOut() {
             );
 
             // Handle the response as needed, e.g., show success message
-            // toast here
+            toast.success("Order Placed!");
             console.log("made order", response.data);
         } catch (error) {
             console.error(error);

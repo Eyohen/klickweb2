@@ -22,6 +22,8 @@ import CartHenry from "./scenes/CartHenry";
 import RequireAuth from "./RequireAuth";
 import Messages from "./scenes/Messages";
 import SearchPage from "./components/SearchPage";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   const token = localStorage.getItem('access_token');
@@ -72,6 +74,7 @@ export default function App() {
           <Route path="/searchpage" element={<SearchPage />} />
         </Routes>
       </CartProvider>
+      <ToastContainer />
     </BrowserRouter>
   );
 }
