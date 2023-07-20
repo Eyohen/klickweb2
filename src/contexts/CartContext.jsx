@@ -68,7 +68,21 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    const clearCart = () => {
+    const clearCart = async () => {
+        const config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `https://klick-api.onrender.com/cart/update/${cartId || ''}`,
+            headers: {},
+            data: {},
+        };
+
+        try {
+            const response = await axios(config);
+            console.log(JSON.stringify(response.data));
+        } catch (error) {
+            console.log(error);
+        }
         setCart([]);
     };
 
