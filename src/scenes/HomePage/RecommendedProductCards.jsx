@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 const IsKSecureRibbon =
-  "https://w7.pngwing.com/pngs/221/974/png-transparent-green-and-gold-ribbon-graphy-green-rosette-computer-network-ribbon-photography.png";
+  "https://az31609.vo.msecnd.net/assets/images/widgetImages/113324ba7b5b-cdc3-4b38-8a5f-5af08290009d.jpg";
 const RecommendedProductCards = () => {
   const [products, setProducts] = useState([]);
 
@@ -36,7 +36,7 @@ const RecommendedProductCards = () => {
 
         return (
           <Link key={product.id} to={`/productdetails/${product.id}`}>
-            <div className="relative border border-gray-200 rounded-xl overflow-hidden transition-shadow hover:shadow-lg">
+            <div className="relative border-gray-200 rounded-xl overflow-hidden transition-shadow hover:shadow-lg shadow-xl">
               {product.isKSecure && (
                 <img
                   src={IsKSecureRibbon}

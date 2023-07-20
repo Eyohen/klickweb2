@@ -24,7 +24,7 @@ const FeaturedCard = () => {
       {stores.map((store) => {
         return (
           <Link key={store.id} to={`/store/${store.id}`}>
-            <div className="p-3 border rounded">
+            <div className="p-3 rounded-xl shadow-xl">
               <img
                 src={store.logo}
                 alt=""
@@ -37,8 +37,8 @@ const FeaturedCard = () => {
                 }}
               />
               <div className="">
-                <h1 className="">{store.name}</h1>
-                <p className="">
+                <h1 className="font-bold pt-2">{store.name}</h1>
+                <p className="text-gray-500">
                   {store.deliveryAddress.city +
                     ", " +
                     store.deliveryAddress.state}
