@@ -64,6 +64,10 @@ function CheckOut() {
             // Handle the response as needed, e.g., show success message
             toast.success("Order Placed!");
             console.log("made order", response.data);
+            
+            // Redirect the user to the payment link
+            const paymentLink = response.data.data.paymentLink;
+            window.location.href = paymentLink;
         } catch (error) {
             console.error(error);
         }
