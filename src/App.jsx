@@ -74,6 +74,19 @@ export default function App() {
           <Route path="/searchpage" element={<SearchPage />} />
         </Routes>
       </CartProvider>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
       <ToastContainer />
     </BrowserRouter>
   );
