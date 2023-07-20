@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import BackArrow from "./BackArrow";
 import FillButton from "./FillButton";
@@ -15,8 +15,10 @@ import useGetLoggedInUser, {
 import LoadingScreen from "../../components/LoadingScreen";
 import DeliveryCard from "../../components/DeliveryCard";
 import { toast } from "react-toastify";
+import { CartContext } from "../../contexts/CartContext";
 
 function CheckOut() {
+    const { clearCart } = useContext(CartContext)
     const [showModal, setShowModal] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const cartId = getCartId();
@@ -63,8 +65,9 @@ function CheckOut() {
 
             // Handle the response as needed, e.g., show success message
             toast.success("Order Placed!");
+            clearCart();
             console.log("made order", response.data);
-            
+
             // Redirect the user to the payment link
             const paymentLink = response.data.data.paymentLink;
             window.location.href = paymentLink;
