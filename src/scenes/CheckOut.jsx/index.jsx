@@ -42,10 +42,10 @@ function CheckOut() {
     ksecureCommission
       ? ksecureCommission
       : 0 + totalAmount
-      ? totalAmount
-      : 0 + selectedCourier?.total
-      ? selectedCourier?.total
-      : 0
+        ? totalAmount
+        : 0 + selectedCourier?.total
+          ? selectedCourier?.total
+          : 0
   );
   useEffect(() => {
     const ksecureCommissionValue =
