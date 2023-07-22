@@ -14,6 +14,7 @@ function LoadingScreen() {
 const CartHenry = () => {
     const [cartItems, setCartItems] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0)
+    const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate();
     const cartId = getCartId();
@@ -24,6 +25,7 @@ const CartHenry = () => {
 
     useEffect(() => {
         const fetchCartItems = async () => {
+            setLoading(true)
             try {
                 const response = await axios.get(
                     `https://klick-api.onrender.com/cart/${cartId || ''}`
@@ -40,6 +42,7 @@ const CartHenry = () => {
             } catch (error) {
                 console.log(error);
             }
+            setLoading(false)
         };
 
         if (cartId) {
@@ -47,15 +50,15 @@ const CartHenry = () => {
         }
     }, [cartId]);
 
+    if (loading) {
+        return <LoadingScreen />;
+    }
     if (Object.keys(cartItems).length === 0) {
         return <div className="container">
             <div className="flex items-center justify-center h-screen">
                 <p className="text-xl">No items in the cart.</p>
             </div>
         </div>
-    }
-    if (cartItems.length === 0) {
-        return <LoadingScreen />;
     }
     return (
         <div className='container'>

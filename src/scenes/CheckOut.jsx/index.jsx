@@ -19,6 +19,7 @@ import { CartContext } from "../../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 
 function CheckOut() {
+  const [isloading, setLoading] = useState(true)
   const { clearCart, removeFromCart } = useContext(CartContext);
   const [showModal, setShowModal] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -135,15 +136,19 @@ function CheckOut() {
       setShippingOptions(shippingOptionsData.data.shippingdetails?.couriers);
       return shippingOptions;
     };
-
+    setLoading(true)
     fetchCartItems();
     getShippingOptions();
+    setLoading(false)
   }, [cartId]);
 
 
   const { user, loading } = useGetLoggedInUser();
   const address = getPrimaryAddress();
 
+  if (isloading) {
+    return <LoadingScreen />;
+  }
   if (loading) {
     return <LoadingScreen />;
   }
