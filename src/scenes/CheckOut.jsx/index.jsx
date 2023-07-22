@@ -29,7 +29,7 @@ function CheckOut() {
   const [totalAmount, setTotalAmount] = useState(0);
 
   const [storeId, setStoreId] = useState("");
-  const { navigate } = useNavigate();
+  const navigate  = useNavigate();
 
   const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
   const [selectedCourier, setSelectedCourier] = useState(null);
