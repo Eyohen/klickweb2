@@ -66,7 +66,7 @@ function ProductDetails() {
             count: selectedQty,
         };
         buyNow(productToAdd);
-        navigate('/checkout')
+        navigate('/cart')
     };
     const colors = product?.specifications?.colors.toLowerCase().split(", ");
 

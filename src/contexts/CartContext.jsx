@@ -52,7 +52,9 @@ export const CartProvider = ({ children }) => {
     };
 
     const buyNow = async (product) => {
+        const cartId = getCartId()
         console.log("[+] buy now called once");
+        console.log(`cart id is ${cartId}`);
         const updatedCart = [{ id: product.id, count: product.count }];
 
         const data = {
