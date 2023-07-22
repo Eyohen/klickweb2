@@ -32,10 +32,6 @@ function CheckOut() {
   const { navigate } = useNavigate();
 
   const [selectedShipmentMethod, setSelectedShipmentMethod] = useState(null);
-  console.log(
-    "🚀 ~ file: index.jsx:32 ~ CheckOut ~ selectedShipmentMethod:",
-    selectedShipmentMethod
-  );
   const [selectedCourier, setSelectedCourier] = useState(null);
 
   const [subTotal, setSubTotal] = useState(
@@ -98,7 +94,6 @@ function CheckOut() {
       // Handle the response as needed, e.g., show success message
       toast.success("Order Placed!");
       clearCart();
-      console.log("made order", response.data);
 
       // Redirect the user to the payment link
       const paymentLink = response.data.data.paymentLink;
@@ -145,7 +140,6 @@ function CheckOut() {
     getShippingOptions();
   }, [cartId]);
 
-  console.log(selectedCourier);
 
   const { user, loading } = useGetLoggedInUser();
   const address = getPrimaryAddress();
