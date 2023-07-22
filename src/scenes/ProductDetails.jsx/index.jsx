@@ -15,7 +15,7 @@ function ProductDetails() {
     const [count, setCount] = useState(1);
     
     const cartContext = useContext(CartContext);
-    const { addToCart } = cartContext;
+    const { addToCart, buyNow } = cartContext;
     
     const params = useParams();
     const productId = params.id;
@@ -65,8 +65,8 @@ function ProductDetails() {
             id,
             count: selectedQty,
         };
-        addToCart(productToAdd);
-        // navigate('/checkout')
+        buyNow(productToAdd);
+        navigate('/checkout')
     };
     const colors = product?.specifications?.colors.toLowerCase().split(", ");
 

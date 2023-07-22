@@ -51,6 +51,29 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+    const buyNow = async (product) => {
+        const updatedCart = [{ id: product.id, count: product.count }];
+
+        const data = {
+            items: updatedCart
+        };
+
+        const config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: `https://klick-api.onrender.com/cart/update/${cartId || ''}`,
+            headers: {},
+            data: data,
+        };
+
+        try {
+            const response = await axios(config);
+            console.log(JSON.stringify(response.data));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const removeFromCart = async (product) => {
         const newCart = cart.filter((item) => item.id !== product.id);
         const config = {
@@ -122,6 +145,7 @@ export const CartProvider = ({ children }) => {
             value={{
                 cart,
                 addToCart,
+                buyNow,
                 removeFromCart,
                 updateCartItemQuantity,
                 clearCart,
