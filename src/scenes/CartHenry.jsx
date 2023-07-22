@@ -36,6 +36,7 @@ const CartHenry = () => {
                     setTotalAmount(0)
                 } else {
                     setCartItems(items);
+                    console.log ('moving on 0', items)
                     setTotalAmount(totalAmount)
                 }
                 setLoading(false)
@@ -49,6 +50,8 @@ const CartHenry = () => {
             fetchCartItems();
         }
     }, [cartId]);
+
+    console.log("moving on with cart 1",cartItems)
 
     if (loading) {
         return <LoadingScreen />;
