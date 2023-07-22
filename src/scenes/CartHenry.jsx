@@ -25,7 +25,6 @@ const CartHenry = () => {
 
     useEffect(() => {
         const fetchCartItems = async () => {
-            setLoading(true)
             try {
                 const response = await axios.get(
                     `https://klick-api.onrender.com/cart/${cartId || ''}`
@@ -39,10 +38,11 @@ const CartHenry = () => {
                     setCartItems(items);
                     setTotalAmount(totalAmount)
                 }
+                setLoading(false)
             } catch (error) {
                 console.log(error);
+                setLoading(false)
             }
-            setLoading(false)
         };
 
         if (cartId) {
