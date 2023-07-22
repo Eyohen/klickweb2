@@ -25,7 +25,7 @@ const PaymentSuccess = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 }).then((res) => {
-                    window.location.href(res.data.trackingUrl);
+                    window.location.href=res.data.trackingUrl;
                 });
                 // Redirect to the home page on successful validation
                 
