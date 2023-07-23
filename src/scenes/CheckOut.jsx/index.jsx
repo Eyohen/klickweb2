@@ -378,7 +378,7 @@ function CheckOut() {
                 <div key={item.id}>
                   <div className="flex gap-4">
                     <img
-                      src={img1}
+                      src={item.info.image}
                       className="w-24 h-24 rounded-xl"
                       alt="Product"
                     />
