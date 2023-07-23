@@ -4,7 +4,7 @@ import { RiMessage2Fill, RiSendPlaneFill } from 'react-icons/ri';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import Footer from '../components/Footer';
 import { useState } from 'react';
-import Individual from '../components/Individual';
+import Individual from './Individual';
 
 function SocialComment() {
     const [isElementVisible, setIsElementVisible] = useState(false);

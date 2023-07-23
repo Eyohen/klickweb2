@@ -27,6 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import PaymentSuccess from "./scenes/PaymentSuccess";
 import SocialPage from "./scenes/SocialPage";
 
+
 export default function App() {
   const token = localStorage.getItem('access_token');
   return (
@@ -75,6 +76,7 @@ export default function App() {
           <Route path="/messages" element={<Messages />} />
           <Route path="/searchpage" element={<SearchPage />} />
           <Route path="/socialpage" element={<SocialPage />} />
+       
         </Routes>
       </CartProvider>
       <ToastContainer
