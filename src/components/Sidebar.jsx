@@ -39,7 +39,7 @@ const Sidebar = ({ handleSidebarToggle }) => {
                     </div>
                     <div className="hover:bg-slate-100 rounded-lg flex space-x-4 text-tsecondary w-full px-8 py-4">
                         <GrGroup className="h-5 w-5" />
-                        <a href="">KSocial</a>
+                        <a href="/socialpage">KSocial</a>
                     </div>
                     <div className="hover:bg-slate-100 rounded-lg flex space-x-4 text-tsecondary w-full px-8 py-4">
                         <HiShoppingBag className="h-5 w-5" />
