@@ -14,6 +14,7 @@ function LoadingScreen() {
 const CartHenry = () => {
     const [cartItems, setCartItems] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0)
+    const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate();
     const cartId = getCartId();
@@ -35,10 +36,13 @@ const CartHenry = () => {
                     setTotalAmount(0)
                 } else {
                     setCartItems(items);
+                    console.log ('moving on 0', items)
                     setTotalAmount(totalAmount)
                 }
+                setLoading(false)
             } catch (error) {
                 console.log(error);
+                setLoading(false)
             }
         };
 
@@ -47,15 +51,17 @@ const CartHenry = () => {
         }
     }, [cartId]);
 
+    console.log("moving on with cart 1",cartItems)
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
     if (Object.keys(cartItems).length === 0) {
         return <div className="container">
             <div className="flex items-center justify-center h-screen">
                 <p className="text-xl">No items in the cart.</p>
             </div>
         </div>
-    }
-    if (cartItems.length === 0) {
-        return <LoadingScreen />;
     }
     return (
         <div className='container'>

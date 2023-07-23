@@ -40,11 +40,11 @@ export default function App() {
           </Route>
 
           <Route element={<RequireAuth isAuthenticated={token ? true : false} />}>
-            <Route path="/checkout" element={<CheckOut />} />
-            <Route path="/viewmystore" element={<ViewMyStore />} />
-            <Route path="/payment-success" element={<PaymentSuccess />} />
           </Route>
 
+          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/viewmystore" element={<ViewMyStore />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify" element={<Verify />} />
