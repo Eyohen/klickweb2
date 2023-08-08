@@ -26,7 +26,8 @@ const Login = () => {
             if (response.data.success === true) {
                 localStorage.setItem("access_token", response.data.access_token);
                 toast.success("Logged in!");
-                history("/");
+                // history("/");
+                window.location.href = "/"
             } else {
                 throw new Error("Error posting data to API");
             }

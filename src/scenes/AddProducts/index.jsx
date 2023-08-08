@@ -217,7 +217,7 @@ function AddProducts() {
             <div className="space-y-5 w-10/12">
               {/* personal info card */}
               <div className="block w-full p-4 bg-white border border-gray-200 rounded-lg space-y-5 shadow">
-                <h4 className="text-xl font-semibold">Personal Information</h4>
+                <h4 className="text-xl font-semibold">Product Information</h4>
 
                 <div className="grid gap-6 grid-cols-2">
                   <TextInput
@@ -233,6 +233,7 @@ function AddProducts() {
                     name="price"
                     title={"Price"}
                     onChange={handleChange}
+                    placeholder="N"
                   />
                 </div>
 

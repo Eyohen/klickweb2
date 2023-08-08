@@ -90,6 +90,7 @@ const DeliveryCard = ({
   selectedCourier,
   setSelectedCourier,
 }) => {
+  console.log('dadda', selectedCourier, shippingOptions)
   return (
     <div className="flex flex-col space-y-4">
       <div className="space-y-1">

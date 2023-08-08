@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getCartId } from '../hooks/useGetLoginUser';
 import { useNavigate } from 'react-router-dom';
+import { useGetCart, useUpdateCart } from '../api/Cart_api';
+
 
 function LoadingScreen() {
     return (
@@ -9,6 +11,48 @@ function LoadingScreen() {
             <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
         </div>
     );
+}
+
+
+const useReconcileCart = () => {
+    // api calls 
+    const cartId = localStorage.getItem('cartId') ? localStorage.getItem('cartId') : ""
+    const {data , isLoading , isError , isSuccess } = useGetCart(cartId)
+    const {mutate , isLoading: mutateLoading , isError : mutateError, isSuccess: mutateIsSuccess} = useUpdateCart()
+
+    const reconile = async () => {
+        const reconileLocalCart =  localCart.reduce((prev,curr)=>{
+            // prev[curr.id]= curr.count
+            const _prev = prev
+            _prev.push({id:curr.id , count: curr.count})
+            return _prev
+        },[])
+    
+        console.log(reconileLocalCart)
+        
+        await mutate({
+                id: cartId, 
+                items: reconileLocalCart
+            })
+    }
+
+    // use local cache
+    const localCartRaw = localStorage.getItem('cart');
+    const localCart = JSON.parse(localCartRaw)
+
+    // try and mutate once api
+
+   
+
+    useEffect(()=>{
+         reconile()
+    },[])
+
+    
+
+    return {Cart : isSuccess ? data?.data?.items : localCart , isLoading: (isLoading ||  mutateLoading), isError: true, completeRoncile: mutateIsSuccess  , reconile: reconile }
+
+
 }
 
 const CartHenry = () => {
@@ -19,44 +63,28 @@ const CartHenry = () => {
     const navigate = useNavigate();
     const cartId = getCartId();
 
+    const {Cart , isLoading, isError, completeRoncile} = useReconcileCart()
+    console.log(Cart)
+
     const navigateToCheckout = () => {
-        navigate("/checkout");
+
+        const token = localStorage.getItem('access_token');
+        const loggedIn = token ? true : false;
+        console.log(loggedIn)
+        if (loggedIn) navigate("/checkout")
+        else  navigate("/login")
     };
 
-    useEffect(() => {
-        const fetchCartItems = async () => {
-            try {
-                const response = await axios.get(
-                    `https://klick-api.onrender.com/cart/${cartId || ''}`
-                );
-                const { data } = response.data;
-                const { items, totalAmount } = data;
-                if (!items || !items.length || !totalAmount) {
-                    setCartItems([]);
-                    setTotalAmount(0)
-                } else {
-                    setCartItems(items);
-                    console.log ('moving on 0', items)
-                    setTotalAmount(totalAmount)
-                }
-                setLoading(false)
-            } catch (error) {
-                console.log(error);
-                setLoading(false)
-            }
-        };
 
-        if (cartId) {
-            fetchCartItems();
-        }
-    }, [cartId]);
+    
+   
 
     console.log("moving on with cart 1",cartItems)
 
-    if (loading) {
+    if (isLoading) {
         return <LoadingScreen />;
     }
-    if (Object.keys(cartItems).length === 0) {
+    if (!Cart || Cart?.length === 0) {
         return <div className="container">
             <div className="flex items-center justify-center h-screen">
                 <p className="text-xl">No items in the cart.</p>
@@ -90,12 +118,12 @@ const CartHenry = () => {
                     <p className=''>Price</p>
                     <p className=''></p>
                 </div>
-                {cartItems.map((item) => (
-                    <div className='flex justify-between items-center p-5' key={item.id}>
-                        <img src={item.info.image[0]} className='rounded-xl w-[80px] h-[80px]' alt='Product' />
+                {Cart?.map((item) => {
+                    return <div className='flex justify-between items-center p-5' key={item.id}>
+                        <img src={completeRoncile ? item?.info?.images[0] : item?.info?.images[0] } className='rounded-xl w-[80px] h-[80px]' alt='Product' />
                         <p className=''>{item.info.name}</p>
                         <p className=''>{item.count}</p>
-                        <p className='text-blue'>{`N${item.info.Discountprice}`}</p>
+                        <p className='text-blue'>{`N${ completeRoncile ? item?.info?.discountedPrice : item?.info?.discountedPrice}`}</p>
                         <svg
                             className='w-6 h-6 text-red-700'
                             fill='none'
@@ -113,12 +141,12 @@ const CartHenry = () => {
                             </path>
                         </svg>
                     </div>
-                ))}
+                })}
                 <button
                     className='inline-flex items-center py-5 px-14 mb-2 font-medium text-sm text-white bg-yellow-400 rounded-full hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300'
                     onClick={navigateToCheckout}
                 >
-                    Checkout - N {totalAmount}
+                    Checkout - N {Cart?.reduce((prev, curr)=> prev + (( completeRoncile ? curr?.info?.discountedPrice : curr?.info?.discountedPrice) * curr.count),0)}
                 </button>
             </div>
         </div>

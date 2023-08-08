@@ -378,7 +378,7 @@ function CheckOut() {
                 <div key={item.id}>
                   <div className="flex gap-4">
                     <img
-                      src={item.info.image}
+                      src={item.info.images[0]}
                       className="w-24 h-24 rounded-xl"
                       alt="Product"
                     />
@@ -393,7 +393,7 @@ function CheckOut() {
                           <RiDeleteBin2Fill />
                         </div>
                       </div>
-                      <p className="my-3">{`N ${item.info.UnitPrice}`}</p>
+                      <p className="my-3">{`N ${item.info.unitPrice}`}</p>
                     </div>
                   </div>
                   <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />

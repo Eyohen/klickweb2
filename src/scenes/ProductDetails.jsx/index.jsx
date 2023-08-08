@@ -9,6 +9,7 @@ import OutlineButton from "./OutlineButton";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { CartContext } from "../../contexts/CartContext";
+import { useGetSingleProduct } from "../../api/Product_api";
 
 function ProductDetails() {
     const [product, setProduct] = useState({});
@@ -20,55 +21,56 @@ function ProductDetails() {
     const params = useParams();
     const productId = params.id;
     const navigate = useNavigate();
+
+    const {data , isError , isLoading , isFetching , isSuccess} = useGetSingleProduct(productId)
     
-    useEffect(() => {
-        const getProduct = async () => {
-            try {
-                const response = await axios.get(
-                    `https://klick-api.onrender.com/product/${productId}`
-                );
-                const data = response.data.data;
-                setProduct(data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getProduct();
-    }, [productId]);
 
-    const handleIncrement = () => {
-        setCount(count + 1);
-    };
 
-    const handleDecrement = () => {
-        if (count > 0) {
-            setCount(count - 1);
-        }
-    };
+    const handleIncrement = () => setCount(count + 1);
+
+    const handleDecrement = () => count > 0 ? setCount(count - 1) : null
+
 
     const handleAddToCart = () => {
-        const selectedQty = count;
-
-        const { id } = product;
+        const { id } = data?.data;
         const productToAdd = {
             id,
-            count: selectedQty,
+            count,
+            info: data?.data
         };
-        addToCart(productToAdd);
+
+        // add to localstorage
+
+        // Check if the 'cart' key exists in localStorage
+        const cartData = localStorage.getItem('cart');
+
+        // If the 'cart' key doesn't exist, create an empty cart
+        if (!cartData) {
+            const emptyCart = [];
+            emptyCart.push(productToAdd);
+            localStorage.setItem('cart', JSON.stringify(emptyCart));
+        }else{
+
+    
+            // get data 
+            const  cart = JSON.parse(cartData);
+            // check if item is already in cart
+            const existIndex = cart?.findIndex((item) => item?.id === productToAdd?.id)
+            if ( existIndex !== -1 ) cart[existIndex]["count"] = productToAdd["count"] + cart[existIndex]["count"]
+            // Append the new item to the cart
+            else cart.push(productToAdd);
+            // Save the updated cart back to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
     };
 
     const handleAddToCartAndCheckout = () => {
-        const selectedQty = count;
-
-        const { id } = product;
-        const productToAdd = {
-            id,
-            count: selectedQty,
-        };
-        buyNow(productToAdd);
+        handleAddToCart()
+        // buyNow(productToAdd);
         navigate('/cart')
     };
-    const colors = product?.specifications?.colors.toLowerCase().split(", ");
+    const colors = data?.data?.specifications?.colors.toLowerCase().split(", ");
 
     return (
         <div className="p-10">
@@ -78,9 +80,9 @@ function ProductDetails() {
                 {/* left */}
                 <div className="w-1/2">
                     <div>
-                        {product.images ? (
+                        {data?.data?.images ? (
                             <img
-                                src={product.images[0]}
+                                src={data?.data?.images[0]}
                                 className="rounded-xl w-2/3 h-full"
                             />
                         ) : (
@@ -88,8 +90,8 @@ function ProductDetails() {
                         )}
                     </div>
                     <div className="flex gap-4 h-28 w-28 mt-5">
-                        {product.images ? (
-                            product.images.map((x) => (
+                        {data?.data?.images ? (
+                            data?.data?.images.map((x) => (
                                 <img src={x} className="rounded-2xl" key={x} alt="Product" />
                             ))
                         ) : (
@@ -104,9 +106,9 @@ function ProductDetails() {
                     <div className="flex justify-between">
                         <div className="flex gap-4">
                             <div>
-                                {product.images ? (
+                                {data?.data?.images ? (
                                     <img
-                                        src={product.images[0]}
+                                        src={data?.data?.images[0]}
                                         className="h-10 w-10 rounded-full"
                                         alt="Seller"
                                     />
@@ -132,7 +134,7 @@ function ProductDetails() {
 
                 {/* right */}
                 <div className="w-1/2">
-                    <div className="text-3xl font-bold">{product.name}</div>
+                    <div className="text-3xl font-bold">{data?.data?.name}</div>
 
                     <div className="items-center flex gap-4 my-5">
                         <div className="flex">
@@ -147,7 +149,7 @@ function ProductDetails() {
                     </div>
                     <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
-                    <div className="text-2xl font-bold">₦ {product.price}</div>
+                    <div className="text-2xl font-bold">₦ {data?.data?.price}</div>
 
                     <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
@@ -201,7 +203,7 @@ function ProductDetails() {
 
                         <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
 
-                        <div className="text-gray-500">{product.description}</div>
+                        <div className="text-gray-500">{data?.data?.description}</div>
                     </div>
                 </div>
             </div>

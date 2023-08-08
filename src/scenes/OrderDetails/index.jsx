@@ -8,10 +8,29 @@ import { BsExclamationCircleFill } from "react-icons/bs";
 import img1 from "../../assets/images/GridItem.png";
 import { BiCopy } from "react-icons/bi";
 import Footer from "../../components/Footer";
+
+import {useGetSingleOrder} from '../../api/orders_api'
+import { useParams } from "react-router-dom";
+import { useStoreDetails } from "../../api/store_api";
+import { useLoggedInUser } from "../../api/user_api";
 //import { Link } from "react-router-dom";
 
 function OrdersDetails() {
   const [showModal, setShowModal] = useState(false);
+  const {id} = useParams()
+
+  const {data, isLoading, isFetching} = useGetSingleOrder(id);
+
+  if (isFetching || isLoading) return null;
+
+  // const {data: storeData, isFetching: isFetchingStore, isLoading: isLoadingStore} = useStoreDetails(data.data.storeId);
+  // if(isFetchingStore || isLoadingStore) return null
+
+  // const {data: userData, isFetching: isFetchingUser, isLoading: isLoadingUser} = useLoggedInUser(data.data.userId);
+
+  // if(isFetchingStore || isLoadingStore || isLoadingUser || isFetchingUser) return null
+
+  console.log(data, 'order details')
 
   /*const openModal = () => {
     setOpenCancel(true);
@@ -31,7 +50,7 @@ function OrdersDetails() {
         </div>
 
         {/* cancel button */}
-        <div className=" align-bottom cursor-pointer">
+        {/* <div className=" align-bottom cursor-pointer">
           <button
             onClick={() => {
               setShowModal(true);
@@ -40,7 +59,7 @@ function OrdersDetails() {
           >
             Cancel Order
           </button>
-        </div>
+        </div> */}
       </div>
       <CancelOrder
         className="absolute"
@@ -64,31 +83,22 @@ function OrdersDetails() {
               Products
             </div>
 
-            <div className="block p-6 bg-white border border-gray-200">
-              <div className="flex gap-3">
-                <div>
-                  <img src={img1} className=" rounded-lg h-24 w-24" />
+            {data.data.productsInfo && data.data.productsInfo.map((product) => {
+              return (
+                <div className="block p-6 bg-white border border-gray-200">
+                  <div className="flex gap-3">
+                    <div>
+                      <img src={product.info.images[0]} className=" rounded-lg h-24 w-24" />
+                    </div>
+                    <div className=" space-y-3">
+                      <p>{product.info.name}</p>
+                      <p className=" text-blue-500">N {product.info.discountedPrice}</p>
+                      {/* <p className=" text-gray-400">QTY: 2</p> */}
+                    </div>
+                  </div>
                 </div>
-                <div className=" space-y-3">
-                  <p>HD SLR CAMERA</p>
-                  <p className=" text-blue-500">N 20,000</p>
-                  <p className=" text-gray-400">QTY: 2</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="block p-6 bg-white border border-gray-200 rounded-b-lg">
-              <div className="flex gap-3">
-                <div>
-                  <img src={img1} className=" rounded-lg h-24 w-24" />
-                </div>
-                <div className=" space-y-3">
-                  <p>NIKON</p>
-                  <p className=" text-blue-500">N 64,000</p>
-                  <p className=" text-gray-400">QTY: 1</p>
-                </div>
-              </div>
-            </div>
+              )
+            })}
           </div>
 
           {/* second div */}
@@ -117,16 +127,16 @@ function OrdersDetails() {
             <div className="space-y-5">
               <div className="flex justify-between">
                 <p className=" text-gray-400">Subtotal</p>
-                <p>N209,000</p>
+                <p>N {data.data.cartDetails.totalAmount}</p>
               </div>
               <div className="flex justify-between">
-                <p className=" text-gray-400">Subtotal</p>
-                <p className="text-blue-500">- 9,000</p>
+                <p className=" text-gray-400">K Secure Fee</p>
+                <p className="text-blue-500">- {data.data.kSecureFee}</p>
               </div>
-              <div className="flex justify-between">
+              {/* <div className="flex justify-between">
                 <p className=" text-gray-400">Subtotal</p>
-                <p>N200,000</p>
-              </div>
+                <p>N{Math.floor(data.data.cartDetails.totalAmount - data.data.kSecureFee)}</p>
+              </div> */}
             </div>
 
             <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
@@ -134,20 +144,20 @@ function OrdersDetails() {
             <div className=" space-y-4">
               <div className="flex justify-between">
                 <p className=" text-gray-400">Subtotal</p>
-                <p>N209,000</p>
+                <p>N{Math.floor(data.data.cartDetails.totalAmount - data.data.kSecureFee)}</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* right */}
-        <div className="w-5/12">
-          <div className="mb-6">
+        {/* <div className="w-5/12">
+          <div className="mb-6"> */}
             {/* first div */}
-            <div className="block p-3 pl-6 bg-white border border-gray-200 rounded-t-lg">
+            {/* <div className="block p-3 pl-6 bg-white border border-gray-200 rounded-t-lg">
               <div className=" flex justify-between">
                 <div className=" text-gray-400 text-sm">
-                  ORDER ID: 4636478282838236
+                  ORDER ID: {data.data.orderNumber}
                 </div>
 
                 <div className="flex gap-2 items-center text-gray-400">
@@ -194,14 +204,14 @@ function OrdersDetails() {
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className="block p-3 pl-6 bg-white border border-gray-200 rounded-t-lg">
+          {/* <div className="block p-3 pl-6 bg-white border border-gray-200 rounded-t-lg"> */}
             {/* second order */}
-            <p className="mb-8 text-lg">Track Order</p>
+            {/* <p className="mb-8 text-lg">Track Order</p>
 
-            <div className=" flex justify-between items-center">
-              <div className="flex gap-4 items-center">
+            <div className=" flex justify-between items-center"> */}
+              {/* <div className="flex gap-4 items-center">
                 <input
                   id="default-checkbox"
                   type="checkbox"
@@ -214,16 +224,16 @@ function OrdersDetails() {
                     Your order has been confirmed
                   </p>
                 </div>
-              </div>
+              </div> */}
 
-              <div className=" space-y-1 text-center">
+              {/* <div className=" space-y-1 text-center">
                 <p className=" text-xs text-gray-400">10/10/10</p>
                 <p className=" text-xs text-gray-400">04:00</p>
-              </div>
-            </div>
-          </div>
+              </div> */}
+            {/* </div>
+          </div> */}
 
-          <div className="block p-6 bg-white border border-gray-200">
+          {/* <div className="block p-6 bg-white border border-gray-200">
             <div className=" flex justify-between items-center">
               <div className="flex gap-4 items-center">
                 <input
@@ -248,9 +258,9 @@ function OrdersDetails() {
                 <p className=" text-xs text-gray-400">04:00</p>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className="block p-6 bg-white border border-gray-200 rounded-b-lg">
+          {/* <div className="block p-6 bg-white border border-gray-200 rounded-b-lg">
             <div className=" flex justify-between items-center">
               <div className="flex gap-4 items-center">
                 <input
@@ -265,8 +275,8 @@ function OrdersDetails() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </div>
 
       {/* footer */}

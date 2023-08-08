@@ -1,29 +1,27 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useGetProducts } from "../../api/Product_api";
 const IsKSecureRibbon =
   "https://az31609.vo.msecnd.net/assets/images/widgetImages/113324ba7b5b-cdc3-4b38-8a5f-5af08290009d.jpg";
-const RecommendedProductCards = () => {
+const RecommendedProductCards = ({setSelectCat , selectCat}) => {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await axios.get(
-          `https://klick-api.onrender.com/product/`
-        );
-        const data = response.data.data.products;
-        setProducts(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getProducts();
-  }, []);
+  
+
+  const {isError , isFetching , isLoading , data} = useGetProducts((selectCat ? {category : selectCat?.id} : selectCat))
+
+  if(isLoading || isFetching){
+    return <div>
+       ...Loading
+    </div>
+  }
+
+  
 
   return (
     <div className="grid grid-cols-4 gap-4">
-      {products.map((product) => {
+      {data?.data?.products?.map((product) => {
         const discountedPrice = product.discountedPrice || product.price;
         const discountDisplay =
           product.discountedPrice !== null &&

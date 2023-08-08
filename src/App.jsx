@@ -26,11 +26,22 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PaymentSuccess from "./scenes/PaymentSuccess";
 import SocialPage from "./scenes/SocialPage";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
+
+const queryClient = new QueryClient()
 
 export default function App() {
   const token = localStorage.getItem('access_token');
   return (
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <CartProvider>
         <Routes>
@@ -72,7 +83,7 @@ export default function App() {
           <Route path="/store/:id" element={<StoreProfile />} />
           <Route path="/productdetails/:id" element={<ProductDetails />} />
           <Route path="/orders" element={<Orders />} />
-          <Route path="/orderdetails" element={<OrderDetails />} />
+          <Route path="/orderdetails/:id" element={<OrderDetails />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/searchpage" element={<SearchPage />} />
           <Route path="/socialpage" element={<SocialPage />} />
@@ -94,5 +105,7 @@ export default function App() {
       {/* Same as */}
       <ToastContainer />
     </BrowserRouter>
+    <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }

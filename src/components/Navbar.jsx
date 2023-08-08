@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
 import { useLogout } from "../hooks/useLogout";
+import NavbarSearch from "./NavbarSearch";
 
 const Navbar = ({ handleSidebarToggle }) => {
     const [isBuyer, setIsBuyer] = useState(true);
@@ -45,15 +46,7 @@ const Navbar = ({ handleSidebarToggle }) => {
                 <img src={Logo} alt="logo" className="hover:cursor-pointer" />
             </div>
 
-            {/* search bar */}
-            <div className="flex items-center border border-gray-300 text-gray-500 bg-[#FAFAFA] rounded-md p-3 w-[35%]">
-                <CiSearch className="w-6 h-6" />
-                <input
-                    className="outline-none bg-inherit px-2 text-sm w-full"
-                    type="text"
-                    placeholder="Search for products"
-                />
-            </div>
+           <NavbarSearch/>
 
             {/* others */}
             <div className="flex justify-between items-center space-x-6">

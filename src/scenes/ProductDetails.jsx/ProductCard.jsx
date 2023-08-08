@@ -1,32 +1,16 @@
 import { useState, useEffect } from "react";
 import img1 from "../../assets/images/GridItem.png";
-import { AiFillStar } from "react-icons/ai";
-import axios from "axios";
+import { AiFillStar } from 'react-icons/ai'
 
-function ProductCard({ product }) {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await axios.get(
-          `https://klick-api.onrender.com/product/`
-        );
-        const data = response.data.data.products;
-        setProducts(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getProducts();
-  }, []);
+function ProductCard({product, searchObject }) {
 
-  let similarProduct = products.filter(
-    (x) => x.categoryId === product.categoryId
-  );
+  if(!product || product?.length < 1 || !Array.isArray(product)){
+    return <div> No Product Found</div>
+  }
 
   return (
     <div className="grid grid-cols-5 gap-4">
-      {similarProduct.map((product) => {
+      {product?.map((product) => {
         return (
           <div className="" key={product.id}>
             <img className="h-auto max-w-full rounded-lg" src={img1} />

@@ -7,8 +7,20 @@ import { AiFillStar } from 'react-icons/ai'
 import TextInput from './TextInput'
 import ProductCard from '../scenes/ProductDetails.jsx/ProductCard'
 import Footer from './Footer'
+import { useState } from 'react'
+import Filters from './Filters'
+import { useSearchParams } from 'react-router-dom'
+
+import { useGetProducts } from '../api/Product_api'
 
 function SearchPage() {
+    const [searchParams] = useSearchParams();
+    const [searchObject, setSearchObject] = useState({ q : searchParams?.get('q')})
+
+    const {isError , isFetching , isLoading , data} = useGetProducts(searchObject)
+
+    
+
     return (
         <div className='p-10'>
             <div className=' flex justify-between'>
@@ -56,7 +68,7 @@ function SearchPage() {
                 </div>
             </div>
             
-            <div className='flex gap-2 text-3xl font-medium'>Search Results - <p>Camera</p></div>
+            <div className='flex gap-2 text-3xl font-medium'>Search Results - <p>{searchParams?.get('q')}</p></div>
 
             <p className=' text-gray-400 text-sm my-4'>1 - 60 of 2000 results</p>
 
@@ -64,113 +76,7 @@ function SearchPage() {
             <div className='w-full flex gap-10 mt-6'>
                 {/* left */}
                 <div className=' w-3/12'>
-                    <div className='block p-4 bg-white border border-gray-200 rounded-lg '>
-                        <div className=' space-y-5'>
-
-                            {/* brand section */}
-                            <div className='flex justify-between items-center'>
-                                <p className=' font-semibold'>Brand</p>
-                                <button className=' font-medium'>
-                                    <RiArrowDropDownLine size={28} />
-                                </button>
-                            </div>
-
-                            {[1, 2, 3, 4, 5].map(() => 
-                                <div>
-                                    <div className='flex justify-between items-center'>
-                                        <p className=' font-medium'>Angel</p>
-                                        <button className=''>
-                                            <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-
-                            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-
-                            {/* price section */}
-                            <p className=' font-semibold'>Price (N)</p>
-
-                            <div className='grid gap-6 grid-cols-2'>
-                                <TextInput name="from"  title={"From"} />
-                                <TextInput name="to"  title={"To"} />
-                            </div>
-
-                            <input id="medium-range" type="range" value="50" class="w-full h-2 mb-6 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"></input>
-
-                            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-                            
-
-                            {/* rating section */}
-                            <p className=' font-semibold'>Rating</p>
-
-                            {[1, 2, 3, 4].map(() => 
-                                <div>
-                                    <div className='flex justify-between items-center'>
-                                        <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                        {[1, 2, 3, 4].map(() =>
-                                            <div className=''>
-                                                <AiFillStar /* size={16} */ />
-                                            </div>    
-                                        )}    
-                                        <p>& above</p>
-                                    </div>
-                                </div>
-                            )}
-
-                            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-
-                            {/* discount */}
-                            <p className=' font-semibold'>Discount Percentage</p>
-                            
-                            <div className=' space-y-4'>
-                                <div className=' flex gap-6 items-center'>
-                                    <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <p>50%  or more</p>
-                                </div>
-
-                                <div className=' flex gap-6 items-center'>
-                                    <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <p>40%  or more</p>
-                                </div>
-
-                                <div className=' flex gap-6 items-center'>
-                                    <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <p>30%  or more</p>
-                                </div>
-
-                                <div className=' flex gap-6 items-center'>
-                                    <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <p>20%  or more</p>
-                                </div>
-
-                                <div className=' flex gap-6 items-center'>
-                                    <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <p>10%  or more</p>
-                                </div>
-                            </div>
-
-                            <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-
-                            {/* shipping */}
-                            <p className=' font-semibold'>Shipping</p>
-
-                            <div className=' space-y-4'>
-                                <div className=' flex gap-6 items-center'>
-                                    <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <p>Ship with K-Secure</p>
-                                </div>
-
-                                <div className=' flex gap-6 items-center'>
-                                    <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                    <p>Ship with K-Ship</p>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        
-                    </div>
+                    <Filters querySearch={searchParams?.get('q')} searchObject={searchObject} setSearchObject={setSearchObject} />
                 </div>
 
 
@@ -182,19 +88,23 @@ function SearchPage() {
                             <button className=' text-sm text-blue-500'>See all</button>
                         </div>    
 
-                        <div className='overflow-x-scroll scrollbar-hide'>
+                        {/* <div className='overflow-x-scroll scrollbar-hide'>
                             <div className=' flex gap-14'>
-                                {[1, 2, 3, 4, 5, 6, 7, 8].map(() => 
-                                    <ProductCard />
-                                )}
-                            </div>
+                                
+                                <ProductCard product={data?.data?.products} searchObject={searchObject} />
+                            
+                        </div>
+                        </div> */}
+
+                        <div className=' flex gap-14'>
+                                
+                            <ProductCard product={data?.data?.products} searchObject={searchObject} />
+                            
                         </div>
 
-                        <div className=' grid grid-cols-3 gap-6'>
-                            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(() => 
-                                <ProductCard />
-                            )}
-                        </div>
+                        {/* <div className=' grid grid-cols-3 gap-6'>
+                            <ProductCard product={data?.data?.products} searchObject={searchObject} />
+                        </div> */}
                         
                         <div className='px-10'>
                         <div className=' flex justify-between'>

@@ -1,8 +1,11 @@
 import {useState} from 'react'
+import dayjs from 'dayjs'
 import BackArrow from './BackArrow';
 
 import { LiaSlidersHSolid } from 'react-icons/lia'
 import Footer from '../../components/Footer';
+
+import {useGetOrdersWithoutQuery} from '../../api/orders_api'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -11,14 +14,19 @@ function Orders() {
 
     const navigate = useNavigate();
 
-    const detailsCheck = () => {
+
+    const {isError , isFetching , isLoading , data} = useGetOrdersWithoutQuery();
+
+    if (isLoading || isFetching) return null;
+
+    const detailsCheck = (id) => {
         setDetails(!details);
         if(details){
-            navigate('/orderdetails')
+            navigate(`/orderdetails/${id}`)
         }
     }
     return (
-        <div className=' font-medium p-10'>
+        <div className='font-medium p-10'>
             <BackArrow />
 
             <div className='mb-8 font-semibold text-2xl'>Orders</div>
@@ -89,13 +97,13 @@ function Orders() {
                         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3">
-                                    Product name
+                                    Product Id
                                 </th>
                                 <th scope="col" className="px-6 py-3">
                                     Date
                                 </th>
                                 <th scope="col" className="px-6 py-3">
-                                    Customer
+                                    Courier
                                 </th>
                                 <th scope="col" className="px-6 py-3">
                                     Price
@@ -107,145 +115,33 @@ function Orders() {
                         </thead>
                         <tbody>
                            
-                             <tr onClick={detailsCheck} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div className=' space-y-1'>
-                                        <p>Bib and Bowl set</p>
-                                        <p className=' text-xs font-normal text-gray-400'>#ID53536</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4">
-                                    <div className=' space-y-1'>
-                                        <p className=' text-sm font-normal text-gray-400'>May 25th, 2023</p>
-                                        <p className=' text-sm font-normal text-gray-400'>05:43 PM</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    Mike Dean
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    $2999
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button type="button" className="px-3 py-2 text-xs font-medium text-center text-orange-600 bg-orange-200 rounded-lg hover:bg-orange-300">New Order</button>
-                                </td>
-                            </tr>
-                          
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div className=' space-y-1'>
-                                        <p>Bib and Bowl set</p>
-                                        <p className=' text-xs font-normal text-gray-400'>#ID53536</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4 ">
-                                    <div className=' space-y-1'>
-                                        <p className=' text-sm font-normal text-gray-400'>May 25th, 2023</p>
-                                        <p className=' text-sm font-normal text-gray-400'>05:43 PM</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    Mike Dean
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    $1999
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button type="button" className="px-3 py-2 text-xs font-medium text-center text-green-800 bg-green-300 rounded-lg hover:bg-green-500">Order Accepted</button>
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div className=' space-y-1'>
-                                        <p>Bib and Bowl set</p>
-                                        <p className=' text-xs font-normal text-gray-400'>#ID53536</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4">
-                                    <div className=' space-y-1'>
-                                        <p className=' text-sm font-normal text-gray-400'>May 25th, 2023</p>
-                                        <p className=' text-sm font-normal text-gray-400'>05:43 PM</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    Mike Dean
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    $99
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button type="button" className="px-3 py-2 text-xs font-medium text-center text-green-800 bg-green-300 rounded-lg hover:bg-green-500">Order Accepted</button>
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div className=' space-y-1'>
-                                        <p>Bib and Bowl set</p>
-                                        <p className=' text-xs font-normal text-gray-400'>#ID53536</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4">
-                                    <div className=' space-y-1'>
-                                        <p className=' text-sm font-normal text-gray-400'>May 25th, 2023</p>
-                                        <p className=' text-sm font-normal text-gray-400'>05:43 PM</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    Mike Dean
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    $179
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button type="button" className="px-3 py-2 text-xs font-medium text-center text-green-800 bg-green-300 rounded-lg hover:bg-green-500">Order Accepted</button>
-                                </td>
-                            </tr>
-                            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div className=' space-y-1'>
-                                        <p>Bib and Bowl set</p>
-                                        <p className=' text-xs font-normal text-gray-400'>#ID53536</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4">
-                                    <div className=' space-y-1'>
-                                        <p className=' text-sm font-normal text-gray-400'>May 25th, 2023</p>
-                                        <p className=' text-sm font-normal text-gray-400'>05:43 PM</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    Mike Dean
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    $699
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button type="button" className="px-3 py-2 text-xs font-medium text-center text-green-800 bg-green-300 rounded-lg hover:bg-green-500">Order Accepted</button>
-                                </td>
-                            </tr>
-                            <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <div className=' space-y-1'>
-                                        <p>Bib and Bowl set</p>
-                                        <p className=' text-xs font-normal text-gray-400'>#ID53536</p>
-                                    </div>
-                                </th>
-                                <td className="px-6 py-4">
-                                    <div className=' space-y-1'>
-                                        <p className=' text-sm font-normal text-gray-400'>May 25th, 2023</p>
-                                        <p className=' text-sm font-normal text-gray-400'>05:43 PM</p>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    Mike Dean
-                                </td>
-                                <td className="px-6 py-4 font-normal text-gray-400">
-                                    $3999
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button type="button" className="px-3 py-2 text-xs font-medium text-center text-green-800 bg-green-300 rounded-lg hover:bg-green-500">Order Accepted</button>
-                                </td>
-                            </tr>
+                             {data.data && data.data.map((order) => {
+                                return (
+                                    <tr onClick={() => detailsCheck(order.id)} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            <div className=' space-y-1'>
+                                                <p>{name}</p>
+                                                <p className=' text-xs font-normal text-gray-400'>{order.orderNumber}</p>
+                                            </div>
+                                        </th>
+                                        <td className="px-6 py-4">
+                                            <div className=' space-y-1'>
+                                                <p className=' text-sm font-normal text-gray-400'>{dayjs(order.createdAt).format('MMM D, YYYY')}</p>
+                                                <p className=' text-sm font-normal text-gray-400'>{dayjs(order.createdAt).format('h:mm A')}</p>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 font-normal text-gray-400">
+                                            {order.cartDetails.courier.courierName}
+                                        </td>
+                                        <td className="px-6 py-4 font-normal text-gray-400">
+                                            N{order.cartDetails.courier.total}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <button type="button" className="px-3 py-2 text-xs font-medium text-center text-orange-600 bg-orange-200 rounded-lg hover:bg-orange-300">New Order</button>
+                                        </td>
+                                    </tr>
+                                )
+                             })}
                         </tbody>
                     </table>
                 </div>
